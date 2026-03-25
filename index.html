@@ -10,36 +10,57 @@
   <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/docsify@4/lib/themes/dark.css">
 CSS
 <style>
-  /* 1. Đổi tông màu chủ đạo của toàn bộ chữ trong bài viết */
+  :root {
+    /* Màu chủ đạo cho toàn trang: Xanh Ngọc Bích Đậm (Nhã nhặn, sang trọng) */
+    --theme-color: #00695c; 
+  }
+
+  /* 1. Nền trắng tinh khôi */
   body {
-    color: #2c3e50 !important; /* Xanh xám trầm */
-    font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
-    line-height: 1.8; /* Khoảng cách dòng thoáng giúp dễ đọc bí kíp dài */
+    background-color: #ffffff !important;
+    color: #37474f; /* Chữ nội dung màu xanh đen than (dịu mắt) */
+    font-family: 'Segoe UI', Roboto, sans-serif;
+    line-height: 1.8;
   }
 
-  /* 2. Đổi màu tiêu đề chính (Dòng chữ trong ảnh bạn gửi) */
+  /* 2. Tiêu đề chính (Dòng trong ảnh của bạn) - Màu Xanh Nhã Nhặn */
   .markdown-section h1 {
-    color: #2c3e50 !important;
+    color: #004d40 !important; /* Xanh đậm sắc nét, không hề có sắc xám */
     font-weight: 700;
-    margin-bottom: 1rem;
+    font-size: 2rem;
     padding-bottom: 0.5rem;
-    border-bottom: 1px solid #eee; /* Gạch chân mờ cho sang trọng */
+    border-bottom: 2px solid #e0f2f1; /* Đường gạch chân xanh nhạt */
+    margin-bottom: 1.5rem;
   }
 
-  /* 3. Đổi màu các tiêu đề phụ (H2, H3 - Võ công, Nội công) */
+  /* 3. Các tiêu đề phụ (Võ công, Nội công) - Tông xanh nhẹ hơn */
   .markdown-section h2, .markdown-section h3 {
-    color: #34495e !important; /* Nhẹ hơn h1 một chút để phân cấp */
+    color: #00796b !important; 
     margin-top: 2rem;
+    font-weight: 600;
   }
 
-  /* 4. Đổi màu các đường link để cùng tông nhưng nổi bật hơn */
-  .markdown-section a {
-    color: #3498db; /* Xanh biển nhẹ nhàng cho link */
-    text-decoration: none;
+  /* 4. Thanh Sidebar bên trái */
+  .sidebar {
+    background-color: #f1f8e9 !important; /* Nền xanh lá cực nhạt cho menu */
+    border-right: 1px solid #dcedc8;
   }
-  
-  .markdown-section a:hover {
-    text-decoration: underline;
+
+  .sidebar-nav li a {
+    color: #2e7d32 !important; /* Chữ menu màu xanh lá đậm */
+  }
+
+  .sidebar-nav li a:hover {
+    color: #004d40 !important;
+    font-weight: bold;
+  }
+
+  /* 5. Điểm nhấn cho các Danh Từ Hán Việt (Strong) */
+  .markdown-section strong {
+    color: #004d40;
+    background-color: #f0f4f4; /* Nền highlight nhẹ cho danh từ */
+    padding: 2px 4px;
+    border-radius: 3px;
   }
 </style>
 </head>
