@@ -5,4 +5,4 @@
   <a href="vo-hoc/mon-phai">Khám Phá Võ Học</a>
 </p>
 
-![background](https://github.com/supersaiyan8x/cuuam/blob/main/images/bg2.jpg?raw=true)
+![background](https://github.com/supersaiyan8x/cuuam/blob/main/images/image.png?raw=true)
