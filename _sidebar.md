@@ -1,10 +1,15 @@
 * **[Trang Chủ](README.md)**
 
+* **Thông tin update**
+  * [Thông tin update phiên bản](thong-tin-update.md)
+  * [Hệ Thống Đẳng Cấp](tan-thu/dang-cap.md)
+  * [Cách Kiếm Bạc Khóa](tan-thu/kiem-bac.md)
+
 * **Tân Thủ Hướng Dẫn**
   * [Khởi Đầu Giang Hồ](tan-thu/khoi-dau.md)
   * [Hệ Thống Đẳng Cấp](tan-thu/dang-cap.md)
   * [Cách Kiếm Bạc Khóa](tan-thu/kiem-bac.md)
-
+  * 
 * **Võ Học Đại Toàn**
   * [Môn Phái Võ Công](vo-hoc/mon-phai.md)
   * [Giang Hồ Võ Công](vo-hoc/giang-ho.md)
