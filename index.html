@@ -11,23 +11,31 @@
   
   <style>
     :root {
-      --theme-color: #D4AF37; /* Màu vàng kim cho các liên kết/nút */
+      /* Màu chủ đạo: Xanh rêu đậm (phong cách quân tử/kiếm khách) */
+      --theme-color: #2E7D32; 
     }
 
-    /* ĐỔI MÀU NỀN TẠI ĐÂY */
+    /* Tùy chỉnh màu nền và chữ */
     body {
-      background-color: #1a1a1a !important; /* Màu nền chính (ví dụ: Đen than) */
+      background-color: #ffffff !important; /* Trắng tinh khôi */
+      color: #333; /* Chữ xám đậm dễ đọc */
     }
 
-    /* Đổi màu nền thanh Menu bên trái (Sidebar) */
+    /* Sidebar (Thanh menu bên trái) */
     .sidebar {
-      background-color: #141414 !important; /* Tông màu tối hơn một chút cho Sidebar */
-      border-right: 1px solid #333;
+      background-color: #f8f9fa !important; /* Xám cực nhẹ để tách biệt với nội dung */
+      border-right: 1px solid #eee;
     }
 
-    /* Đổi màu nền của vùng nội dung chính */
-    section.content {
-      background-color: #1a1a1a !important;
+    /* Làm nổi bật các Danh Từ Hán Việt (In đậm và có màu riêng) */
+    .markdown-section strong {
+      color: #1b5e20;
+    }
+
+    /* Hiệu ứng khi di chuột vào menu */
+    .sidebar-nav li a:hover {
+      color: var(--theme-color) !important;
+      font-weight: bold;
     }
   </style>
 </head>
