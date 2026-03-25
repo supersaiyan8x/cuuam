@@ -4,4 +4,4 @@
 [Khám Phá Võ Học](vo-hoc/mon-phai)
 
 ![color](#ffffff)
-![background](https://github.com/supersaiyan8x/cuuam/blob/main/images/c1_bg.jpg?raw=true)
+![background](https://github.com/supersaiyan8x/cuuam/blob/main/images/logo_version_1.png?raw=true)
