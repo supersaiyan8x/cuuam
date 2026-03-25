@@ -2,7 +2,7 @@
 
 * **Thông tin update**
   * [Thông tin update phiên bản](thong-tin-update.md)
-  * [Hệ Thống Đẳng Cấp](tan-thu/dang-cap.md)
+  * [Update võ học](update-vo-hoc.md)
   * [Cách Kiếm Bạc Khóa](tan-thu/kiem-bac.md)
 
 * **Tân Thủ Hướng Dẫn**
