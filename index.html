@@ -20,7 +20,17 @@ CSS
     background: #ffffff !important;
     color: #2c3e50 !important; /* Chữ nội dung xanh đen sâu */
   }
+section.cover {
+    /* Ép trình duyệt hiển thị ảnh sắc nét nhất */
+    image-rendering: -webkit-optimize-contrast !important;
+    background-size: cover !important;
+    background-position: center center !important;
+  }
 
+  /* Khử bóng mờ mặc định của Docsify trên trang bìa (nếu có) */
+  section.cover.has-mask .mask {
+    opacity: 0 !important; /* Xóa bỏ lớp phủ màu xám mờ trên ảnh */
+  }
   /* 2. TIÊU ĐỀ XANH NHÃ NHẶN (KHÔNG XÁM) */
   .markdown-section h1 {
     color: #004d40 !important; /* Xanh lục bảo đậm - Rất nhã */
