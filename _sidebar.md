@@ -1,5 +1,9 @@
 * **[Trang Chủ](README.md)**
-
+* 
+* **Patch-Việt Hóa**
+  * [Patch VH sv TaiWan](huong-dan/VH.md)
+  * [Patch SV khác](huong-dan/another-patch.md)
+  * 
 * **Thông tin update**
   * [Update pb Sv Snail-TW](thong-tin-update.md)
   * [Update võ học](update-vo-hoc.md)
@@ -19,9 +23,6 @@
   * [Cấm Địa khác](cam-dia/cd-khac.md)
 
 * **Hướng dẫn khác**
-  * [Chia sẻ patch-VH](huong-dan/VH.md)
   * [Tip hữu ích](huong-dan/tip.md)
 
-* **Tính Năng Đặc Sắc**
-  * [Bang Chiến - Môn Phái Chiến](tinh-nang/chien-truong.md)
-  * [Hệ Thống Kỳ Ngộ](tinh-nang/ky-ngo.md)
+
