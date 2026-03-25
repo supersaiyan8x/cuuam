@@ -1,7 +1,7 @@
 * **[Trang Chủ](README.md)**
 
 * **Thông tin update**
-  * [Update phiên bản](thong-tin-update.md)
+  * [Update pb Sv Snail-Taiwan](thong-tin-update.md)
   * [Update võ học](update-vo-hoc.md)
   * [Thông tin sv China](china-news.md)
 
