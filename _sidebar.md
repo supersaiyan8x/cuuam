@@ -13,9 +13,12 @@
   * [Khởi Đầu Giang Hồ](tan-thu/khoi-dau.md)
   * [Lộ Trình Build Acc](tan-thu/build.md)
     
-* **[Võ Học-Nội Công](huong-dan/noicong.md)**
-* **[Kinh Mạch](huong-dan/kinhmach.md)**
-
+* **Võ Học-Nội Công**
+  * [VH-Nội Công Môn Phái](huong-dan/noicongmp.md)
+  * [VH-Nội Công Giang Hồ](huong-dan/noiconggh.md)
+* **Kinh Mạch**
+  * [Thông tin kinh mạch](huong-dan/kinhmach.md)
+    
 * **Cấm Địa-Phụ Bản**
   * [Thận Cảnh](cam-dia/than-canh.md)
   * [Bí Bảo](cam-dia/bi-bao.md)
