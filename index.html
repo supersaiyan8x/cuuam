@@ -26,7 +26,23 @@ section.cover {
     background-size: cover !important;
     background-position: center center !important;
   }
+.markdown-section img {
+  max-width: 100%; /* Đảm bảo không tràn màn hình điện thoại */
+  height: auto;
+  display: block;
+  margin: 1em auto;
+  transition: transform 0.3s ease; /* Hiệu ứng mượt khi zoom */
+}
 
+/* Nếu ảnh thực sự rất rộng, cho phép người dùng cuộn ngang thay vì co nhỏ */
+.markdown-section p {
+  overflow-x: auto;
+}
+
+/* Tùy chỉnh riêng cho các ảnh muốn giữ kích thước lớn */
+.markdown-section img[src*="width"] {
+  max-width: none !important;
+}
   /* Khử bóng mờ mặc định của Docsify trên trang bìa (nếu có) */
   section.cover.has-mask .mask {
     opacity: 0 !important; /* Xóa bỏ lớp phủ màu xám mờ trên ảnh */
