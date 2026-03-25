@@ -1,4 +1,8 @@
-[Age of Wushu] 
-[Bắt Đầu Hành Trình](#README)
-[Khám Phá Võ Học](vo-hoc/mon-phai)
-![background](https://github.com/supersaiyan8x/cuuam/blob/main/images/logo_version_1.png?raw=true)
+<h1 align="center" style="font-size: 3em; color: #004d40;">Age of Wushu</h1>
+
+<p align="center">
+  <a href="#README">Bắt Đầu Hành Trình</a> | 
+  <a href="vo-hoc/mon-phai">Khám Phá Võ Học</a>
+</p>
+
+![background](https://github.com/supersaiyan8x/cuuam/blob/main/images/bg2.jpg?raw=true)
