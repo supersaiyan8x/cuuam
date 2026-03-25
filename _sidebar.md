@@ -18,9 +18,9 @@
   * [Bí Bảo](cam-dia/bi-bao.md)
   * [Cấm Địa khác](cam-dia/cd-khac.md)
 
-* **Kinh Mạch & Tùy Tùng**
-  * [Hệ Thống Kinh Mạch](kinh-mach/tong-quan.md)
-  * [Kỳ Trân Dị Bảo](vat-pham/ky-tran.md)
+* **Hướng dẫn khác**
+  * [Chia sẻ patch-VH](huong-dan/VH.md)
+  * [Tip hữu ích](huong-dan/tip.md)
 
 * **Tính Năng Đặc Sắc**
   * [Bang Chiến - Môn Phái Chiến](tinh-nang/chien-truong.md)
