@@ -9,35 +9,44 @@
   
   <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/docsify@4/lib/themes/dark.css">
   
-  <style>
-    :root {
-      /* Màu chủ đạo: Xanh rêu đậm (phong cách quân tử/kiếm khách) */
-      --theme-color: #2E7D32; 
-    }
+ Để đổi tông chữ sang Xanh Xám Mặc Thủy (#2c3e50) — một màu cực kỳ nhã nhặn, chuyên nghiệp và dễ đọc trên nền trắng — bạn hãy cập nhật đoạn mã CSS trong file index.html như sau:
 
-    /* Tùy chỉnh màu nền và chữ */
-    body {
-      background-color: #ffffff !important; /* Trắng tinh khôi */
-      color: #3e2723; /* Chữ xám đậm dễ đọc */
-    }
+Bạn tìm thẻ <style> và dán đoạn mã này vào giữa:
 
-    /* Sidebar (Thanh menu bên trái) */
-    .sidebar {
-      background-color: #f8f9fa !important; /* Xám cực nhẹ để tách biệt với nội dung */
-      border-right: 1px solid #eee;
-    }
+CSS
+<style>
+  /* 1. Đổi tông màu chủ đạo của toàn bộ chữ trong bài viết */
+  body {
+    color: #2c3e50 !important; /* Xanh xám trầm */
+    font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+    line-height: 1.8; /* Khoảng cách dòng thoáng giúp dễ đọc bí kíp dài */
+  }
 
-    /* Làm nổi bật các Danh Từ Hán Việt (In đậm và có màu riêng) */
-    .markdown-section strong {
-      color: #1b5e20;
-    }
+  /* 2. Đổi màu tiêu đề chính (Dòng chữ trong ảnh bạn gửi) */
+  .markdown-section h1 {
+    color: #2c3e50 !important;
+    font-weight: 700;
+    margin-bottom: 1rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 1px solid #eee; /* Gạch chân mờ cho sang trọng */
+  }
 
-    /* Hiệu ứng khi di chuột vào menu */
-    .sidebar-nav li a:hover {
-      color: var(--theme-color) !important;
-      font-weight: bold;
-    }
-  </style>
+  /* 3. Đổi màu các tiêu đề phụ (H2, H3 - Võ công, Nội công) */
+  .markdown-section h2, .markdown-section h3 {
+    color: #34495e !important; /* Nhẹ hơn h1 một chút để phân cấp */
+    margin-top: 2rem;
+  }
+
+  /* 4. Đổi màu các đường link để cùng tông nhưng nổi bật hơn */
+  .markdown-section a {
+    color: #3498db; /* Xanh biển nhẹ nhàng cho link */
+    text-decoration: none;
+  }
+  
+  .markdown-section a:hover {
+    text-decoration: underline;
+  }
+</style>
 </head>
 <body>
   <div id="app">Đang khởi tạo tâm pháp...</div>
