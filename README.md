@@ -8,11 +8,11 @@ Chào mừng bạn đến với kho lưu trữ võ học và nội công. Dướ
 | :--- | :--- | :--- |
 | 1 | **Sơ Khuyết Nhập Môn** | Bước đầu tu luyện, kinh mạch chưa thông. |
 | 2 | **Lược Hữu Tiểu Thành** | Nội lực bắt đầu tích tụ tại Đan Điền. |
-| 3 | **Giá Khinh Tựu Lộ** | Vận hành khí huyết trôi chảy, chiêu thức có lực. |
-| 4 | **融 Hội Quán Thông** | Nội công và ngoại công kết hợp nhuần nhuyễn. |
+| 3 | **Giá Khinh Tựu Thục** | Vận hành khí huyết trôi chảy, chiêu thức có lực. |
+| 4 | **Dung Hội Quán Thông** | Nội công và ngoại công kết hợp nhuần nhuyễn. |
 | 5 | **Lư Hỏa Thuần Thanh** | Đạt đến cảnh giới thượng thừa, kình lực sung mãn. |
 | 6 | **Xuất Thần Nhập Hóa** | Nội công thâm hậu, thân pháp quỷ dị khó lường. |
-| 7 | **Thần Công Đại Thành** | Thiên hạ vô địch, nhất lưu cao thủ. |
+| 7 | **Thâm Tàng Bất Lộ** | Thiên hạ vô địch, nhất lưu cao thủ. |
 
 ---
 
