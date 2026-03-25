@@ -1,9 +1,9 @@
 * **[Trang Chủ](README.md)**
 
 * **Thông tin update**
-  * [Thông tin update phiên bản](thong-tin-update.md)
+  * [Update phiên bản](thong-tin-update.md)
   * [Update võ học](update-vo-hoc.md)
-  * [Cách Kiếm Bạc Khóa](tan-thu/kiem-bac.md)
+  * [Thông tin sv China](china-news.md)
 
 * **Tân Thủ Hướng Dẫn**
   * [Khởi Đầu Giang Hồ](tan-thu/khoi-dau.md)
