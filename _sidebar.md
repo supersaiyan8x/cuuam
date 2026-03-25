@@ -13,8 +13,8 @@
   * [Khởi Đầu Giang Hồ](tan-thu/khoi-dau.md)
   * [Lộ Trình Build Acc](tan-thu/build.md)
     
-* **Võ Học-Nội Công**
-* **Kinh Mạch**
+* **[Võ Học-Nội Công]**
+* **[Kinh Mạch]**
 
 * **Cấm Địa-Phụ Bản**
   * [Thận Cảnh](cam-dia/than-canh.md)
