@@ -1,25 +1,22 @@
 * **[Trang Chủ](README.md)**
 
 * **Thông tin update**
-  * [Update pb Sv Snail-Taiwan](thong-tin-update.md)
+  * [Update pb Sv Snail-TW](thong-tin-update.md)
   * [Update võ học](update-vo-hoc.md)
-  * [Thông tin sv China](china-news.md)
+  * [Thông tin sv Snail](Snail-news.md)
 
 * **Tân Thủ Hướng Dẫn**
   * [Khởi Đầu Giang Hồ](tan-thu/khoi-dau.md)
-  * [Hệ Thống Đẳng Cấp](tan-thu/dang-cap.md)
-  * [Cách Kiếm Bạc Khóa](tan-thu/kiem-bac.md)
-  * 
-* **Võ Học Đại Toàn**
-  * [Môn Phái Võ Công](vo-hoc/mon-phai.md)
-  * [Giang Hồ Võ Công](vo-hoc/giang-ho.md)
-  * [Cổ Phổ Võ Học](vo-hoc/co-pho.md)
-  * [Võ Học Cấm Địa](vo-hoc/cam-dia.md)
+  * [Lộ Trình Build Acc](tan-thu/build.md)
+  * [Tip Hữu Ích](tan-thu/tip.md)
+    
+* **Võ Học-Nội Công**
+* **Kinh Mạch**
 
-* **Nội Công Tâm Pháp**
-  * [Nội Công Môn Phái](noi-cong/mon-phai.md)
-  * [Nội Công Giang Hồ](noi-cong/giang-ho.md)
-  * [Nội Công Thế Lực](noi-cong/the-luc.md)
+* **Cấm Địa-Phụ Bản**
+  * [Thận Cảnh](cam-dia/than-canh.md)
+  * [Bí Bảo](cam-dia/bi-bao.md)
+  * [Cấm Địa khác](cam-dia/cd-khac.md)
 
 * **Kinh Mạch & Tùy Tùng**
   * [Hệ Thống Kinh Mạch](kinh-mach/tong-quan.md)
