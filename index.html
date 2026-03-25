@@ -10,15 +10,24 @@
   <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/docsify@4/lib/themes/dark.css">
   
   <style>
-    /* Tùy chỉnh màu sắc phong cách kiếm hiệp (Màu vàng kim trên nền tối) */
     :root {
-      --theme-color: #FFB300; 
+      --theme-color: #D4AF37; /* Màu vàng kim cho các liên kết/nút */
     }
-    .sidebar-nav b {
-      color: #ffca28;
+
+    /* ĐỔI MÀU NỀN TẠI ĐÂY */
+    body {
+      background-color: #1a1a1a !important; /* Màu nền chính (ví dụ: Đen than) */
     }
-    .markdown-section code {
-      color: #e91e63;
+
+    /* Đổi màu nền thanh Menu bên trái (Sidebar) */
+    .sidebar {
+      background-color: #141414 !important; /* Tông màu tối hơn một chút cho Sidebar */
+      border-right: 1px solid #333;
+    }
+
+    /* Đổi màu nền của vùng nội dung chính */
+    section.content {
+      background-color: #1a1a1a !important;
     }
   </style>
 </head>
