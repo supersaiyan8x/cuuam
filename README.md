@@ -2,7 +2,7 @@
 
 Chào mừng bạn đến với trang lưu trữ võ học và nội công cửu âm.Tại đây bạn có thể tìm kiếm thông tin về game Cửu Âm Chân Kinh phiên bản cho máy chủ Snail, Taiwan và cả gosu.Hiện nay máy chủ TW có tốc độ cập nhật phiên bản nhanh nhất (chỉ chậm hơn Snail 1,2 tuần), mang lại trải nghiệm sát với phiên bản gốc nhất mà ko thể  có ở các sv cũ khác.
 
-Gia nhập Discord của chúng tôi (Sv Taiwan)
+<center> **Gia nhập Discord của chúng tôi (Sv Taiwan)** </center>
 <a href="https://discord.gg/xuH4kx8K">
   <img src="https://i.ibb.co/wZXg0WtQ/bb-W4u80g7y-IVxsphv9di-Nw-1.png">
 </a>
