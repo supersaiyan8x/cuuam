@@ -1,0 +1,16 @@
+---
+
+
+---
+
+<ul>
+<li>
+<h3 id="thông-tin-update-tháng-4-snail">Thông tin update tháng 4 Snail</h3>
+</li>
+</ul>
+<p><img src="https://i.ibb.co/XrbcQnF6/625ce7d4a716df7104d8715fe6d74709.png" alt="enter image description here"><br>
+*<em><strong>Hệ thống rương  trang bị</strong></em><br>
+Trước hết, trong phiên bản mới, tính năng 【Tiền Trang - Tủ chứa đồ】 sẽ được mở rộng và nâng cấp! Sau khi phiên bản mới ra mắt, người chơi chỉ cần sở hữu thân phận Giang Hồ Danh Tuấn là có thể kích hoạt và mở rộng toàn bộ dung lượng kho có thể sử dụng, giúp tủ chứa đồ từ 18 ô ban đầu mở rộng trực tiếp lên 192 ô. Tuy nhiên, cần lưu ý rằng sau khi cập nhật, các điều chỉnh liên quan đến “Mở rộng tủ chứa đồ” sẽ được tích hợp vào đặc quyền của thân phận Giang Hồ Danh Tuấn. Nếu người chơi mất thân phận Giang Hồ Danh Tuấn, thì tủ chứa đồ sẽ trở lại trạng thái ban đầu chỉ còn 18 ô. Ngoài ra, Tiểu Cửu cũng cần nhắc các người chơi rằng, trong phiên bản hiện tại, tủ chứa đồ vẫn có thể mở rộng dung lượng thông qua nhiều cách khác nhau (như Phiếu mở rộng kho đổi bằng điểm giải trí, Quan Ngân, v.v.). Do đó, để phù hợp với quy tắc điều chỉnh mới của 【Tiền Trang - Tủ chứa đồ】, sau đợt bảo trì ngày mai, tính năng dùng Bạc khóa để mở dung lượng tủ chứa đồ sẽ bị đóng. Những người chơi đã dùng Bạc khóa mở dung lượng tủ chứa đồ vẫn có thể tiếp tục sử dụng bình thường cho đến khi hết thời hạn. Những người chơi chưa sử dụng tính năng này, vui lòng ưu tiên dùng các phương thức khác để mở dung lượng tủ chứa đồ.<br>
+<img src="https://i.ibb.co/zh1vStCv/75d3b0b32b7f4a004f249e4cd2d8d8bd.jpg" alt="enter image description here"><br>
+Ngoài các điều chỉnh đối với 【Tiền Trang - Tủ chứa đồ】, rương bảo quản — vật phẩm không thể thiếu khi hành tẩu giang hồ — cũng sẽ được nâng cấp trong phiên bản mới! Sau khi phiên bản mới ra mắt, rương bảo quản sẽ hỗ trợ chứa các vật liệu sinh hoạt đã khóa! Ví dụ như: Đạo cụ gia công (Qua Châu Thanh, Vô Hoa Mộc Bính, Thiết Đĩnh, Huyền Hợp Thiết Khấu, Kim Vân Hệ Đái, v.v.) Nguyên liệu thô (Thanh Ngọc, Mã Não, Tùng Mộc, Bách Mộc, Khổ Tình Hoa, v.v.) Vật phẩm nhận được khi phân giải trang bị (Tinh Phấn, Đồng Tinh Thạch, Toái Cúc Thạch, Ma Tuyến, v.v.) Tất cả đều có thể trực tiếp cất vào rương bảo quản. Đáng chú ý là trong các phiên bản tương lai, khi người chơi sử dụng tính năng chế tạo sinh hoạt, hệ thống có thể trực tiếp tiêu hao các tài nguyên sinh hoạt đã cất trong rương bảo quản, không cần thao tác phức tạp khác.</p>
+
