@@ -1,6 +1,3 @@
-<div class="top-banner">
-  <img src="https://i.ibb.co/zh1vStCv/75d3b0b32b7f4a004f249e4cd2d8d8bd.jpg" alt="Banner Top" style="width: 100%; height: auto;">
-</div>
 <ul>
 <li>
 <h3 id="thông-tin-update-tháng-4-snail">Thông tin update tháng 4 Snail</h3>
