@@ -14,13 +14,34 @@ CSS
   /* 1. ÉP NỀN TRẮNG TUYỆT ĐỐI */
   body, 
   section.content, 
-  article#main,
-  .anchor span {
+  article#main {
     background-color: #ffffff !important;
     background: #ffffff !important;
-    color: #ffffff !important; /* Chữ nội dung xanh đen sâu */
+    color: #2c3e50 !important; /* Chữ nội dung màu xanh đen sâu, dễ đọc */
   }
-section.cover {
+
+  .anchor span {
+    color: #00796b !important; /* Màu xanh cho các liên kết neo */
+  }
+
+  section.cover {
+    image-rendering: -webkit-optimize-contrast !important;
+    background-size: cover !important;
+    background-position: center center !important;
+  }
+
+  .markdown-section img {
+    max-width: 100%;
+    height: auto;
+    display: block;
+    margin: 1em auto;
+    transition: transform 0.3s ease;
+  }
+
+  .markdown-section p {
+    overflow-x: auto;
+    line-height: 1.6; /* Tăng khoảng cách dòng cho dễ đọc */
+  }
     /* Ép trình duyệt hiển thị ảnh sắc nét nhất */
     image-rendering: -webkit-optimize-contrast !important;
     background-size: cover !important;
