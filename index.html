@@ -129,26 +129,7 @@ CSS
       // Cấu hình hiển thị Hán-Việt tốt hơn
       formatUpdated: '{MM}/{DD} {HH}:{mm}',
     }
-    plugins: [
-    function(hook, vm) {
-      hook.beforeEach(function(content) {
-        // Link ảnh banner cố định của bạn (Dùng link từ ImgBB)
-        var bannerUrl = 'https://i.ibb.co/XrbcQnF6/625ce7d4a716df7104d8715fe6d74709.png'; 
-        
-        // Đoạn HTML của banner
-        var bannerHtml = [
-          '<div class="auto-banner">',
-          '  <img src="' + bannerUrl + '" alt="Global Banner">',
-          '</div>\n\n'
-        ].join('');
-
-        // Tự động cộng banner vào đầu nội dung trước khi render
-        return bannerHtml + content;
-      });
-    }
-  ]
-};
-  </script>
+     </script>
 
   <script src="//cdn.jsdelivr.net/npm/docsify@4"></script>
   
