@@ -85,6 +85,19 @@
   .search input {
     color: #004d40 !important;
   }
+  /* Làm to tất cả các mục chính có dấu sao ở Sidebar */
+.sidebar-nav > ul > li > strong a, 
+.sidebar-nav > ul > li > b a {
+    font-size: 1.2rem !important; /* Độ to của chữ */
+    font-weight: bold !important;
+    display: inline-block;
+    padding: 5px 0;
+}
+
+/* Thêm màu sắc riêng cho mục Nạp VIP để nổi bật hẳn lên */
+.sidebar-nav a[href*="napbvip"] {
+    color: #e53935 !important; /* Màu đỏ đậm cho nạp tiền */
+}
 </style>
 </head>
 <body>
