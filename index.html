@@ -9,47 +9,42 @@
   
   <link rel="stylesheet" 
     href="//cdn.jsdelivr.net/npm/docsify@4/lib/themes/vue.css">
-CSS
 <style>
-  /* 1. ÉP NỀN TRẮNG TUYỆT ĐỐI */
+  /* 1. NỀN TRẮNG VÀ CHỮ XANH ĐEN (SỬA LỖI TÀNG HÌNH) */
   body, 
   section.content, 
-  article#main,
-  .anchor span {
+  article#main {
     background-color: #ffffff !important;
     background: #ffffff !important;
-    color: #ffffff !important; /* Chữ nội dung xanh đen sâu */
+    color: #2c3e50 !important; /* Chữ nội dung màu xanh đen sâu, dễ đọc */
   }
-section.cover {
-    /* Ép trình duyệt hiển thị ảnh sắc nét nhất */
+
+  .anchor span {
+    color: #00796b !important; /* Màu xanh cho các liên kết neo */
+  }
+
+  section.cover {
     image-rendering: -webkit-optimize-contrast !important;
     background-size: cover !important;
     background-position: center center !important;
   }
-.markdown-section img {
-  max-width: 100%; /* Đảm bảo không tràn màn hình điện thoại */
-  height: auto;
-  display: block;
-  margin: 1em auto;
-  transition: transform 0.3s ease; /* Hiệu ứng mượt khi zoom */
-}
 
-/* Nếu ảnh thực sự rất rộng, cho phép người dùng cuộn ngang thay vì co nhỏ */
-.markdown-section p {
-  overflow-x: auto;
-}
-
-/* Tùy chỉnh riêng cho các ảnh muốn giữ kích thước lớn */
-.markdown-section img[src*="width"] {
-  max-width: none !important;
-}
-  /* Khử bóng mờ mặc định của Docsify trên trang bìa (nếu có) */
-  section.cover.has-mask .mask {
-    opacity: 0 !important; /* Xóa bỏ lớp phủ màu xám mờ trên ảnh */
+  .markdown-section img {
+    max-width: 100%;
+    height: auto;
+    display: block;
+    margin: 1em auto;
+    transition: transform 0.3s ease;
   }
-  /* 2. TIÊU ĐỀ XANH NHÃ NHẶN (KHÔNG XÁM) */
+
+  .markdown-section p {
+    overflow-x: auto;
+    line-height: 1.6; /* Tăng khoảng cách dòng cho dễ đọc */
+  }
+
+  /* 2. TIÊU ĐỀ XANH LỤC BẢO (TEAL) - ĐÃ SỬA MÀU TRẮNG THÀNH XANH */
   .markdown-section h1 {
-    color: #ffffff !important; /* Xanh lục bảo đậm - Rất nhã */
+    color: #004d40 !important; /* Xanh lục bảo đậm nhất cho tiêu đề chính */
     font-weight: 700 !important;
     border-bottom: 2px solid #e0f2f1 !important;
     padding-bottom: 15px !important;
@@ -57,13 +52,13 @@ section.cover {
 
   .markdown-section h2, 
   .markdown-section h3 {
-    color: #00796b !important; /* Xanh nhẹ hơn cho mục con */
+    color: #00796b !important; /* Xanh Teal nhã nhặn cho mục con */
     margin-top: 30px !important;
   }
 
   /* 3. THANH MENU BÊN TRÁI (SIDEBAR) */
   .sidebar {
-    background-color: #ffffff !important; /* Đổi nốt sidebar sang trắng cho đồng bộ */
+    background-color: #ffffff !important;
     border-right: 1px solid #f0f0f0 !important;
   }
 
@@ -72,10 +67,23 @@ section.cover {
     font-size: 15px;
   }
 
-  /* 4. ĐIỂM NHẤN CHO CÁC DANH TỪ HÁN VIỆT */
+  /* Màu khi di chuột qua menu hoặc đang chọn */
+  .sidebar-nav li a:hover,
+  .sidebar-nav li.active > a {
+    color: #00bfa5 !important;
+    font-weight: bold;
+    border-right: 2px solid #00bfa5;
+  }
+
+  /* 4. ĐIỂM NHẤN CHO CÁC DANH TỪ HÁN VIỆT (Chữ đậm) */
   .markdown-section strong {
-    color: #00695c !important;
+    color: #00695c !important; /* Xanh rừng già cho các từ nhấn mạnh */
     font-weight: 600;
+  }
+
+  /* Tùy chỉnh thanh tìm kiếm cho đồng bộ màu */
+  .search input {
+    color: #004d40 !important;
   }
 </style>
 </head>
