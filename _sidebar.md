@@ -5,7 +5,7 @@
   * [Patch SV khác](huong-dan/another-patch.md)
   * 
 * **Thông tin update**
-  * [Update pb Sv Snail-TW](thong-tin-update.md)
+  * [Update pb Sv Snail-TW](updatepb/m.md)
   * [Update võ học](update-vo-hoc.md)
   * [Thông tin sv Snail](Snail-news.md)
 
