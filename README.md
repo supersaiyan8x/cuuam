@@ -1,6 +1,6 @@
-# Age of Wushu - Fanpage
+# Age of Wushu Fandom
 
-Chào mừng bạn đến với kho lưu trữ võ học và nội công. Dưới đây là bảng tra cứu nhanh cấp độ nội công dành cho các hiệp khách.
+Chào mừng bạn đến với trang lưu trữ võ học và nội công cửu âm.Tại đây bạn có thể tìm kiếm thông tin về game Cửu Âm Chân Kinh phiên bản cho máy chủ Snail, Taiwan và cả gosu
 
 
 
