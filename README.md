@@ -4,7 +4,7 @@ Chào mừng bạn đến với trang lưu trữ võ học và nội công cửu
 
 Gia nhập Discord của chúng tôi (Sv Taiwan)
 <a href="https://discord.gg/xuH4kx8K">
-  <img src="https://cdn.iconscout.com/icon/free/png-256/free-discord-icon-svg-download-png-10898345.png">
+  <img src="https://support.discord.com/hc/user_images/bbW4u80g7yIVxsphv9diNw.png">
 </a>
 
 > [!TIP]
