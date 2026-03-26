@@ -1,5 +1,5 @@
-* **[Trang Chủ](README.md)**
-* **[Nạp VIP](huongdan/napbvip.md)**
+* <h3><a href="#/README.md">Trang Chủ</a></h3>
+* <h3><a href="#/huongdan/napbvip">Nạp VIP</a></h3>
 * **Patch-Việt Hóa**
   * [Patch VH sv TaiWan](huong-dan/VH.md)
   * [Patch SV khác](huong-dan/another-patch.md)
