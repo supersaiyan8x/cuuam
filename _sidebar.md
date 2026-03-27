@@ -11,8 +11,8 @@
   * [ Khởi Đầu Giang Hồ](tan-thu/khoi-dau.md)
   * [ Lộ Trình Build Acc](tan-thu/build.md)
 * ⚔️ **Môn Phái**
-  * [ Chính Phái](mon-phai/chinhphai.md)
-  * [ Thế Lực-Ẩn Thế](mon-phai/theluc.md)
+  * [ Chính Phái](monphai/chinhphai.md)
+  * [ Thế Lực-Ẩn Thế](monphai/theluc.md)
 * 🥋 **Võ Học - Nội Công**
   * [ VH-Nội Công Môn Phái](huong-dan/noicongmp.md)
   * [ VH-Nội Công Giang Hồ](huong-dan/noiconggh.md)
