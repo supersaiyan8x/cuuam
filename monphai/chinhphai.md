@@ -1,4 +1,4 @@
 ### Giới thiệu các môn phái chính 
-* [Vu Khư](monphai/vukhu.md) - *25/03/2026*
+* [Vu Khư](monphai/vukhu.md)
 * [Thiếu Lâm](TL.md)
 
