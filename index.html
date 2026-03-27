@@ -128,6 +128,45 @@
       // Cấu hình hiển thị Hán-Việt tốt hơn
       formatUpdated: '{MM}/{DD} {HH}:{mm}',
     }
+    plugins: [
+    function(hook, vm) {
+      hook.doneEach(function() {
+        var container = document.createElement('div');
+        container.id = 'cusdis_thread';
+        // Các thông số dưới đây lấy từ trang Cusdis của bạn
+        container.setAttribute('data-host', 'https://cusdis.com');
+        container.setAttribute('data-app-id', 'MÃ_APP_ID_CỦA_BẠN');
+        container.setAttribute('data-page-id', vm.route.path);
+        container.setAttribute('data-page-url', window.location.href);
+        container.setAttribute('data-page-title', vm.route.path);
+        
+        var content = document.querySelector('section.content');
+        if (content) {
+            // Xóa khung cũ khi chuyển trang trong Docsify
+            var oldCusdis = document.getElementById('cusdis_thread');
+            if (oldCusdis) oldCusdis.remove();
+            
+            content.appendChild(container);
+            
+            // Chèn script của Cusdis
+          <div id="cusdis_thread"
+  data-host="https://cusdis.com"
+  data-app-id="e018e634-2325-465f-9c9d-660e80a1fad3"
+  data-page-id="{{ PAGE_ID }}"
+  data-page-url="{{ PAGE_URL }}"
+  data-page-title="{{ PAGE_TITLE }}"
+></div>
+<script async defer src="https://cusdis.com/js/cusdis.es.js"></script>
+            var script = document.createElement('script');
+            script.src = 'https://cusdis.com/js/cusdis.es.js';
+            script.async = true;
+            script.defer = true;
+            document.body.appendChild(script);
+        }
+      });
+    }
+  ]
+};
      </script>
 
   <script src="//cdn.jsdelivr.net/npm/docsify@4"></script>
