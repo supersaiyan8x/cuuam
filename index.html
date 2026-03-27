@@ -7,128 +7,95 @@
   <meta name="description" content="Kho lưu trữ võ học, nội công, kinh mạch Cửu Âm Chân Kinh">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">
   <meta name="google-site-verification" content="YRKO7nTaOoLdQ7wPenI8FLLAR_25rCSyThf3w4zEXFc" />
-  <link rel="stylesheet" 
-    href="//cdn.jsdelivr.net/npm/docsify@4/lib/themes/vue.css">
-<style>
-  /* 1. ÉP NỀN TRẮNG TUYỆT ĐỐI */
-  body, 
-  section.content, 
-  article#main {
-    background-color: #ffffff !important;
-    background: #ffffff !important;
-    color: #2c3e50 !important; /* Chữ nội dung màu xanh đen sâu, dễ đọc */
-  }
+  <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/docsify@4/lib/themes/vue.css">
+  <style>
+    /* 1. GIAO DIỆN CHUNG: NỀN TRẮNG SẠCH */
+    body, section.content, article#main {
+      background-color: #ffffff !important;
+      color: #2c3e50 !important;
+    }
 
-  .anchor span {
-    color: #00796b !important; /* Màu xanh cho các liên kết neo */
-  }
+    .anchor span { color: #00796b !important; }
 
-  section.cover {
-    image-rendering: -webkit-optimize-contrast !important;
-    background-size: cover !important;
-    background-position: center center !important;
-  }
+    /* Tối ưu ảnh hiển thị sắc nét */
+    .markdown-section img {
+      max-width: 100%;
+      height: auto;
+      display: block;
+      margin: 1em auto;
+      transition: transform 0.3s ease;
+      image-rendering: -webkit-optimize-contrast !important;
+    }
 
-  .markdown-section img {
-    max-width: 100%;
-    height: auto;
-    display: block;
-    margin: 1em auto;
-    transition: transform 0.3s ease;
-  }
+    .markdown-section p {
+      overflow-x: auto;
+      line-height: 1.6;
+    }
 
-  .markdown-section p {
-    overflow-x: auto;
-    line-height: 1.6; /* Tăng khoảng cách dòng cho dễ đọc */
-  }
-    /* Ép trình duyệt hiển thị ảnh sắc nét nhất */
-    image-rendering: -webkit-optimize-contrast !important;
-    background-size: cover !important;
-    background-position: center center !important;
-  }
-.markdown-section img {
-  max-width: 100%; /* Đảm bảo không tràn màn hình điện thoại */
-  height: auto;
-  display: block;
-  margin: 1em auto;
-  transition: transform 0.3s ease; /* Hiệu ứng mượt khi zoom */
-}
+    /* 2. TIÊU ĐỀ PHONG CÁCH XANH TEAL (NHÃ NHẶN) */
+    .markdown-section h1 {
+      color: #00796b !important; 
+      font-weight: 700 !important;
+      border-bottom: 2px solid #e0f2f1 !important;
+      padding-bottom: 15px !important;
+    }
 
-/* Nếu ảnh thực sự rất rộng, cho phép người dùng cuộn ngang thay vì co nhỏ */
-.markdown-section p {
-  overflow-x: auto;
-}
+    .markdown-section h2, .markdown-section h3 {
+      color: #00796b !important;
+      margin-top: 30px !important;
+    }
 
-/* Tùy chỉnh riêng cho các ảnh muốn giữ kích thước lớn */
-.markdown-section img[src*="width"] {
-  max-width: none !important;
-}
-  /* Khử bóng mờ mặc định của Docsify trên trang bìa (nếu có) */
-  section.cover.has-mask .mask {
-    opacity: 0 !important; /* Xóa bỏ lớp phủ màu xám mờ trên ảnh */
-  }
-  /* 2. TIÊU ĐỀ XANH NHÃ NHẶN (KHÔNG XÁM) */
-  .markdown-section h1 {
-    color: #ffffff !important; /* Xanh lục bảo đậm - Rất nhã */
-    font-weight: 700 !important;
-    border-bottom: 2px solid #e0f2f1 !important;
-    padding-bottom: 15px !important;
-  }
+    /* 3. SIDEBAR (THANH MENU TRÁI) */
+    .sidebar {
+      background-color: #f1f8f7 !important;
+      border-right: 1px solid #e0f2f1 !important;
+    }
 
-  .markdown-section h2, 
-  .markdown-section h3 {
-    color: #00796b !important; /* Xanh nhẹ hơn cho mục con */
-    margin-top: 30px !important;
-  }
+    .sidebar-nav li a {
+      color: #004d40 !important;
+      font-size: 15px;
+    }
 
-  /* 3. THANH MENU BÊN TRÁI (SIDEBAR) */
-  .sidebar {
-    background-color: #f1f8f7 !important; /* Xanh Teal cực nhạt, gần như trắng nhưng có sắc xanh */
-    border-right: 1px solid #e0f2f1 !important; /* Đường kẻ ngăn cách mảnh và tinh tế */
-  }
+    /* 4. ĐIỂM NHẤN CÁC DANH TỪ HÁN VIỆT */
+    .markdown-section strong {
+      color: #00695c !important;
+      font-weight: 600;
+    }
 
-  .sidebar-nav li a {
-    color: #004d40 !important;
-    font-size: 15px;
-  }
-
-  /* 4. ĐIỂM NHẤN CHO CÁC DANH TỪ HÁN VIỆT */
-  .markdown-section strong {
-    color: #00695c !important;
-    font-weight: 600;
-  }
+    /* TÙY CHỈNH RIÊNG KHUNG COMMENT CUSDIS */
+    #cusdis_thread {
+      max-width: 900px;
+      margin: 60px auto 10px auto;
+      padding: 20px;
+      border-top: 1px solid #e0f2f1;
+    }
   </style>
 </head>
 <body>
-  <div id="app">Đang update...</div>
+  <div id="app">Đang tải bí kíp...</div>
   
   <script>
     window.$docsify = {
       name: 'Age of Wushu',
       repo: '',
-      loadSidebar: true,    // Bật menu bên trái từ file _sidebar.md
-      subMaxLevel: 3,       // Hiển thị các tiêu đề H2, H3 vào menu
-      auto2top: true,       // Tự cuộn lên đầu trang khi chuyển bài
-      coverpage: true,     // Có thể bật trang bìa nếu muốn (true)
-      
-      // Cấu hình thanh tìm kiếm
+      loadSidebar: true,
+      subMaxLevel: 3,
+      auto2top: true,
+      coverpage: true,
       search: {
         maxAge: 86400000,
         paths: 'auto',
         placeholder: 'Tìm võ học, nội công...',
-        noData: 'Không tìm thấy bí kíp này!',
+        noData: 'Không tìm thấy bí kíp!',
         depth: 6
       },
-      
-      // Định danh file sidebar cho các thư mục con
       alias: {
         '/.*/_sidebar.md': '/_sidebar.md'
       },
-      
-      // Cấu hình hiển thị Hán-Việt tốt hơn
       formatUpdated: '{MM}/{DD} {HH}:{mm}',
-    }
-    plugins: [
+      
+      // PLUGIN CHÈN COMMENT VÀO CUỐI MỖI TRANG
+      plugins: [
         function(hook, vm) {
           hook.doneEach(function() {
             var content = document.querySelector('section.content');
@@ -164,14 +131,11 @@
         }
       ]
     }; // Kết thúc window.$docsify
-     </script>
+  </script>
 
   <script src="//cdn.jsdelivr.net/npm/docsify@4"></script>
-  
   <script src="//cdn.jsdelivr.net/npm/docsify/lib/plugins/search.min.js"></script>
-  
   <script src="//cdn.jsdelivr.net/npm/docsify/lib/plugins/zoom-image.min.js"></script>
-  
   <script src="//cdn.jsdelivr.net/npm/docsify-copy-code/dist/docsify-copy-code.min.js"></script>
 </body>
 </html>
