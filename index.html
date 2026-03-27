@@ -2,105 +2,112 @@
 <html lang="vi">
 <head>
   <meta charset="UTF-8">
-  <title>Age of Wushu</title>
-  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
-  <meta name="description" content="Kho lưu trữ võ học, nội công, kinh mạch Cửu Âm Chân Kinh">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">
-  <meta name="google-site-verification" content="YRKO7nTaOoLdQ7wPenI8FLLAR_25rCSyThf3w4zEXFc" />
-  <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/docsify@4/lib/themes/vue.css">
+  <meta name="description" content="Kho lưu trữ võ học, nội công, kinh mạch Cửu Âm Chân Kinh">
+  <meta name="theme-color" content="#00796b">
+  <meta name="google-site-verification" content="YRKO7nTaOoLdQ7wPenI8FLLAR_25rCSyThf3w4zEXFc">
+
+  <!-- Preconnect để giảm thời gian kết nối CDN -->
+  <link rel="preconnect" href="https://cdn.jsdelivr.net">
+  <link rel="preconnect" href="https://cusdis.com">
+
+  <title>Age of Wushu</title>
+
+  <!-- Theme Docsify -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/docsify@4/lib/themes/vue.css">
+
   <style>
-    /* 1. ÉP NỀN TRẮNG TUYỆT ĐỐI */
-  body, 
-  section.content, 
-  article#main {
-    background-color: #ffffff !important;
-    background: #ffffff !important;
-    color: #2c3e50 !important; /* Chữ nội dung màu xanh đen sâu, dễ đọc */
-  }
+    /* ===== BIẾN MÀU ===== */
+    :root {
+      --color-primary:    #00796b;
+      --color-primary-dk: #004d40;
+      --color-primary-lt: #e0f2f1;
+      --color-accent:     #00695c;
+      --color-bg:         #ffffff;
+      --color-text:       #2c3e50;
+      --color-sidebar-bg: #f1f8f7;
+    }
 
-  .anchor span {
-    color: #00796b !important; /* Màu xanh cho các liên kết neo */
-  }
+    /* ===== NỀN & CHỮ ===== */
+    body,
+    section.content,
+    article#main {
+      background-color: var(--color-bg) !important;
+      color: var(--color-text) !important;
+    }
 
-  section.cover {
-    image-rendering: -webkit-optimize-contrast !important;
-    background-size: cover !important;
-    background-position: center center !important;
-  }
+    /* ===== TIÊU ĐỀ ===== */
+    .markdown-section h1 {
+      color: #ffffff !important;
+      font-weight: 700 !important;
+      border-bottom: 2px solid var(--color-primary-lt) !important;
+      padding-bottom: 15px !important;
+    }
 
-  .markdown-section img {
-    max-width: 100%;
-    height: auto;
-    display: block;
-    margin: 1em auto;
-    transition: transform 0.3s ease;
-  }
+    .markdown-section h2,
+    .markdown-section h3 {
+      color: var(--color-primary) !important;
+      margin-top: 30px !important;
+    }
 
-  .markdown-section p {
-    overflow-x: auto;
-    line-height: 1.6; /* Tăng khoảng cách dòng cho dễ đọc */
-  }
-    /* Ép trình duyệt hiển thị ảnh sắc nét nhất */
-    image-rendering: -webkit-optimize-contrast !important;
-    background-size: cover !important;
-    background-position: center center !important;
-  }
-.markdown-section img {
-  max-width: 100%; /* Đảm bảo không tràn màn hình điện thoại */
-  height: auto;
-  display: block;
-  margin: 1em auto;
-  transition: transform 0.3s ease; /* Hiệu ứng mượt khi zoom */
-}
+    /* ===== SIDEBAR ===== */
+    .sidebar {
+      background-color: var(--color-sidebar-bg) !important;
+      border-right: 1px solid var(--color-primary-lt) !important;
+    }
 
-/* Nếu ảnh thực sự rất rộng, cho phép người dùng cuộn ngang thay vì co nhỏ */
-.markdown-section p {
-  overflow-x: auto;
-}
+    .sidebar-nav li a {
+      color: var(--color-primary-dk) !important;
+      font-size: 15px;
+    }
 
-/* Tùy chỉnh riêng cho các ảnh muốn giữ kích thước lớn */
-.markdown-section img[src*="width"] {
-  max-width: none !important;
-}
-  /* Khử bóng mờ mặc định của Docsify trên trang bìa (nếu có) */
-  section.cover.has-mask .mask {
-    opacity: 0 !important; /* Xóa bỏ lớp phủ màu xám mờ trên ảnh */
-  }
-  /* 2. TIÊU ĐỀ XANH NHÃ NHẶN (KHÔNG XÁM) */
-  .markdown-section h1 {
-    color: #ffffff !important; /* Xanh lục bảo đậm - Rất nhã */
-    font-weight: 700 !important;
-    border-bottom: 2px solid #e0f2f1 !important;
-    padding-bottom: 15px !important;
-  }
+    /* ===== NHẤN MẠNH ===== */
+    .markdown-section strong {
+      color: var(--color-accent) !important;
+      font-weight: 600;
+    }
 
-  .markdown-section h2, 
-  .markdown-section h3 {
-    color: #00796b !important; /* Xanh nhẹ hơn cho mục con */
-    margin-top: 30px !important;
-  }
+    .anchor span {
+      color: var(--color-primary) !important;
+    }
 
-  /* 3. THANH MENU BÊN TRÁI (SIDEBAR) */
-  .sidebar {
-    background-color: #f1f8f7 !important; /* Xanh Teal cực nhạt, gần như trắng nhưng có sắc xanh */
-    border-right: 1px solid #e0f2f1 !important; /* Đường kẻ ngăn cách mảnh và tinh tế */
-  }
+    /* ===== ẢNH ===== */
+    .markdown-section img {
+      max-width: 100%;
+      height: auto;
+      display: block;
+      margin: 1em auto;
+      transition: transform 0.3s ease;
+    }
 
-  .sidebar-nav li a {
-    color: #004d40 !important;
-    font-size: 15px;
-  }
+    /* Cho phép cuộn ngang nếu ảnh quá rộng */
+    .markdown-section p {
+      overflow-x: auto;
+      line-height: 1.6;
+    }
 
-  /* 4. ĐIỂM NHẤN CHO CÁC DANH TỪ HÁN VIỆT */
-  .markdown-section strong {
-    color: #00695c !important;
-    font-weight: 600;
-  }
+    /* Xóa lớp phủ mờ trên trang bìa */
+    section.cover.has-mask .mask {
+      opacity: 0 !important;
+    }
+
+    /* ===== RESPONSIVE ===== */
+    @media (max-width: 768px) {
+      .sidebar-nav li a {
+        font-size: 14px;
+      }
+
+      .markdown-section h2,
+      .markdown-section h3 {
+        margin-top: 20px !important;
+      }
+    }
   </style>
 </head>
 <body>
   <div id="app">Đang tải bí kíp...</div>
-  
+
   <script>
     window.$docsify = {
       name: 'Age of Wushu',
@@ -120,19 +127,30 @@
         '/.*/_sidebar.md': '/_sidebar.md'
       },
       formatUpdated: '{MM}/{DD} {HH}:{mm}',
-      
-      // PLUGIN CHÈN COMMENT VÀO CUỐI MỖI TRANG
+
       plugins: [
-        function(hook, vm) {
-          hook.doneEach(function() {
+        function (hook, vm) {
+          // Chèn script Cusdis một lần duy nhất
+          var cusdisLoaded = false;
+
+          function loadCusdisScript() {
+            if (cusdisLoaded) return;
+            cusdisLoaded = true;
+            var script = document.createElement('script');
+            script.src = 'https://cusdis.com/js/cusdis.es.js';
+            script.async = true;
+            script.defer = true;
+            document.body.appendChild(script);
+          }
+
+          hook.doneEach(function () {
             var content = document.querySelector('section.content');
             if (!content) return;
 
-            // Xóa khung comment cũ để không bị lặp khi bấm qua bài khác
-            var oldCusdis = document.getElementById('cusdis_thread');
-            if (oldCusdis) oldCusdis.remove();
+            // Xóa thread cũ trước khi tạo mới
+            var old = document.getElementById('cusdis_thread');
+            if (old) old.remove();
 
-            // Tạo khung comment mới
             var container = document.createElement('div');
             container.id = 'cusdis_thread';
             container.setAttribute('data-host', 'https://cusdis.com');
@@ -140,29 +158,24 @@
             container.setAttribute('data-page-id', vm.route.path);
             container.setAttribute('data-page-url', window.location.href);
             container.setAttribute('data-page-title', vm.route.path);
-            
             content.appendChild(container);
 
-            // Chèn script Cusdis
-            var script = document.createElement('script');
-            script.src = 'https://cusdis.com/js/cusdis.es.js';
-            script.async = true;
-            script.defer = true;
-            document.body.appendChild(script);
-            
-            // Kích hoạt lại script nếu đã có sẵn trong bộ nhớ trình duyệt
-            if (window.CUSDIS) {
+            loadCusdisScript();
+
+            // Kích hoạt lại nếu script đã tải sẵn
+            if (window.CUSDIS && typeof window.CUSDIS.initial === 'function') {
               window.CUSDIS.initial();
             }
           });
         }
       ]
-    }; // Kết thúc window.$docsify
+    };
   </script>
 
-  <script src="//cdn.jsdelivr.net/npm/docsify@4"></script>
-  <script src="//cdn.jsdelivr.net/npm/docsify/lib/plugins/search.min.js"></script>
-  <script src="//cdn.jsdelivr.net/npm/docsify/lib/plugins/zoom-image.min.js"></script>
-  <script src="//cdn.jsdelivr.net/npm/docsify-copy-code/dist/docsify-copy-code.min.js"></script>
+  <!-- Docsify core — defer để không chặn render -->
+  <script src="https://cdn.jsdelivr.net/npm/docsify@4" defer></script>
+  <script src="https://cdn.jsdelivr.net/npm/docsify/lib/plugins/search.min.js" defer></script>
+  <script src="https://cdn.jsdelivr.net/npm/docsify/lib/plugins/zoom-image.min.js" defer></script>
+  <script src="https://cdn.jsdelivr.net/npm/docsify-copy-code/dist/docsify-copy-code.min.js" defer></script>
 </body>
 </html>
