@@ -8,13 +8,11 @@
   <meta name="theme-color" content="#00796b">
   <meta name="google-site-verification" content="YRKO7nTaOoLdQ7wPenI8FLLAR_25rCSyThf3w4zEXFc">
 
-  <!-- Preconnect để giảm thời gian kết nối CDN -->
   <link rel="preconnect" href="https://cdn.jsdelivr.net">
   <link rel="preconnect" href="https://cusdis.com">
 
   <title>Age of Wushu</title>
 
-  <!-- Theme Docsify -->
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/docsify@4/lib/themes/vue.css">
 
   <style>
@@ -29,7 +27,6 @@
       --color-sidebar-bg: #f1f8f7;
     }
 
-    /* ===== NỀN & CHỮ ===== */
     body,
     section.content,
     article#main {
@@ -37,7 +34,6 @@
       color: var(--color-text) !important;
     }
 
-    /* ===== TIÊU ĐỀ ===== */
     .markdown-section h1 {
       color: #ffffff !important;
       font-weight: 700 !important;
@@ -51,7 +47,6 @@
       margin-top: 30px !important;
     }
 
-    /* ===== SIDEBAR ===== */
     .sidebar {
       background-color: var(--color-sidebar-bg) !important;
       border-right: 1px solid var(--color-primary-lt) !important;
@@ -62,7 +57,6 @@
       font-size: 15px;
     }
 
-    /* ===== NHẤN MẠNH ===== */
     .markdown-section strong {
       color: var(--color-accent) !important;
       font-weight: 600;
@@ -72,7 +66,6 @@
       color: var(--color-primary) !important;
     }
 
-    /* ===== ẢNH ===== */
     .markdown-section img {
       max-width: 100%;
       height: auto;
@@ -81,27 +74,135 @@
       transition: transform 0.3s ease;
     }
 
-    /* Cho phép cuộn ngang nếu ảnh quá rộng */
     .markdown-section p {
       overflow-x: auto;
       line-height: 1.6;
     }
 
-    /* Xóa lớp phủ mờ trên trang bìa */
     section.cover.has-mask .mask {
       opacity: 0 !important;
     }
 
-    /* ===== RESPONSIVE ===== */
     @media (max-width: 768px) {
-      .sidebar-nav li a {
-        font-size: 14px;
-      }
-
+      .sidebar-nav li a { font-size: 14px; }
       .markdown-section h2,
-      .markdown-section h3 {
-        margin-top: 20px !important;
-      }
+      .markdown-section h3 { margin-top: 20px !important; }
+    }
+
+    /* ===== PAGINATION ===== */
+    .docsify-pagination-wrapper {
+      margin-top: 20px;
+      padding: 12px 0 4px;
+      border-top: 1px solid var(--color-primary-lt);
+    }
+
+    /* Container danh sách đã ẩn */
+    .paginated-list-hidden {
+      display: none !important;
+    }
+
+    /* Wrapper bao quanh list + controls */
+    .paginated-block {
+      margin: 16px 0;
+    }
+
+    /* Thanh điều khiển trên: tổng số + chọn số mục/trang */
+    .paginated-controls-top {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 10px;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .paginated-count {
+      font-size: 13px;
+      color: #607d8b;
+    }
+
+    .paginated-perpage-label {
+      font-size: 13px;
+      color: #607d8b;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .paginated-perpage-label select {
+      font-size: 13px;
+      padding: 3px 6px;
+      border: 1px solid #b2dfdb;
+      border-radius: 4px;
+      background: #fff;
+      color: #2c3e50;
+      cursor: pointer;
+    }
+
+    /* List items hiển thị */
+    .paginated-items ul {
+      list-style: disc;
+      padding-left: 1.5em;
+      margin: 0;
+    }
+
+    .paginated-items ul li {
+      padding: 4px 0;
+      line-height: 1.6;
+      border-bottom: 1px dashed #e0f2f1;
+    }
+
+    .paginated-items ul li:last-child {
+      border-bottom: none;
+    }
+
+    /* Nút phân trang */
+    .paginated-nav {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 4px;
+      margin-top: 14px;
+      flex-wrap: wrap;
+    }
+
+    .paginated-nav button {
+      min-width: 32px;
+      height: 32px;
+      padding: 0 8px;
+      border: 1px solid #b2dfdb;
+      border-radius: 4px;
+      background: #fff;
+      color: #004d40;
+      font-size: 13px;
+      cursor: pointer;
+      transition: background 0.15s, color 0.15s;
+    }
+
+    .paginated-nav button:hover:not(:disabled) {
+      background: var(--color-primary-lt);
+    }
+
+    .paginated-nav button.active {
+      background: var(--color-primary);
+      color: #fff;
+      border-color: var(--color-primary);
+      font-weight: 600;
+    }
+
+    .paginated-nav button:disabled {
+      opacity: 0.35;
+      cursor: not-allowed;
+    }
+
+    .paginated-nav .pg-dots {
+      min-width: 24px;
+      text-align: center;
+      color: #90a4ae;
+      font-size: 13px;
+      border: none;
+      background: none;
+      cursor: default;
     }
   </style>
 </head>
@@ -129,8 +230,8 @@
       formatUpdated: '{MM}/{DD} {HH}:{mm}',
 
       plugins: [
+        /* ── Plugin 1: Cusdis comment ── */
         function (hook, vm) {
-          // Chèn script Cusdis một lần duy nhất
           var cusdisLoaded = false;
 
           function loadCusdisScript() {
@@ -147,7 +248,6 @@
             var content = document.querySelector('section.content');
             if (!content) return;
 
-            // Xóa thread cũ trước khi tạo mới
             var old = document.getElementById('cusdis_thread');
             if (old) old.remove();
 
@@ -162,17 +262,170 @@
 
             loadCusdisScript();
 
-            // Kích hoạt lại nếu script đã tải sẵn
             if (window.CUSDIS && typeof window.CUSDIS.initial === 'function') {
               window.CUSDIS.initial();
             }
+          });
+        },
+
+        /* ── Plugin 2: Pagination cho danh sách link ── */
+        function (hook) {
+          var DEFAULT_PER_PAGE = 10; // <-- Đổi số mặc định tại đây
+
+          hook.doneEach(function () {
+            var section = document.querySelector('.markdown-section');
+            if (!section) return;
+
+            /* Tìm tất cả <ul> có ít nhất 1 thẻ <a> bên trong */
+            var lists = Array.from(section.querySelectorAll('ul')).filter(function (ul) {
+              /* Chỉ xử lý list nằm trực tiếp trong section, không phải sidebar */
+              return ul.querySelectorAll('a').length > 0 &&
+                     !ul.closest('.sidebar') &&
+                     !ul.dataset.paginatedDone;
+            });
+
+            lists.forEach(function (ul) {
+              ul.dataset.paginatedDone = '1';
+
+              var items = Array.from(ul.children); // các <li>
+              if (items.length <= DEFAULT_PER_PAGE) return; // đủ ít thì thôi
+
+              var perPage = DEFAULT_PER_PAGE;
+              var currentPage = 1;
+
+              /* Ẩn list gốc */
+              ul.classList.add('paginated-list-hidden');
+
+              /* Tạo wrapper */
+              var wrapper = document.createElement('div');
+              wrapper.className = 'paginated-block';
+              ul.parentNode.insertBefore(wrapper, ul);
+
+              /* Thanh trên */
+              var controlsTop = document.createElement('div');
+              controlsTop.className = 'paginated-controls-top';
+
+              var countEl = document.createElement('span');
+              countEl.className = 'paginated-count';
+
+              var perPageLabel = document.createElement('label');
+              perPageLabel.className = 'paginated-perpage-label';
+              perPageLabel.textContent = 'Hiển thị: ';
+
+              var perPageSelect = document.createElement('select');
+              [5, 10, 20, 50].forEach(function (n) {
+                var opt = document.createElement('option');
+                opt.value = n;
+                opt.textContent = n + ' mục/trang';
+                if (n === DEFAULT_PER_PAGE) opt.selected = true;
+                perPageSelect.appendChild(opt);
+              });
+
+              perPageLabel.appendChild(perPageSelect);
+              controlsTop.appendChild(countEl);
+              controlsTop.appendChild(perPageLabel);
+              wrapper.appendChild(controlsTop);
+
+              /* Vùng hiển thị items */
+              var itemsContainer = document.createElement('div');
+              itemsContainer.className = 'paginated-items';
+              wrapper.appendChild(itemsContainer);
+
+              /* Thanh nút trang */
+              var nav = document.createElement('div');
+              nav.className = 'paginated-nav';
+              wrapper.appendChild(nav);
+
+              function totalPages() {
+                return Math.ceil(items.length / perPage);
+              }
+
+              function renderItems() {
+                var start = (currentPage - 1) * perPage;
+                var end = Math.min(start + perPage, items.length);
+
+                countEl.textContent =
+                  'Hiển thị ' + (start + 1) + '–' + end +
+                  ' / ' + items.length + ' mục';
+
+                var newUl = document.createElement('ul');
+                for (var i = start; i < end; i++) {
+                  newUl.appendChild(items[i].cloneNode(true));
+                }
+                itemsContainer.innerHTML = '';
+                itemsContainer.appendChild(newUl);
+              }
+
+              function renderNav() {
+                nav.innerHTML = '';
+                var tp = totalPages();
+
+                function btn(label, page, disabled, active) {
+                  var b = document.createElement('button');
+                  b.textContent = label;
+                  if (active) b.className = 'active';
+                  if (disabled) b.disabled = true;
+                  b.addEventListener('click', function () {
+                    currentPage = page;
+                    renderItems();
+                    renderNav();
+                    /* Cuộn lên đầu wrapper */
+                    wrapper.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                  });
+                  return b;
+                }
+
+                function dots() {
+                  var s = document.createElement('button');
+                  s.textContent = '…';
+                  s.className = 'pg-dots';
+                  s.disabled = true;
+                  return s;
+                }
+
+                nav.appendChild(btn('←', currentPage - 1, currentPage === 1));
+
+                var pages = [];
+                if (tp <= 7) {
+                  for (var i = 1; i <= tp; i++) pages.push(i);
+                } else {
+                  pages.push(1);
+                  if (currentPage > 3) pages.push('...');
+                  var lo = Math.max(2, currentPage - 1);
+                  var hi = Math.min(tp - 1, currentPage + 1);
+                  for (var j = lo; j <= hi; j++) pages.push(j);
+                  if (currentPage < tp - 2) pages.push('...');
+                  pages.push(tp);
+                }
+
+                pages.forEach(function (p) {
+                  if (p === '...') {
+                    nav.appendChild(dots());
+                  } else {
+                    nav.appendChild(btn(p, p, false, p === currentPage));
+                  }
+                });
+
+                nav.appendChild(btn('→', currentPage + 1, currentPage === tp));
+              }
+
+              perPageSelect.addEventListener('change', function () {
+                perPage = parseInt(this.value);
+                currentPage = 1;
+                renderItems();
+                renderNav();
+              });
+
+              /* Render lần đầu */
+              renderItems();
+              renderNav();
+            });
           });
         }
       ]
     };
   </script>
 
-  <!-- Docsify core — defer để không chặn render -->
   <script src="https://cdn.jsdelivr.net/npm/docsify@4" defer></script>
   <script src="https://cdn.jsdelivr.net/npm/docsify/lib/plugins/search.min.js" defer></script>
   <script src="https://cdn.jsdelivr.net/npm/docsify/lib/plugins/zoom-image.min.js" defer></script>
