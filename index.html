@@ -131,15 +131,14 @@
     plugins: [
         function(hook, vm) {
           hook.doneEach(function() {
-            // 1. Tìm phần nội dung của trang
             var content = document.querySelector('section.content');
             if (!content) return;
 
-            // 2. Xóa khung comment cũ nếu có (để tránh bị lặp khi chuyển trang)
+            // Xóa khung comment cũ để không bị lặp khi bấm qua bài khác
             var oldCusdis = document.getElementById('cusdis_thread');
             if (oldCusdis) oldCusdis.remove();
 
-            // 3. Tạo container cho Cusdis
+            // Tạo khung comment mới
             var container = document.createElement('div');
             container.id = 'cusdis_thread';
             container.setAttribute('data-host', 'https://cusdis.com');
@@ -148,28 +147,23 @@
             container.setAttribute('data-page-url', window.location.href);
             container.setAttribute('data-page-title', vm.route.path);
             
-            // Tùy chỉnh thêm: khoảng cách phía trên khung comment
-            container.style.marginTop = '50px';
-            container.style.borderTop = '1px solid #eee';
-            container.style.paddingTop = '20px';
-
             content.appendChild(container);
 
-            // 4. Chèn script của Cusdis để kích hoạt
+            // Chèn script Cusdis
             var script = document.createElement('script');
             script.src = 'https://cusdis.com/js/cusdis.es.js';
             script.async = true;
             script.defer = true;
             document.body.appendChild(script);
             
-            // 5. Làm mới Cusdis (cần thiết cho ứng dụng SPA như Docsify)
+            // Kích hoạt lại script nếu đã có sẵn trong bộ nhớ trình duyệt
             if (window.CUSDIS) {
               window.CUSDIS.initial();
             }
           });
         }
       ]
-    };
+    }; // Kết thúc window.$docsify
      </script>
 
   <script src="//cdn.jsdelivr.net/npm/docsify@4"></script>
