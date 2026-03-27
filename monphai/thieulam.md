@@ -18,15 +18,14 @@ Phật Quang (bổ sung sát thương tầm xa, thêm buff Phật Quang) Phật 
 Thái Tổ: Phá phòng (đánh ngã) + tụ lực một quyền (đánh bay) + bổ sung sát thương + hét (làm choáng) + tụ lực một quyền + bổ sung sát thương + xung phong → Combo đơn giản, không màu mè, nhưng lại khiến người ta khó lòng phòng bị. Đạt Ma Côn Pháp: Như Lai (choáng) + Phật Quang (tích buff) + Vạn Phật (đánh bay) + Phật Quang (tích buff) + xung phong (Có nộ) Như Lai + Phật Quang + Vạn Phật + Phật Quang + nộ + Phật Quang + xung phong (1 tầng Phật Quang + có nộ) Phá phòng mở đầu + Phật Quang (đánh ngã) + Vạn Phật + Phật Quang + Phá phòng bổ sát thương + Như Lai (choáng) + Phật Quang + nộ đánh ngã + Phật Quang + Vạn Phật (đánh bay)… 
 <br>**Điểm yếu:** <br>
 Đạt Ma Côn Pháp: thật ra rất ít điểm yếu, có chăng là việc thích tích sẵn Phật Quang trước giao tranh. Nhưng gặp người chơi biết “nhịn”, bạn sẽ thấy khó chịu đến mức nào. Thái Tổ: điểm yếu khá rõ — thành bại đều ở phá phòng. Chỉ cần canh xung phong, lợi dụng cơ chế “thực chiêu khắc chế hư chiêu” để phá khóa phá phòng, sau đó giữ đỡ và phản đánh là được. Từ Hàng Phổ Độ Côn: tầm tay ngắn là nhược điểm nhỏ, cách mở giao tranh đơn điệu, chỉ có phá phòng hoặc拼 chiêu, mà đều là cận chiến.
-    
 <br> **Kinh mạch:** <br>
  Kinh mạch thuận – nghịch của Thiếu Lâm đều có khả năng sinh tồn rất mạnh, là thuộc tính không thể thiếu cho bảng phòng thủ, đặc biệt là giảm sát thương bạo kích. Kỳ trân cũng thiên về khí huyết, rất phù hợp tank thịt, là một trong những kinh mạch bắt buộc với build ngoại công. Đặc điểm: So với các môn phái khác, Đạt Ma của Thiếu Lâm mạnh một cách toàn diện. Đây là môn phái thiên về đánh nhau, đặc biệt phù hợp đánh giao tranh. Còn solo thì ít nhất cũng ở mức T1. 
  <br>**Hướng phát triển:**<br>
  <br>Dù đi theo hướng tanker hay full st, đều có thể rất mạnh. <br>
- <br>Người chơi thường:<br>
+ <br>**Người chơi thường:**<br>
  Chiêu Vạn Phật nâng gear lên 2-3 sao, dùng côn trù, bảo vật tâm ma tăng sát thương chí mạng, búp bê ngoại công, kinh mạch ngoại công hoặc mạch thủ, nội công dùng Hội Ý Công. 
-<br> Người chơi khá:<br> 
+<br>**Người chơi khá:**<br> 
  Cả bộ gear Đạt Ma côn 2-3 sao, côn trù, bảo vật 750 chỉ số sát thương hoặc bỏ qua phòng ngự, oa oa ngoại công hoặc oa oa thuần phòng thủ, kinhmạch ngoại công hoặc thủ, nội công Hội Ý Công 
- <br>Đại gia:<br>
+ <br>**Đại gia:**<br>
  Không có giới hạn…
 
