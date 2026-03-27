@@ -18,7 +18,7 @@ Thuộc tính phong chiêu cao kết hợp phòng thủ cứng (khắc chế Hì
 **Điểm yếu:**<br>
  Ừm… động tác hơi xấu! Ngoài ra do nhiều kỹ năng khống chế nên khiến đối phương hồi giải khống nhanh hơn, số đoạn đánh nhiều nên dễ bị ngắt chiêu khắc chế, khả năng hạn chế khinh công ở mức trung bình…<br>
 
-<b style="font-weight: 1300;">Hướng xây dựng:</b><br>
+<b style="font-weight: 1300;">🛠️Hướng xây dựng:🛠️</b><br>
 **Người chơi thường:**<br>
 Hai vũ khí (vũ khí công phá + vũ khí phiên đằng), bảo vật tâm ma thiên về bk Kinh mạch thiên chịu đòn (hoặc sát thương), đồng hành theo hướng ngoại công → Khó xây dựng sát thương cao, không quá khuyến nghị <br>
 **Người chơi khá:** <br>
