@@ -1,6 +1,6 @@
 ﻿### Đánh giá môn phái - Vu Khư
 ![enter image description here](https://i.ibb.co/PZ1fNFv1/image.png)
-**Đồng linh diêu duệ khu quỷ mị, vũ bộ biên tiên nhiễu vân yên**<br>
+_Đồng linh diêu duệ khu quỷ mị, vũ bộ biên tiên nhiễu vân yên_<br>
  Vu Hư là môn phái mới của Cửu Âm trong năm nay, được sáng tạo dựa trên nền tảng nghi lễ mặt nạ. Mặt nạ phát triển tại vùng Quý Châu ngày nay, chủ yếu dùng để xua đuổi tà dịch, cầu mong mùa màng tốt tươi. Vậy môn phái mới lấy mặt nạ làm cốt lõi này sẽ mang lại trải nghiệm như thế nào? Dưới đây chúng ta tiếp tục bàn tiếp.<br>
  **Nội công:**<br>
  Hiệu quả nội công của Vu Hư giai đoạn đầu chủ yếu thiên về sát thương, còn về sau thì nghiêng nhiều hơn về phòng thủ. Đặc biệt là hiệu ứng ngắt chiêu và đẩy lùi của Lục Nội, có thể tạo cơ hội phản công vào thời điểm then chốt! Về thuộc tính nội công, tý lực và nội tức đều cao, vừa công vừa thủ, biểu hiện khá nổi bật.<br>
