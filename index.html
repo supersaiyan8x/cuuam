@@ -90,38 +90,32 @@
     }
 
     /* ===== PAGINATION ===== */
-    .docsify-pagination-wrapper {
-      margin-top: 20px;
-      padding: 12px 0 4px;
-      border-top: 1px solid var(--color-primary-lt);
-    }
 
-    /* Container danh sách đã ẩn */
-    .paginated-list-hidden {
+    /* Ẩn toàn bộ nội dung gốc đã được gom vào plugin */
+    .pg-source-hidden {
       display: none !important;
     }
 
-    /* Wrapper bao quanh list + controls */
-    .paginated-block {
+    .pg-wrapper {
       margin: 16px 0;
     }
 
-    /* Thanh điều khiển trên: tổng số + chọn số mục/trang */
-    .paginated-controls-top {
+    /* Thanh trên: tổng số + dropdown */
+    .pg-controls-top {
       display: flex;
       align-items: center;
       justify-content: space-between;
-      margin-bottom: 10px;
+      margin-bottom: 12px;
       flex-wrap: wrap;
       gap: 8px;
     }
 
-    .paginated-count {
+    .pg-count {
       font-size: 13px;
       color: #607d8b;
     }
 
-    .paginated-perpage-label {
+    .pg-perpage {
       font-size: 13px;
       color: #607d8b;
       display: flex;
@@ -129,9 +123,9 @@
       gap: 6px;
     }
 
-    .paginated-perpage-label select {
+    .pg-perpage select {
       font-size: 13px;
-      padding: 3px 6px;
+      padding: 3px 8px;
       border: 1px solid #b2dfdb;
       border-radius: 4px;
       background: #fff;
@@ -139,34 +133,34 @@
       cursor: pointer;
     }
 
-    /* List items hiển thị */
-    .paginated-items ul {
+    /* Vùng hiển thị các bài */
+    .pg-items ul {
       list-style: disc;
       padding-left: 1.5em;
       margin: 0;
     }
 
-    .paginated-items ul li {
-      padding: 4px 0;
-      line-height: 1.6;
+    .pg-items ul li {
+      padding: 5px 0;
+      line-height: 1.7;
       border-bottom: 1px dashed #e0f2f1;
     }
 
-    .paginated-items ul li:last-child {
+    .pg-items ul li:last-child {
       border-bottom: none;
     }
 
     /* Nút phân trang */
-    .paginated-nav {
+    .pg-nav {
       display: flex;
       align-items: center;
       justify-content: center;
       gap: 4px;
-      margin-top: 14px;
+      margin-top: 16px;
       flex-wrap: wrap;
     }
 
-    .paginated-nav button {
+    .pg-nav button {
       min-width: 32px;
       height: 32px;
       padding: 0 8px;
@@ -179,29 +173,29 @@
       transition: background 0.15s, color 0.15s;
     }
 
-    .paginated-nav button:hover:not(:disabled) {
+    .pg-nav button:hover:not(:disabled) {
       background: var(--color-primary-lt);
     }
 
-    .paginated-nav button.active {
+    .pg-nav button.active {
       background: var(--color-primary);
       color: #fff;
       border-color: var(--color-primary);
       font-weight: 600;
     }
 
-    .paginated-nav button:disabled {
+    .pg-nav button:disabled {
       opacity: 0.35;
       cursor: not-allowed;
     }
 
-    .paginated-nav .pg-dots {
+    .pg-nav .pg-dots {
       min-width: 24px;
       text-align: center;
       color: #90a4ae;
       font-size: 13px;
-      border: none;
-      background: none;
+      border: none !important;
+      background: none !important;
       cursor: default;
     }
   </style>
@@ -268,158 +262,169 @@
           });
         },
 
-        /* ── Plugin 2: Pagination cho danh sách link ── */
+        /* ── Plugin 2: Pagination gom tất cả <li> trong trang ── */
         function (hook) {
-          var DEFAULT_PER_PAGE = 10; // <-- Đổi số mặc định tại đây
+          var DEFAULT_PER_PAGE = 10; // Số bài mỗi trang mặc định
 
           hook.doneEach(function () {
             var section = document.querySelector('.markdown-section');
             if (!section) return;
 
-            /* Tìm tất cả <ul> có ít nhất 1 thẻ <a> bên trong */
-            var lists = Array.from(section.querySelectorAll('ul')).filter(function (ul) {
-              /* Chỉ xử lý list nằm trực tiếp trong section, không phải sidebar */
-              return ul.querySelectorAll('a').length > 0 &&
-                     !ul.closest('.sidebar') &&
-                     !ul.dataset.paginatedDone;
+            /* Lấy tất cả <ul> trong vùng nội dung, bỏ qua sidebar */
+            var allUls = Array.from(section.querySelectorAll('ul')).filter(function (ul) {
+              return !ul.closest('.sidebar') && !ul.dataset.pgDone;
             });
 
-            lists.forEach(function (ul) {
-              ul.dataset.paginatedDone = '1';
+            if (allUls.length === 0) return;
 
-              var items = Array.from(ul.children); // các <li>
-              if (items.length <= DEFAULT_PER_PAGE) return; // đủ ít thì thôi
-
-              var perPage = DEFAULT_PER_PAGE;
-              var currentPage = 1;
-
-              /* Ẩn list gốc */
-              ul.classList.add('paginated-list-hidden');
-
-              /* Tạo wrapper */
-              var wrapper = document.createElement('div');
-              wrapper.className = 'paginated-block';
-              ul.parentNode.insertBefore(wrapper, ul);
-
-              /* Thanh trên */
-              var controlsTop = document.createElement('div');
-              controlsTop.className = 'paginated-controls-top';
-
-              var countEl = document.createElement('span');
-              countEl.className = 'paginated-count';
-
-              var perPageLabel = document.createElement('label');
-              perPageLabel.className = 'paginated-perpage-label';
-              perPageLabel.textContent = 'Hiển thị: ';
-
-              var perPageSelect = document.createElement('select');
-              [5, 10, 20, 50].forEach(function (n) {
-                var opt = document.createElement('option');
-                opt.value = n;
-                opt.textContent = n + ' mục/trang';
-                if (n === DEFAULT_PER_PAGE) opt.selected = true;
-                perPageSelect.appendChild(opt);
-              });
-
-              perPageLabel.appendChild(perPageSelect);
-              controlsTop.appendChild(countEl);
-              controlsTop.appendChild(perPageLabel);
-              wrapper.appendChild(controlsTop);
-
-              /* Vùng hiển thị items */
-              var itemsContainer = document.createElement('div');
-              itemsContainer.className = 'paginated-items';
-              wrapper.appendChild(itemsContainer);
-
-              /* Thanh nút trang */
-              var nav = document.createElement('div');
-              nav.className = 'paginated-nav';
-              wrapper.appendChild(nav);
-
-              function totalPages() {
-                return Math.ceil(items.length / perPage);
-              }
-
-              function renderItems() {
-                var start = (currentPage - 1) * perPage;
-                var end = Math.min(start + perPage, items.length);
-
-                countEl.textContent =
-                  'Hiển thị ' + (start + 1) + '–' + end +
-                  ' / ' + items.length + ' mục';
-
-                var newUl = document.createElement('ul');
-                for (var i = start; i < end; i++) {
-                  newUl.appendChild(items[i].cloneNode(true));
+            /* Gom tất cả <li> từ mọi <ul> vào một mảng duy nhất */
+            var allItems = [];
+            allUls.forEach(function (ul) {
+              Array.from(ul.children).forEach(function (li) {
+                /* Chỉ lấy li có chứa link hoặc text thực sự */
+                if (li.textContent.trim()) {
+                  allItems.push(li.cloneNode(true));
                 }
-                itemsContainer.innerHTML = '';
-                itemsContainer.appendChild(newUl);
+              });
+              ul.dataset.pgDone = '1';
+            });
+
+            /* Nếu tổng số bài quá ít thì không cần phân trang */
+            if (allItems.length <= DEFAULT_PER_PAGE) return;
+
+            /* Ẩn toàn bộ các ul gốc + các h3 tiêu đề tháng đi
+               (vì plugin sẽ render lại theo số trang, không theo tháng) */
+            allUls.forEach(function (ul) {
+              ul.classList.add('pg-source-hidden');
+              /* Ẩn luôn heading h3 đứng trước ul đó nếu có */
+              var prev = ul.previousElementSibling;
+              while (prev && prev.tagName !== 'UL') {
+                prev.classList.add('pg-source-hidden');
+                prev = prev.previousElementSibling;
+                /* Dừng khi gặp h2 hoặc h1 (không ẩn tiêu đề lớn) */
+                if (prev && (prev.tagName === 'H1' || prev.tagName === 'H2')) break;
               }
+            });
 
-              function renderNav() {
-                nav.innerHTML = '';
-                var tp = totalPages();
+            var perPage = DEFAULT_PER_PAGE;
+            var currentPage = 1;
 
-                function btn(label, page, disabled, active) {
-                  var b = document.createElement('button');
-                  b.textContent = label;
-                  if (active) b.className = 'active';
-                  if (disabled) b.disabled = true;
+            /* Tạo wrapper chèn vào trước ul đầu tiên */
+            var wrapper = document.createElement('div');
+            wrapper.className = 'pg-wrapper';
+            allUls[0].parentNode.insertBefore(wrapper, allUls[0]);
+
+            /* Thanh trên */
+            var topBar = document.createElement('div');
+            topBar.className = 'pg-controls-top';
+
+            var countEl = document.createElement('span');
+            countEl.className = 'pg-count';
+
+            var perPageLabel = document.createElement('label');
+            perPageLabel.className = 'pg-perpage';
+            perPageLabel.textContent = 'Hiển thị: ';
+
+            var sel = document.createElement('select');
+            [5, 10, 20, 50].forEach(function (n) {
+              var opt = document.createElement('option');
+              opt.value = n;
+              opt.textContent = n + ' bài/trang';
+              if (n === DEFAULT_PER_PAGE) opt.selected = true;
+              sel.appendChild(opt);
+            });
+
+            perPageLabel.appendChild(sel);
+            topBar.appendChild(countEl);
+            topBar.appendChild(perPageLabel);
+            wrapper.appendChild(topBar);
+
+            /* Vùng items */
+            var itemsEl = document.createElement('div');
+            itemsEl.className = 'pg-items';
+            wrapper.appendChild(itemsEl);
+
+            /* Thanh nav */
+            var nav = document.createElement('div');
+            nav.className = 'pg-nav';
+            wrapper.appendChild(nav);
+
+            function totalPages() {
+              return Math.ceil(allItems.length / perPage);
+            }
+
+            function renderItems() {
+              var start = (currentPage - 1) * perPage;
+              var end = Math.min(start + perPage, allItems.length);
+              countEl.textContent = 'Bài ' + (start + 1) + '–' + end + ' / ' + allItems.length + ' bài';
+
+              var ul = document.createElement('ul');
+              for (var i = start; i < end; i++) {
+                ul.appendChild(allItems[i].cloneNode(true));
+              }
+              itemsEl.innerHTML = '';
+              itemsEl.appendChild(ul);
+            }
+
+            function renderNav() {
+              nav.innerHTML = '';
+              var tp = totalPages();
+
+              function makeBtn(label, page, disabled, active) {
+                var b = document.createElement('button');
+                b.textContent = label;
+                if (active) b.classList.add('active');
+                if (disabled) b.disabled = true;
+                if (!disabled) {
                   b.addEventListener('click', function () {
                     currentPage = page;
                     renderItems();
                     renderNav();
-                    /* Cuộn lên đầu wrapper */
                     wrapper.scrollIntoView({ behavior: 'smooth', block: 'start' });
                   });
-                  return b;
                 }
-
-                function dots() {
-                  var s = document.createElement('button');
-                  s.textContent = '…';
-                  s.className = 'pg-dots';
-                  s.disabled = true;
-                  return s;
-                }
-
-                nav.appendChild(btn('←', currentPage - 1, currentPage === 1));
-
-                var pages = [];
-                if (tp <= 7) {
-                  for (var i = 1; i <= tp; i++) pages.push(i);
-                } else {
-                  pages.push(1);
-                  if (currentPage > 3) pages.push('...');
-                  var lo = Math.max(2, currentPage - 1);
-                  var hi = Math.min(tp - 1, currentPage + 1);
-                  for (var j = lo; j <= hi; j++) pages.push(j);
-                  if (currentPage < tp - 2) pages.push('...');
-                  pages.push(tp);
-                }
-
-                pages.forEach(function (p) {
-                  if (p === '...') {
-                    nav.appendChild(dots());
-                  } else {
-                    nav.appendChild(btn(p, p, false, p === currentPage));
-                  }
-                });
-
-                nav.appendChild(btn('→', currentPage + 1, currentPage === tp));
+                return b;
               }
 
-              perPageSelect.addEventListener('change', function () {
-                perPage = parseInt(this.value);
-                currentPage = 1;
-                renderItems();
-                renderNav();
+              function makeDots() {
+                var b = document.createElement('button');
+                b.textContent = '…';
+                b.className = 'pg-dots';
+                b.disabled = true;
+                return b;
+              }
+
+              nav.appendChild(makeBtn('←', currentPage - 1, currentPage === 1));
+
+              var pages = [];
+              if (tp <= 7) {
+                for (var i = 1; i <= tp; i++) pages.push(i);
+              } else {
+                pages.push(1);
+                if (currentPage > 3) pages.push('...');
+                var lo = Math.max(2, currentPage - 1);
+                var hi = Math.min(tp - 1, currentPage + 1);
+                for (var j = lo; j <= hi; j++) pages.push(j);
+                if (currentPage < tp - 2) pages.push('...');
+                pages.push(tp);
+              }
+
+              pages.forEach(function (p) {
+                nav.appendChild(p === '...' ? makeDots() : makeBtn(p, p, false, p === currentPage));
               });
 
-              /* Render lần đầu */
+              nav.appendChild(makeBtn('→', currentPage + 1, currentPage === tp));
+            }
+
+            sel.addEventListener('change', function () {
+              perPage = parseInt(this.value);
+              currentPage = 1;
               renderItems();
               renderNav();
             });
+
+            renderItems();
+            renderNav();
           });
         }
       ]
