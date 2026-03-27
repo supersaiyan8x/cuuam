@@ -2,7 +2,7 @@
 ![enter image description here](https://i.ibb.co/FbwTLw05/image.png)
 *<br>*_Phá mạo già nhan quá thị triều, thân vô trường vật diệc tiêu dao._*<br>*
 Tới rồi tới rồi! Hắn mặc áo rách, cầm gậy tre chạy tới rồi! Mọi người chú ý, đây chính là môn phái chúng ta hôm nay giới thiệu — Cái Bang! Một môn phái từng phong thần thời kỳ Tứ Nội, một môn phái sở hữu bản giản lược của Đả Cẩu cổ phổ, một môn phái đưa sức đánh lên đến cực hạn! Cũng là… một trong những môn phái ít người nhất giang hồ hiện nay… thôi thì… nể mặt chút… Tiếp theo, chúng ta hãy cùng tìm hiểu kỹ về nó!
-<br>**⭐ Nội công*:⭐**<br>
+<br>**⭐ Nội công:⭐**<br>
 Nội công của Cái Bang đi theo hướng sát thương cực hạn, bộc phát cực mạnh! Trong đó, Tứ Nội chính là thời kỳ đỉnh cao!
 Tửu Vũ Thần Công — đúng là thần công! Tăng tỷ lệ bộc phát, tăng sát thương. Ngũ Nội thì yếu đi một chút, còn Lục Nội lại càng thiên về ngoại công cực hạn, vừa tăng sát thương vừa giảm phòng thủ!
 Xét theo góc độ nhân vật thiên ngoại công, không có môn phái nào có thể sánh được với lượng sát thương của Lục Nội Cái Bang (PK thì đúng… chứ đánh Boss thì không được vậy).
