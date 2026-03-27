@@ -117,7 +117,7 @@ Nếu đánh chuẩn nhịp:
 👉 Võ Đang có thể giữ đối thủ trong trạng thái bị khống chế liên tục, rất khó phản kháng
 <br>🌿 Kinh mạch:🌿 <br>
 Không có gì nổi bật, không đáng nhắc nhiều.
-**Nhược điểm:**
+<br>**Nhược điểm:**<br>
 Điểm yếu của Võ Đang khá rõ ràng:
 <br>**Thanh Phong Kiếm Pháp:**<br>
 Phụ thuộc vào Phá Phòng (đảo địa) hoặc tích Kiếm Khí
