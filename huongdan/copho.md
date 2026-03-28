@@ -1,4 +1,4 @@
-﻿## Cổ phổ là gì? Và cách để lấy được cổ phổ.
+﻿## Cổ phổ là gì? Và cách để lấy được cổ phổ. (*bài viết sưu tầm từ forum cuuam*)
 Trong thế giới Cửu Âm Chân Kinh (CACK),  **Cổ Phổ**  luôn là đỉnh cao mà vô số nhân sĩ võ lâm khao khát chinh phục. Đây không chỉ là những bộ võ học, mà là những  **Bí Pháp độc quyền**  mang uy lực khuynh đảo giang hồ. Chính vì sức mạnh phi thường này, việc sở hữu Cổ Phổ luôn là mục tiêu tối thượng.
 Hiện tại, trong phiên bản mới tổng cộng có  **15 bộ võ học Cổ Phổ**  được phân chia thành hai nhóm chính dựa trên phương thức thu thập:
 ### I. Nhóm Cổ Phổ Có Thể Sưu Tầm
