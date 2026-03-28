@@ -15,9 +15,7 @@
               transition: all 0.3s ease;">
       Bắt Đầu Hành Trình
     </a> 
-    
     <span style="color: #ccc; font-weight: 300; font-size: 1.5rem;">|</span> 
-    
     <a href="vo-hoc/mon-phai" 
        class="btn-explore"
        style="color: #ffffff; 
