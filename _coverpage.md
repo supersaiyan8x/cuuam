@@ -3,7 +3,7 @@
 <br>
 <br>
 <br>
-<h1 align="center" style="font-size: 4rem; font-weight: 800; color: #004d40;">Age of Wushu TaiWan</h1>
+<h1 align="center" style="font-size: 4rem; font-weight: 800; color: #8b0000;">Age of Wushu TaiWan</h1>
 <p align="center">
   <a href="#README">Bắt Đầu Hành Trình</a> | 
   <a href="#monphai/chinhphai.md">Khám Phá Võ Học</a>
