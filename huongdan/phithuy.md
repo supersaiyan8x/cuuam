@@ -50,7 +50,7 @@
 
 **Phần điểm cộng thẳng vào skill**
     Tất cả các skill võ học trong cửu âm đều có thể tìm trong phần này bao gồm từ võ phái - giang hồ, cổ phổ , tuyệt thế…
-    2- LÀM SAO ĐỂ CÓ PHỈ
+    <br>2- LÀM SAO ĐỂ CÓ PHỈ<br>
     - Phỉ thúy chỉ có thể nhận bằng cách đổi NPC Lưu Đĩnh Bằng - một tên quan tham bụng bự chuyên hút tiền của ae  
     ( icon hộp quà tại tất cả các map) 15 hỏa cán đài đổi được 1 phỉ ngẫu nhiên thuộc tính hoặc 1 phiếu đổi bảo vật + 1 hcd ( khi có phỉ không ưng ý mang đi phân giải sẽ nhận được phiếu này )
     Khi mở ra sẽ ra 3 loại phỉ khác nhau  
@@ -66,7 +66,7 @@
     Rồng , cờ : 40 -50  
     võ phái như kim đỉnh, côn thiếu lâm . phật tâm, uyên ương 2x - 3x hcd  
     Càng bộ nhiều người chơi thì càng có giá, ngược lại ít người như hoa thần, huyết hải thì giá càng giảm, thậm chí k bán được
-    3 - ROLL SET PHỈ ƯNG Ý  
+    <br>3 - ROLL SET PHỈ ƯNG Ý <br>
     - phỉ chỉ thực sự mạnh khi có đủ set giống nhau, giống việc bạn muốn xây dựng nhân vật hướng nào thì chỉ theo 1 hướng , đừng lan man  
     - Như ở trên đã đề cập bạn có thể mua phôi của người chơi khác mới tiến hành roll dòng vàng trong ví dụ này tôi sẽ lấy ví dụ với tham hợp chỉ  
     - Bạn có thể mua sẵn phôi có sẵn skill tham hợp chỉ hoặc cứ đi bóc để ra skill mới tiến hành roll, trong bộ võ này có nhiều chiêu nên tôi sẽ chỉ mua skill có đầy đủ 3 chiêu : bàng chỉ, chỉ chỉ, đạn chỉ / nếu sever quá thiếu hoặc bạn quá bấn chơi phỉ tối thiểu phải có skill nộ : đạn chỉ  
@@ -98,7 +98,7 @@
     Đầu game mới mở khi chưa có ev tiêu phí, đồ vẫn đắt hoặc hcd mua bằng vàng giá : 70k /1  
     tụt dần theo giá đĩnh, tầm nc3 là 50k /1…
    
-    4 - UP SKILL VÀ ĐÁNH BÓNG
+  <br>  4 - UP SKILL VÀ ĐÁNH BÓNG<br>
     - Phỉ thúy mặc định sẽ là phẩm 6 - vô dữ luận tỷ có thể trang bị ( giới hạn tlbk 2% / stbk 14% )  
     phẩm 8 cử thế ( giới hạn tlbk 3% / stbk 16% )  
     phẩm 12 thâm tàng ( giới hạn tlbk 4% / stbk 18% )  
