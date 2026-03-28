@@ -9,4 +9,4 @@
   <a href="#monphai/chinhphai.md">Khám Phá Võ Học</a>
 </p>
 
-![background](https://i.ibb.co/yBPz17JM/IMG-3334.webp)
+![background](https://i.ibb.co/cKJscqX2/Gemini-Generated-Image-g7jxs6g7jxs6g7jx-1.jpg)
