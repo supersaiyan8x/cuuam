@@ -1,30 +1,14 @@
-<div style="margin-top: 150px; text-align: center;">
-  <h1 style="font-size: 3.5rem; font-weight: 700; color: #004d40; margin-bottom: 20px;">
+<div class="home-hero-container">
+  <h1 class="home-title">
     Age of Wushu TaiWan
   </h1>
   
-  <p style="font-size: 1.3rem; display: flex; justify-content: center; align-items: center; gap: 20px;">
-    <a href="#README" 
-       class="btn-start"
-       style="color: #39cccc !important; /* MÀU XANH NGỌC CỦA BẠN (BUỘC ÁP DỤNG) */
-              font-weight: 600;
-              text-decoration: none; 
-              border: 2px solid #39cccc; /* Viền cùng màu */
-              padding: 12px 30px; 
-              border-radius: 50px; /* Làm nút bo tròn */
-              transition: all 0.3s ease;">
+  <p class="home-btn-group">
+    <a href="#README" class="btn-cyan-light">
       Bắt Đầu Hành Trình
     </a> 
-    <span style="color: #ccc; font-weight: 300; font-size: 1.5rem;">|</span> 
-    <a href="vo-hoc/mon-phai" 
-       class="btn-explore"
-       style="color: #ffffff !important; 
-              background-color: #00796b; /* Màu xanh đậm của bạn */
-              font-weight: 600;
-              text-decoration: none; 
-              padding: 12px 30px; 
-              border-radius: 50px;
-              transition: all 0.3s ease;">
+    <span class="btn-separator">|</span> 
+    <a href="vo-hoc/mon-phai" class="btn-green-dark">
       Khám Phá Võ Học
     </a>
   </p>
