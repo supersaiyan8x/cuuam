@@ -8,8 +8,8 @@
   * [ Update võ học](update-vo-hoc.md)
   * [ Thông tin sv Snail](Snail-news.md)
 * 💡 **Hướng Dẫn Khác**
-  * [ Hướng dẫn cơ bản](huong-dan/hdcb.md)
-  * [ Tip hữu ích](huong-dan/tip.md)
+  * [ Hướng dẫn cơ bản](huongdan/hdcb.md)
+  * [ Tip hữu ích](huongdan/tip.md)
 * ⚔️ **Môn Phái**
   * [ Chính Phái](monphai/chinhphai.md)
   * [ Thế Lực-Ẩn Thế](monphai/theluc.md)
