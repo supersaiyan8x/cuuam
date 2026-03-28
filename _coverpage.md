@@ -9,4 +9,4 @@
   <a href="#monphai/chinhphai.md">Khám Phá Võ Học</a>
 </p>
 
-![background](https://i.ibb.co/93S20pgt/newschool.webp)
+![background](https://i.ibb.co/yBPz17JM/IMG-3334.webp)
