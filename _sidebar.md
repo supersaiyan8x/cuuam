@@ -7,9 +7,9 @@
   * [ Update pb Sv Snail-TW](updatepb/m.md)
   * [ Update võ học](update-vo-hoc.md)
   * [ Thông tin sv Snail](Snail-news.md)
-* 🌱 **Tân Thủ Hướng Dẫn**
-  * [ Khởi Đầu Giang Hồ](tan-thu/khoi-dau.md)
-  * [ Lộ Trình Build Acc](tan-thu/build.md)
+* 💡 **Hướng Dẫn Khác**
+  * [ Hướng dẫn cơ bản](huong-dan/hdcb.md)
+  * [ Tip hữu ích](huong-dan/tip.md)
 * ⚔️ **Môn Phái**
   * [ Chính Phái](monphai/chinhphai.md)
   * [ Thế Lực-Ẩn Thế](monphai/theluc.md)
@@ -22,5 +22,6 @@
   * [ Thận Cảnh](cam-dia/than-canh.md)
   * [ Bí Bảo](cam-dia/bi-bao.md)
   * [ Cấm Địa khác](cam-dia/cd-khac.md)
-* 💡 **Hướng Dẫn Khác**
-  * [ Tip hữu ích](huong-dan/tip.md)
+* 🌱 **Tân Thủ Hướng Dẫn**
+  * [ Khởi Đầu Giang Hồ](tan-thu/khoi-dau.md)
+  * [ Lộ Trình Build Acc](tan-thu/build.md)
