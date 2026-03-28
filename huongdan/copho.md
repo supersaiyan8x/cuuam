@@ -53,11 +53,11 @@ Khi đã được coi trọng, bạn có thể nhận  **nhiệm vụ tham ngộ
 
 #### Hợp Thành Bí Kíp Hoàn Chỉnh
 -   Sau khi hoàn thành nhiệm vụ tham ngộ, người chơi sẽ nhận được  **Chiêu Thức Tâm Đắc**  tương ứng. Chiêu Thức Tâm Đắc cho phép bạn xem trước động tác chiêu thức, nhưng chưa thể học để chính thức nhận chiêu thức.
-    -   Cuối cùng, khi sở hữu  **Chiêu Thức Tâm Đắc, 10 Cổ Phổ Tàn Quyển**  tương ứng, và  **100 nguyên liệu hợp thành Cổ Phổ**, bạn có thể đổi lấy  **tầng 7-8**  của chiêu thức tương ứng tại chỗ Thế Ngoại Cao Nhân.  
-    **Lưu ý:**
-        -   Số lượng Cổ Phổ-II ở chỗ Thế Ngoại Cao Nhân là có hạn.
-            -   Mỗi nhiệm vụ tham ngộ có thể tiến hành lặp lại, chu kỳ là 14 ngày (Phòng người chơi sau khi làm mất Tâm Đắc không thể nhận lại).
-            -   Tâm Đắc nhận được của nhiệm vụ và phân trang chiêu thức đều khóa.
-            -   Số lượng Cổ Phổ tầng 7 và tầng 8 có hạn chế về số người có thể đổi trong một tháng.
-            -   Khi tiến hành làm nhiệm vụ "coi trọng", lưu ý nhớ tháo võ kỹ để tránh làm nhiệm vụ bị lỗi.
+    -   Cuối cùng, khi sở hữu  **Chiêu Thức Tâm Đắc, 10 Cổ Phổ Tàn Quyển**  tương ứng, và  **100 nguyên liệu hợp thành Cổ Phổ**, bạn có thể đổi lấy  **tầng 7-8**  của chiêu thức tương ứng tại chỗ Thế Ngoại Cao Nhân.
+  **Lưu ý:**
+ -   Số lượng Cổ Phổ-II ở chỗ Thế Ngoại Cao Nhân là có hạn.
+ -   Mỗi nhiệm vụ tham ngộ có thể tiến hành lặp lại, chu kỳ là 14 ngày (Phòng người chơi sau khi làm mất Tâm Đắc không thể nhận lại).
+ -  Tâm Đắc nhận được của nhiệm vụ và phân trang chiêu thức đều khóa.
+ -  Số lượng Cổ Phổ tầng 7 và tầng 8 có hạn chế về số người có thể đổi trong một tháng.
+ -  Khi tiến hành làm nhiệm vụ "coi trọng", lưu ý nhớ tháo võ kỹ để tránh làm nhiệm vụ bị lỗi.
                                           <br>**bài viết sưu tầm từ forum cuuam**<br>
