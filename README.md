@@ -4,6 +4,7 @@ Chào mừng bạn đến với trang lưu trữ võ học và nội công cửu
 <div style="text-align: center; margin: 20px 0;">
   <img src="https://i.ibb.co/FkYWmGKv/c1-bg-1.jpg" style="max-width: 100%; height: auto;">
 </div>
+<h4 style="text-align: center;">Phiên bản hiện tại:Chú Kiếm Quy Lư (Mở mp ẩn thế của Vu Khư- Trường Lạc Phường</h4>
 <h4 style="text-align: center;">Gia nhập Discord sv TaiWan (Bang VN)</h4>
 <a href="https://discord.gg/xuH4kx8K">
   <img src="https://i.ibb.co/wZXg0WtQ/bb-W4u80g7y-IVxsphv9di-Nw-1.png">
