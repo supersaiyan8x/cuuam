@@ -1,19 +1,12 @@
-<div class="home-hero-container">
-  <h1 class="home-title">
-    Age of Wushu TaiWan
-  </h1>
-  
-  <p class="home-btn-group">
-    <a href="#README" class="btn-cyan-light">
-      Bắt Đầu Hành Trình
-    </a> 
-    <span class="btn-separator">|</span> 
-    <a href="vo-hoc/mon-phai" class="btn-green-dark">
-      Khám Phá Võ Học
-    </a>
-  </p>
-</div>
-
 <br>
+<br>
+<br>
+<br>
+<br>
+<h1 align="center" style="font-size: 3rem; font-weight: 600; color: #004d40;">Age of Wushu TaiWan</h1>
+<p align="center">
+  <a href="#README">Bắt Đầu Hành Trình</a> | 
+  <a href="vo-hoc/mon-phai">Khám Phá Võ Học</a>
+</p>
 
 ![background](https://github.com/supersaiyan8x/cuuam/blob/main/images/Gemini_Generated_Image_b7uks4b7uks4b7uk.png?raw=true)
