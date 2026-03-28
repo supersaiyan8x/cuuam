@@ -60,4 +60,4 @@ Khi đã được coi trọng, bạn có thể nhận  **nhiệm vụ tham ngộ
  -  Tâm Đắc nhận được của nhiệm vụ và phân trang chiêu thức đều khóa.
  -  Số lượng Cổ Phổ tầng 7 và tầng 8 có hạn chế về số người có thể đổi trong một tháng.
  -  Khi tiến hành làm nhiệm vụ "coi trọng", lưu ý nhớ tháo võ kỹ để tránh làm nhiệm vụ bị lỗi.
-                                          <br>**bài viết sưu tầm từ forum cuuam**<br>
+<br>(bài viết sưu tầm từ forum cuuam)<br>
