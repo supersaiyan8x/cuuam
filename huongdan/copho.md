@@ -22,7 +22,7 @@ Nhóm này bao gồm các bí kíp huyền thoại:
 3.  **Cửu Dương Tuyệt Học**
 4.  **Giáng Long Thập Bát Chưởng**
 5.  **Thiên Ma Bát Âm**
-6.  **Dã Cẩu Quyền**
+6.  **Dã Cầu Quyền**
 
     Việc theo đuổi Cổ Phổ là một hành trình dài đầy gian nan, nhưng với uy lực tuyệt thế mà chúng mang lại, đây luôn là sự đầu tư xứng đáng để khẳng định vị thế đỉnh cao trong giới võ lâm Cửu Âm Chân Kinh. 
     **Ở bài này mình chỉ bàn luận về cách đổi và thu thập cổ phổ thuộc nhóm có thể sưu tầm, còn nhóm cổ phổ thuộc hàng tuyệt thế sẽ có một bài riêng vào những dịp tới.**
