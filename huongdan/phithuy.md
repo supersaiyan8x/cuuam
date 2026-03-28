@@ -48,7 +48,7 @@
 39.  `- Bỏ qua cương phòng`
 40.  `7- Bỏ qua nhu phòng`
 
-**Phần điểm cộng thẳng vào skill**
+<br>**Phần điểm cộng thẳng vào skill**<br>
     Tất cả các skill võ học trong cửu âm đều có thể tìm trong phần này bao gồm từ võ phái - giang hồ, cổ phổ , tuyệt thế…
     <br>2- LÀM SAO ĐỂ CÓ PHỈ<br>
     - Phỉ thúy chỉ có thể nhận bằng cách đổi NPC Lưu Đĩnh Bằng - một tên quan tham bụng bự chuyên hút tiền của ae  
