@@ -9,4 +9,4 @@
   <a href="#monphai/chinhphai.md">Khám Phá Võ Học</a>
 </p>
 
-![background](https://github.com/supersaiyan8x/cuuam/blob/main/images/Gemini_Generated_Image_b7uks4b7uks4b7uk.png?raw=true)
+![background](https://i.ibb.co/93S20pgt/newschool.webp)
