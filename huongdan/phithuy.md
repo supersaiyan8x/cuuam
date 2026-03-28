@@ -47,7 +47,8 @@
 38.  `- Bỏ qua dương phòng`
 39.  `- Bỏ qua cương phòng`
 40.  `7- Bỏ qua nhu phòng`
-    **- Phần điểm cộng thẳng vào skill**  
+
+**Phần điểm cộng thẳng vào skill**
     Tất cả các skill võ học trong cửu âm đều có thể tìm trong phần này bao gồm từ võ phái - giang hồ, cổ phổ , tuyệt thế…
     2- LÀM SAO ĐỂ CÓ PHỈ
     - Phỉ thúy chỉ có thể nhận bằng cách đổi NPC Lưu Đĩnh Bằng - một tên quan tham bụng bự chuyên hút tiền của ae  
@@ -110,4 +111,4 @@
     5 otp : chưa được chơi nhưng dự kiến mỗi phỉ cần 200 -500d  
     để đánh bóng tối thiểu đạt 85% dạng max
     Hi vọng với những chia sẻ này giúp ích mn trong quá trình build nhân vật và theo đuổi cực hạn võ thuật
-    (bài viết sưu tầm từ forum cuuamvn)
+    <br>(bài viết sưu tầm từ forum cuuamvn) <br>
