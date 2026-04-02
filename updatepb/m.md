@@ -1,5 +1,6 @@
 ### [Tháng 04/2026] - Phiên Bản Mới
-* [Thông tin update mới tháng 4](updatepb/updatethang4.md) - *25/03/2026*
+* [Thông tin update chế độ "Huyền Cơ Bí Cảnh"](updatepb/huyencoupdate.md) 
+* [Thông tin update mới tháng 4](updatepb/updatethang4.md) 
 * [Thông tin update tháng 4](updatepb/updatethang4(1).md)
 
 ### [Tháng 02/2026] - Sự Kiện Tết Nguyên Đán
