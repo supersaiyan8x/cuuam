@@ -235,10 +235,8 @@ button,input,select{font-family:inherit}
 .buf-range.on{opacity:1;border-left-color:var(--gold2);background:var(--gold-tint)}
 .buf-range .tier-hd{color:var(--gold3)}
 .empty{padding:60px;text-align:center;color:var(--dim)}
-/* Web build uses one sprite image; offline build keeps original data-URL <img>. */
-.ico{display:inline-block;width:48px;height:48px;flex:none;border-radius:6px;border:1px solid var(--line2);background-color:var(--imgbg);background-image:url(icons_sprite.webp);background-repeat:no-repeat}
-.miditem .ico{transform:scale(.875)}
-.avatar .ico{transform:scale(1.4);border:0;border-radius:8px}
+/* Web build serves the original WebP files; offline build keeps data-URL <img>. */
+.ico{object-fit:cover;background:var(--imgbg);flex:none}
 .boot-loader{position:fixed;inset:0;z-index:9999;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:14px;background:var(--bg);color:var(--ink);font-size:15px}
 .boot-spin{width:38px;height:38px;border:3px solid var(--line2);border-top-color:var(--gold);border-radius:50%;animation:bootspin .8s linear infinite}
 @keyframes bootspin{to{transform:rotate(360deg)}}
@@ -271,7 +269,6 @@ button,input,select{font-family:inherit}
   .header-title-row{gap:10px}
   .header-title-row h2{font-size:20px}
   .avatar{width:64px;height:64px}
-  .avatar .ico{transform:scale(1.25)}
   .elem-line,.wuxia-meta,.level-controls,.hit-strip,.info-grid{font-size:14px}
   .info-grid{grid-template-columns:1fr}
   .hit-strip{gap:10px}
@@ -285,7 +282,7 @@ button,input,select{font-family:inherit}
   .lang-toggle button{padding:4px 6px}
 }
 </style>
-<link rel="preload" as="image" href="icons_sprite.webp"></head>
+</head>
 <body>
 <div class="boot-loader" id="bootLoader"><div class="boot-spin"></div><div id="bootText">Đang tải dữ liệu…</div></div>
 <div class="topnav">
@@ -313,7 +310,7 @@ button,input,select{font-family:inherit}
 </div>
 <script>
 let DATA, I18N, SK, IC;
-const img=k=>{const i=IC[k];if(i==null)return '';const x=(i%64)*48,y=Math.floor(i/64)*48;return '<span class="ico" style="background-position:-'+x+'px -'+y+'px"></span>';};
+const img=k=>{const v=String(k||'');return v?'<img class="ico" loading="lazy" alt="" src="icons/'+encodeURIComponent(v)+'.webp">':'';};
 const esc=s=>String(s==null?'':s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
 let curType='wuxue', curGroup='', curSet=null, curMove=0, curLevel=1;
 let openGroups=new Set();
