@@ -234,11 +234,44 @@ button,input,select{font-family:inherit}
 .buf-range.on{opacity:1;border-left-color:var(--gold2);background:var(--gold-tint)}
 .buf-range .tier-hd{color:var(--gold3)}
 .empty{padding:60px;text-align:center;color:var(--dim)}
+/* Web build uses one sprite image; offline build keeps original data-URL <img>. */
+.ico{display:inline-block;width:48px;height:48px;flex:none;border-radius:6px;border:1px solid var(--line2);background-color:var(--imgbg);background-image:url(icons_sprite.webp);background-repeat:no-repeat}
+.miditem .ico{transform:scale(.875)}
+.avatar .ico{transform:scale(1.4);border:0;border-radius:8px}
+.boot-loader{position:fixed;inset:0;z-index:9999;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:14px;background:var(--bg);color:var(--ink);font-size:15px}
+.boot-spin{width:38px;height:38px;border:3px solid var(--line2);border-top-color:var(--gold);border-radius:50%;animation:bootspin .8s linear infinite}
+@keyframes bootspin{to{transform:rotate(360deg)}}
 @media(max-width:1100px){.sidebar{width:190px}.midbar{width:260px}}
-@media(max-width:820px){.sidebar{display:none}.midbar{width:100%}.content{display:none}.content.on{display:block;position:fixed;inset:56px 0 0;z-index:40}.back{display:block}}
+@media(max-width:820px){
+  .sidebar{display:none}.midbar{width:100%}
+  .content{display:none}.content.on{display:block;position:fixed;inset:56px 0 0;z-index:40}
+  .back{display:inline-flex;position:fixed;left:10px;top:64px;z-index:60;align-items:center;gap:4px;padding:8px 12px;background:var(--panel);border:1px solid var(--line2);border-radius:6px;color:var(--gold);font-size:14px;box-shadow:0 3px 12px var(--shadow)}
+  .wuxia-header-box{padding:58px 16px 16px}
+  .wuxia-card{padding:16px}
+  .header-title-row{gap:10px}
+  .header-title-row h2{font-size:20px}
+  .avatar{width:64px;height:64px}
+  .avatar .ico{transform:scale(1.25)}
+  .elem-line,.wuxia-meta,.level-controls,.hit-strip,.info-grid{font-size:14px}
+  .info-grid{grid-template-columns:1fr}
+  .hit-strip{gap:10px}
+  .bonus-panel{width:100%;max-height:90vh}
+  .brand-en,.topnav .hint{display:none}
+  .topnav{gap:8px;padding:0 10px}
+  .topnav .tabs button{padding:6px 8px;font-size:13px}
+  .miditem{padding:10px 12px;min-height:60px}
+  .miditem .nm b{font-size:15px}
+  .sticky{padding:12px}
+}
+@media(max-width:480px){
+  .brand{font-size:13px}
+  .theme-toggle{padding:5px 7px}
+  .lang-toggle button{padding:4px 6px}
+}
 </style>
-</head>
+<link rel="preload" as="image" href="icons_sprite.webp"></head>
 <body>
+<div class="boot-loader" id="bootLoader"><div class="boot-spin"></div><div id="bootText">Đang tải dữ liệu…</div></div>
 <div class="topnav">
   <div class="brand"><span class="yin">☯</span> <span data-i18n="brand">Vĩnh Lạc Đại Điển · Võ Học Bảo Giám</span><span class="brand-en">WUXUE CODEX</span></div>
   <div class="tabs">
@@ -261,15 +294,9 @@ button,input,select{font-family:inherit}
   </div>
   <div class="pane content" id="content"><div class="c" id="carea"></div></div>
 </div>
-<script>window.__WX_DATA__={};window.__WX_I18N__={};</script>
-<script src="data-skills.js" charset="utf-8"></script>
-<script src="data-icons.js" charset="utf-8"></script>
-<script src="data-i18n.js" charset="utf-8"></script>
 <script>
-const DATA=window.__WX_DATA__;
-const I18N=window.__WX_I18N__;
-const SK=DATA.skills, IC=DATA.icons;
-const img=k=>IC[k]||'';
+let DATA, I18N, SK, IC;
+const img=k=>{const i=IC[k];if(i==null)return '';const x=(i%64)*48,y=Math.floor(i/64)*48;return '<span class="ico" style="background-position:-'+x+'px -'+y+'px"></span>';};
 const esc=s=>String(s==null?'':s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
 let curType='wuxue', curGroup='', curSet=null, curMove=0, curLevel=1;
 let openGroups=new Set();
@@ -474,10 +501,10 @@ function renderMid(keepScroll=false){
   if(!list.length){box.innerHTML='<div class="empty">'+esc(L('notFound'))+'</div>';box.scrollTop=scroll;return;}
   if(curSet){
     box.innerHTML=`<div class="setinfo" style="padding:10px 14px;border-bottom:1px solid var(--line2);color:var(--gold2);font-size:13px">📖 ${esc(F(curSet,'n'))} · ${esc(F(curSet,'c'))} <span style="color:var(--dim)">(${esc(L('moves')(list.length))})</span></div>`+
-      list.map(x=>{const m=x.m;return `<div class="miditem ${x.i===curMove?'on':''}" data-mv="${x.i}">${m?`<img src="${img(m.i)}"><div class="nm"><b>${esc(MN(m))}</b><small>${esc(F(m,'ty'))} · ${esc(F(m,'el'))}</small></div><span class="stamp">${esc(m.p)}</span>`:`<img src="${img(curSet.i)}"><div class="nm"><b>${esc(F(curSet,'n'))}</b><small>${esc(L('neiJing'))}</small></div>`}</div>`;}).join('');
-    box.querySelectorAll('[data-mv]').forEach(x=>x.onclick=()=>{curMove=+x.dataset.mv;curLevel=1;renderMid(true);renderContent();document.getElementById('content').classList.add('on');});
+      list.map(x=>{const m=x.m;return `<div class="miditem ${x.i===curMove?'on':''}" data-mv="${x.i}">${m?`${img(m.i)}<div class="nm"><b>${esc(MN(m))}</b><small>${esc(F(m,'ty'))} · ${esc(F(m,'el'))}</small></div><span class="stamp">${esc(m.p)}</span>`:`${img(curSet.i)}<div class="nm"><b>${esc(F(curSet,'n'))}</b><small>${esc(L('neiJing'))}</small></div>`}</div>`;}).join('');
+    box.querySelectorAll('[data-mv]').forEach(x=>x.onclick=()=>{curMove=+x.dataset.mv;curLevel=1;renderMid(true);renderContent();openContent();});
   } else {
-    box.innerHTML=list.map(x=>{const s=x.s;return `<div class="miditem" data-k="${s.k}"><img src="${img(s.i)}"><div class="nm"><b>${esc(F(s,'n'))}</b><small>${esc(F(s,'g')||F(s,'c'))} · ${s.m?esc(L('moves')(s.m.length)):''}</small></div><span class="stamp">${esc(F(s,'c'))}</span></div>`;}).join('');
+    box.innerHTML=list.map(x=>{const s=x.s;return `<div class="miditem" data-k="${s.k}">${img(s.i)}<div class="nm"><b>${esc(F(s,'n'))}</b><small>${esc(F(s,'g')||F(s,'c'))} · ${s.m?esc(L('moves')(s.m.length)):''}</small></div><span class="stamp">${esc(F(s,'c'))}</span></div>`;}).join('');
     box.querySelectorAll('[data-k]').forEach(x=>x.onclick=()=>openSet(+x.dataset.k));
   }
   box.scrollTop=scroll;
@@ -487,8 +514,7 @@ function openSet(k){
   curSet=SK.find(s=>s.k===k);
   if(curSet){curGroup=canonGroup(curSet);curMove=0;curLevel=1;openGroups.add(curGroup);}
   renderCats(true);renderMid();renderContent();
-  document.getElementById('content').classList.add('on');
-  document.getElementById('content').scrollTop=0;
+  openContent();
 }
 
 function dmgShort(lv){
@@ -705,9 +731,9 @@ function renderContent(){
     headIcon=s.m[curMove].i;
   }
   document.title=headName+(headName!==setName?' - '+setName:'')+' | '+brand;
-  let h='<button class="back" onclick="document.getElementById(\'content\').classList.remove(\'on\')">'+esc(L('back'))+'</button>';
+  let h='<button class="back" onclick="closeContent()">'+esc(L('back'))+'</button>';
   h+=`<div class="wuxia-header-box"><div class="stamp-watermark">${esc(L('types')[s.t])}</div>
-    <div class="header-title-row"><div class="avatar"><img src="${img(headIcon)}"></div>
+    <div class="header-title-row"><div class="avatar">${img(headIcon)}</div>
     <h2>${esc(headName)}<span class="badge-origin">${esc(headBadge)}</span></h2></div>`;
   if(s.t==='wuxue'&&s.m&&s.m.length){
     const m=s.m[curMove];
@@ -801,10 +827,24 @@ function renderContent(){
   }
 }
 
+function openContent(){
+  const c=document.getElementById('content');
+  if(!c.classList.contains('on')) history.pushState({wx:1},'');
+  c.classList.add('on');c.scrollTop=0;
+}
+function closeContent(){
+  const c=document.getElementById('content');
+  if(!c.classList.contains('on'))return;
+  c.classList.remove('on');
+  if(history.state&&history.state.wx) history.back();
+}
+window.addEventListener('popstate',()=>{document.getElementById('content').classList.remove('on');});
+
 document.querySelectorAll('.topnav .tabs button').forEach(b=>b.onclick=()=>{
   curType=b.dataset.t;curGroup='';curSet=null;curMove=0;curLevel=1;
   document.querySelectorAll('.topnav .tabs button').forEach(x=>x.classList.toggle('on',x===b));
   document.getElementById('qmid').value='';
+  document.getElementById('content').classList.remove('on');
   resetCats();renderCats();renderMid();renderContent();
 });
 document.getElementById('qmid').oninput=()=>renderMid();
@@ -822,9 +862,25 @@ function setLang(next){
 document.querySelectorAll('#langToggle button').forEach(b=>b.onclick=()=>setLang(b.dataset.lang));
 document.getElementById('themeToggle').onclick=()=>{theme=theme==='dark'?'light':'dark';applyTheme();};
 
-applyTheme();
-applyStatic();
-resetCats();renderCats();renderMid();renderContent();
+function boot(){
+  SK=DATA.skills;IC=DATA.icons;
+  applyTheme();applyStatic();
+  resetCats();renderCats();renderMid();renderContent();
+  const l=document.getElementById('bootLoader');if(l)l.remove();
+}
+(async()=>{
+  const t=document.getElementById('bootText');
+  try{
+    const [core,i18n]=await Promise.all([
+      fetch('data-core.json').then(r=>{if(!r.ok)throw Error(r.status);return r.json()}),
+      fetch('data-i18n.json').then(r=>{if(!r.ok)throw Error(r.status);return r.json()})
+    ]);
+    if(t)t.textContent='Đang dựng dữ liệu…';
+    DATA=core;I18N=i18n;
+    await new Promise(r=>requestAnimationFrame(r));
+    boot();
+  }catch(e){if(t)t.textContent='Lỗi tải dữ liệu: '+e.message;console.error(e);}
+})();
 </script>
 </body>
 </html>
