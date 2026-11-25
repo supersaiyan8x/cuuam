@@ -79,7 +79,11 @@
 :root[data-theme="light"] .miditem .nm b,
 :root[data-theme="light"] .buffer-box h5,
 :root[data-theme="light"] .buf-section>h5,
+:root[data-theme="light"] .ng-stat-block h5,
 :root[data-theme="light"] .tier-txt{font-size:15px}
+:root[data-theme="light"] .ng-points,
+:root[data-theme="light"] .ng-stat-grid{font-size:14px}
+:root[data-theme="light"] .ng-stat-sub{font-size:13px}
 *{box-sizing:border-box}
 html,body{margin:0;height:100%;overflow:hidden;background:var(--bg);color:var(--ink);font-family:var(--font-body);font-size:15px;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale}
 button,input,select{font-family:inherit}
@@ -177,6 +181,15 @@ img{-webkit-user-drag:none;user-select:none}
 .card-title .cost{color:var(--dim);font-size:13px;font-style:italic}
 .buffer-box{border-left:3px solid var(--gold2);padding-left:14px;margin-bottom:18px}
 .buffer-box h5{color:var(--gold2);margin:0 0 10px;letter-spacing:1px;font-size:14px}
+.ng-stat-block{border-left:3px solid var(--gold2);padding-left:14px;margin-bottom:18px}
+.ng-stat-block h5{color:var(--gold2);margin:0 0 10px;letter-spacing:1px;font-size:14px}
+.ng-points{color:var(--dim);font-size:13px;margin:0 0 8px}
+.ng-points b{color:var(--gold3);font-weight:400}
+.ng-stat-sub{color:var(--gold3);font-size:12px;margin:10px 0 5px}
+.ng-stat-grid{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:4px 6px;text-align:center;font-size:13px}
+.ng-stat-grid.active{grid-template-columns:repeat(4,minmax(0,1fr))}
+.ng-stat-grid .k{color:var(--dim);font-size:12px}
+.ng-stat-grid .v{color:var(--gold);font-weight:700;font-family:var(--font-title)}
 .tier{padding:13px 18px 13px 14px;border-left:3px solid transparent;border-radius:0 4px 4px 0;cursor:pointer;transition:.25s;margin-bottom:6px;background:transparent;opacity:.38}
 .tier.on{opacity:1;border-left-color:var(--gold);background:var(--gold-tint)}
 .tier-hd{color:var(--dim);font-size:13px;font-weight:700;margin-bottom:7px}
@@ -271,6 +284,10 @@ img{-webkit-user-drag:none;user-select:none}
   .header-title-row h2{font-size:20px}
   .avatar{width:64px;height:64px}
   .elem-line,.wuxia-meta,.level-controls,.hit-strip,.info-grid{font-size:14px}
+  .ng-stat-grid{grid-template-columns:repeat(5,minmax(0,1fr));gap:4px 2px}
+  .ng-stat-grid.active{grid-template-columns:repeat(4,minmax(0,1fr))}
+  .ng-stat-grid .k{font-size:11px}
+  .ng-stat-grid .v{font-size:12px}
   .info-grid{grid-template-columns:1fr}
   .hit-strip{gap:10px}
   .bonus-panel{width:100%;max-height:90vh}
@@ -383,6 +400,7 @@ const UI={
   bufTitle:'✦ Hiệu ứng tâm pháp · Tầng hiện tại',
   bufRange:(lo,hi)=>`Tầng ${lo}${hi!==lo?' - '+hi:''}`, current:'(Hiện tại)',
   statsTitle:'Gia tăng thuộc tính · Tầng hiện tại',
+  statPoints:'Điểm nội công', statBase:'Chỉ số nội công',
   equipPower:'Nội công phát huy thực lực trang bị', activeStats:'Chỉ số khi vận hành kích hoạt',
   rank:'Cấp bậc', castTime:'Thi triển', maxDist:'Khoảng cách tối đa', maxTargets:'Số mục tiêu tối đa',
   recoil:'Hồi chiêu', ratio:'Hệ số cộng', perHitDur:'Thời gian mỗi đòn',
@@ -424,6 +442,7 @@ const UI={
   bufTitle:'✦ 心法效果 · 当前层',
   bufRange:(lo,hi)=>`第 ${lo} 层${hi!==lo?' - '+hi+' 层':''}`, current:'(当前)',
   statsTitle:'属性提升 · 当前层',
+  statPoints:'内功点数', statBase:'内功属性',
   equipPower:'内功发挥装备实力上限', activeStats:'运功激活',
   rank:'阶位', castTime:'施放时间', maxDist:'最大距离', maxTargets:'最多攻击',
   recoil:'回气时间', ratio:'加成系数', perHitDur:'每击持续时间',
@@ -459,10 +478,10 @@ function CV(v){
   v=String(v==null?'':v);
   return lang==='vi' && CJK.test(v) ? (I18N.targets[v]||v) : v;
 }
-const EN_ZH={BufferID:'效果ID',BufferLevel:'效果等级',DexAdd:'身法',IngAdd:'罡气',
+const EN_ZH={BufferID:'效果ID',BufferLevel:'效果等级',DexAdd:'身法',IngAdd:'内息',
  Level:'等级',MaxHPAdd:'气血',MaxMPAdd:'内力',MaxParryAdd:'招架值',
  MaxPowerValue:'最大威力',MinMagicDefAdd:'内功防御',NeiGongLevel:'内功等级',
- PhyDefAdd:'外功防御',SpiAdd:'内息',StaAdd:'体魄',StrAdd:'臂力',WearCondition:'装备条件'};
+ PhyDefAdd:'外功防御',SpiAdd:'罡气',StaAdd:'体魄',StrAdd:'臂力',WearCondition:'装备条件'};
 const STAT_HIDE=new Set(['BufferID','BufferLevel','WearCondition','PhyDefAdd']);
 function STATLABEL(k){
   if(!k) return '';
@@ -752,19 +771,26 @@ function fmtStats(st){
     return '<span class="stat-chip"><b>'+esc(STATLABEL(x.slice(0,i)))+'</b>: '+esc(x.slice(i+1))+'</span>';
   }).join('');
 }
-function fmtNeiStats(st, only){
-  if(!st) return '';
-  const groups={
-    equip:['StrAdd','IngAdd','DexAdd','SpiAdd','StaAdd'],
-    active:['MaxHPAdd','MaxMPAdd','MaxParryAdd','MinMagicDefAdd'],
-  };
+// WeChat mini-app order: 臂力 / 内息 / 身法 / 罡气 / 体魄.
+// IngAdd is 内息 (nội tức); SpiAdd is 罡气 (cương khí) — do not swap again.
+const NG_BASE=['StrAdd','IngAdd','DexAdd','SpiAdd','StaAdd'];
+const NG_ACTIVE=['MaxHPAdd','MaxMPAdd','MaxParryAdd','MinMagicDefAdd'];
+function neiStatMap(st){
   const d={};
-  String(st).split('; ').forEach(x=>{
+  String(st||'').split('; ').forEach(x=>{
     const i=x.indexOf('=');
     if(i>=0) d[x.slice(0,i)]=x.slice(i+1);
   });
-  const keys=only&&groups[only]?groups[only]:Object.keys(d).filter(k=>!STAT_HIDE.has(k));
-  return keys.filter(k=>d[k]!=null).map(k=>'<span class="stat-chip"><b>'+esc(STATLABEL(k))+'</b>: '+esc(d[k])+'</span>').join('');
+  return d;
+}
+function fmtNeiGrid(st, keys, factor){
+  const d=neiStatMap(st), f=factor||1;
+  return '<div class="ng-stat-grid'+(keys.length===4?' active':'')+'">'+
+    keys.map(k=>{
+      const raw=d[k];
+      const val=raw==null?0:(f===1?raw:Math.trunc(Number(raw)*f));
+      return '<div class="k">'+esc(STATLABEL(k))+'</div><div class="v">'+esc(val)+'</div>';
+    }).join('')+'</div>';
 }
 
 function levelControls(max){
@@ -849,9 +875,14 @@ function renderContent(){
         `<div class="buf-range on"><div class="tier-hd">${esc(L('bufRange')(lo,hi))}<em>${esc(L('current'))}</em></div><div class="tier-txt">${fmtDesc(act[3])}</div></div>`+
         `</div>`;
     }
-    h+=`<div class="buffer-box"><h5>${esc(L('equipPower'))}</h5><div class="tier-txt">${fmtNeiStats(cur.st,'equip')}</div></div>`+
-       `<div class="buffer-box"><h5>${esc(L('activeStats'))}</h5><div class="tier-txt">${fmtNeiStats(cur.st,'active')}</div></div>`+
-       `<div class="buffer-box"><h5>${esc(L('statsTitle'))}</h5><div class="tier-txt">${fmtNeiStats(cur.st)}</div></div></div>`;
+    const nst=neiStatMap(cur.st);
+    h+=`<div class="ng-stat-block"><h5>${esc(L('statsTitle'))}</h5>`+
+       `<p class="ng-points"><b>${esc(L('statPoints'))}:</b> ${esc(nst.NeiGongLevel||'—')}</p>`+
+       `<div class="ng-stat-sub">${esc(L('statBase'))}</div>`+fmtNeiGrid(cur.st,NG_BASE,1)+
+       `<div class="ng-stat-sub">${esc(L('equipPower'))}</div>`+fmtNeiGrid(cur.st,NG_BASE,1.5)+
+       `</div>`+
+       `<div class="ng-stat-block"><h5>${esc(L('activeStats'))}</h5>`+
+       fmtNeiGrid(cur.st,NG_ACTIVE,1)+`</div></div>`;
   } else {
     lv=(s.lv||[]).slice().reverse();
     const cur=lv[curLevel-1]||{};
