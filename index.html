@@ -310,7 +310,7 @@ button,input,select{font-family:inherit}
 </div>
 <script>
 let DATA, I18N, SK, IC;
-const img=k=>{const v=String(k||'');return v?'<img class="ico" loading="lazy" alt="" src="icons/'+encodeURIComponent(v)+'.webp">':'';};
+const img=k=>IC[k]?'<img src="'+IC[k]+'">':'';
 const esc=s=>String(s==null?'':s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
 let curType='wuxue', curGroup='', curSet=null, curMove=0, curLevel=1;
 let openGroups=new Set();
@@ -895,12 +895,13 @@ function boot(){
 (async()=>{
   const t=document.getElementById('bootText');
   try{
-    const [core,i18n]=await Promise.all([
+    const [core,icons,i18n]=await Promise.all([
       fetch('data-core.json').then(r=>{if(!r.ok)throw Error(r.status);return r.json()}),
+      fetch('data-icons.json').then(r=>{if(!r.ok)throw Error(r.status);return r.json()}),
       fetch('data-i18n.json').then(r=>{if(!r.ok)throw Error(r.status);return r.json()})
     ]);
     if(t)t.textContent='Đang dựng dữ liệu…';
-    DATA=core;I18N=i18n;
+    DATA=Object.assign({},core,{icons:icons});I18N=i18n;
     await new Promise(r=>setTimeout(r,0));
     boot();
   }catch(e){if(t)t.textContent='Lỗi tải dữ liệu: '+e.message;console.error(e);}
