@@ -507,7 +507,7 @@ function renderCats(keepScroll=false, forceQ=null){
     Object.entries(groups).map(([g,arr])=>{
       const label=groupLabel(arr[0]);
       return `<div class="cat ${openGroups.has(g)?'open':''}" data-g="${esc(g)}" data-gv="${esc(label)}"><h3><span>☯ ${esc(label)}</span><span class="arw">▶</span></h3><div class="sub">`+
-        arr.map(s=>`<div data-k="${s.k}" data-n0="${esc(s.n0==null?s.n:s.n0)}" data-n="${esc(s.n)}" class="${curSet&&curSet.k===s.k?'on':''}">${esc(F(s,'n'))}<span>${esc(F(s,'c'))}</span></div>`).join('')+
+        arr.map(s=>`<div data-k="${s.k}" data-n0="${esc(s.n0==null?s.n:s.n0)}" data-n="${esc(s.n)}" class="${curSet&&curSet.k===s.k?'on':''}">${esc(F(s,'n'))}${F(s,'c')?`<span>${esc(F(s,'c'))}</span>`:''}</div>`).join('')+
         `</div></div>`;
     }).join('');
   el.querySelectorAll('.cat h3').forEach(h=>h.onclick=()=>{
@@ -557,7 +557,7 @@ function renderMid(keepScroll=false){
       list.map(x=>{const m=x.m;return `<div class="miditem ${x.i===curMove?'on':''}" data-mv="${x.i}">${m?`${img(m.i)}<div class="nm"><b>${esc(MN(m))}</b><small>${esc(F(m,'ty'))} · ${esc(F(m,'el'))}</small></div><span class="stamp">${esc(m.p)}</span>`:`${img(curSet.i)}<div class="nm"><b>${esc(F(curSet,'n'))}</b><small>${esc(L('neiJing'))}</small></div>`}</div>`;}).join('');
     box.querySelectorAll('[data-mv]').forEach(x=>x.onclick=()=>{curMove=+x.dataset.mv;curLevel=1;renderMid(true);renderContent();openContent();});
   } else {
-    box.innerHTML=list.map(x=>{const s=x.s;return `<div class="miditem" data-k="${s.k}">${img(s.i)}<div class="nm"><b>${esc(F(s,'n'))}</b><small>${esc(F(s,'g')||F(s,'c'))} · ${s.m?esc(L('moves')(s.m.length)):''}</small></div><span class="stamp">${esc(F(s,'c'))}</span></div>`;}).join('');
+    box.innerHTML=list.map(x=>{const s=x.s;const c=F(s,'c');return `<div class="miditem" data-k="${s.k}">${img(s.i)}<div class="nm"><b>${esc(F(s,'n'))}</b><small>${esc(F(s,'g')||c)} · ${s.m?esc(L('moves')(s.m.length)):''}</small></div>${c?`<span class="stamp">${esc(c)}</span>`:''}</div>`;}).join('');
     box.querySelectorAll('[data-k]').forEach(x=>x.onclick=()=>openSet(+x.dataset.k));
   }
   box.scrollTop=scroll;
@@ -795,7 +795,7 @@ function renderContent(){
   let h='<button class="back" onclick="closeContent()">'+esc(L('back'))+'</button>';
   h+=`<div class="wuxia-header-box"><div class="stamp-watermark">${esc(L('types')[s.t])}</div>
     <div class="header-title-row"><div class="avatar">${img(headIcon)}</div>
-    <h2>${esc(headName)}<span class="badge-origin">${esc(headBadge)}</span></h2></div>`;
+    <h2>${esc(headName)}${headBadge?`<span class="badge-origin">${esc(headBadge)}</span>`:''}</h2></div>`;
   if(s.t==='wuxue'&&s.m&&s.m.length){
     const m=s.m[curMove];
     h+=`<div class="elem-line"><strong>${esc(L('attr'))}</strong><span style="color:var(--cyan)">${esc(F(m,'el')||'—')}</span></div>
@@ -855,7 +855,8 @@ function renderContent(){
   } else {
     lv=(s.lv||[]).slice().reverse();
     const cur=lv[curLevel-1]||{};
-    h+=`<div class="elem-line"><strong>${esc(L('source'))}</strong>${esc(F(s,'g'))}</div><p class="wuxia-meta"><span><strong>${esc(L('category'))}</strong>${esc(F(s,'c'))}</span></p></div>`;
+    h+=`<div class="elem-line"><strong>${esc(L('source'))}</strong>${esc(F(s,'g'))}</div>`+
+       (F(s,'c')?`<p class="wuxia-meta"><span><strong>${esc(L('category'))}</strong>${esc(F(s,'c'))}</span></p>`:'')+`</div>`;
     if(s.sum) h+=`<div class="wuxia-card" style="margin-bottom:16px"><div class="tier-txt">${fmtDesc(F(s,'sum'))}</div></div>`;
     h+=levelControls(Math.max(1,lv.length));
     h+=`<div class="wuxia-card"><i class="ornament tl"></i><i class="ornament tr"></i><i class="ornament bl"></i><i class="ornament br"></i><div class="card-title"><h4>${esc(L('tier')(cur.n||curLevel,F(cur,'r')))}</h4><span class="cost">${esc(L('cost')(cur.s||'',''))}</span></div>
