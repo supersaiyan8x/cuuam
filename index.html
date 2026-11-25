@@ -904,7 +904,7 @@ function boot(){
     ]);
     if(t)t.textContent='Đang dựng dữ liệu…';
     DATA=core;I18N=i18n;
-    await new Promise(r=>requestAnimationFrame(r));
+    await new Promise(r=>setTimeout(r,0));
     boot();
   }catch(e){if(t)t.textContent='Lỗi tải dữ liệu: '+e.message;console.error(e);}
 })();
