@@ -131,6 +131,7 @@ button,input,select{font-family:inherit}
 .cat .sub div span{color:var(--dim);font-size:11px}
 
 /* mid list */
+img{-webkit-user-drag:none;user-select:none}
 .midlist{flex:1;overflow-y:auto}
 .miditem{height:65px;border-bottom:1px solid var(--line);display:flex;align-items:center;padding:0 14px;cursor:pointer;gap:10px}
 .miditem:hover{background:var(--panel)}
@@ -317,6 +318,39 @@ let openGroups=new Set();
 let lang='vi';
 let theme='dark';
 try{theme=localStorage.getItem('wuxue-theme')==='light'?'light':'dark';}catch(e){}
+
+// Data bundles are delivered as obfuscated, gzip-compressed JavaScript chunks.
+// The browser still needs the bytes to render, but there are no plain JSON URLs
+// to download and the payload is useless without this decoder.
+const WX_KEY='wuxue-codex-2026-ao';
+async function wxDecode(b64,name){
+  const bin=atob(b64),u=new Uint8Array(bin.length);
+  for(let i=0;i<bin.length;i++) u[i]=bin.charCodeAt(i)^WX_KEY.charCodeAt(i%WX_KEY.length);
+  const raw=new Blob([u]).stream().pipeThrough(new DecompressionStream('gzip'));
+  const obj=JSON.parse(await new Response(raw).text());
+  try{window['__WX_'+name]=null;}catch(e){}
+  return obj;
+}
+function wxLoad(name){
+  return new Promise((res,rej)=>{
+    if(window['__WX_'+name]!=null) return res(window['__WX_'+name]);
+    const s=document.createElement('script');
+    s.src='wx-'+name+'.js';s.async=true;
+    s.onload=()=>{const v=window['__WX_'+name];if(v==null)rej(Error('Thiếu dữ liệu '+name));else res(v);};
+    s.onerror=()=>rej(Error('Không tải được '+name));
+    document.head.appendChild(s);
+  });
+}
+// Deter saved copies / drag-off, while still allowing text selection and Ctrl+C.
+if(location.protocol==='http:'||location.protocol==='https:'){
+  document.addEventListener('contextmenu',e=>{if(!e.target.closest('input,textarea,select'))e.preventDefault();});
+  document.addEventListener('dragstart',e=>e.preventDefault());
+  document.addEventListener('keydown',e=>{
+    const k=String(e.key||'').toLowerCase(),mod=e.ctrlKey||e.metaKey;
+    if(mod&&(k==='s'||k==='u'||k==='p'))e.preventDefault();
+    if(e.key==='F12'||(mod&&e.shiftKey&&(k==='i'||k==='j'||k==='c')))e.preventDefault();
+  });
+}
 function applyTheme(){
   document.documentElement.dataset.theme=theme;
   const b=document.getElementById('themeToggle');
@@ -534,11 +568,14 @@ function clearSet(){
   renderCats(true);renderMid();renderContent();
   document.getElementById('content').classList.remove('on');
 }
+const isMobile=()=>window.matchMedia('(max-width:820px)').matches;
 function openSet(k){
   curSet=SK.find(s=>s.k===k);
   if(curSet){curGroup=canonGroup(curSet);curMove=0;curLevel=1;openGroups.add(curGroup);}
   renderCats(true);renderMid();renderContent();
-  openContent();
+  // On a phone the middle column IS the list of moves of the chosen set.
+  // Opening the detail overlay here would skip that list entirely.
+  if(!isMobile()) openContent();
 }
 
 function dmgShort(lv){
@@ -895,11 +932,9 @@ function boot(){
 (async()=>{
   const t=document.getElementById('bootText');
   try{
-    const [core,icons,i18n]=await Promise.all([
-      fetch('data-core.json').then(r=>{if(!r.ok)throw Error(r.status);return r.json()}),
-      fetch('data-icons.json').then(r=>{if(!r.ok)throw Error(r.status);return r.json()}),
-      fetch('data-i18n.json').then(r=>{if(!r.ok)throw Error(r.status);return r.json()})
-    ]);
+    const [core,icons,i18n]=await Promise.all(
+      ['core','icons','i18n'].map(n=>wxLoad(n).then(v=>wxDecode(v,n)))
+    );
     if(t)t.textContent='Đang dựng dữ liệu…';
     DATA=Object.assign({},core,{icons:icons});I18N=i18n;
     await new Promise(r=>setTimeout(r,0));
