@@ -24,6 +24,7 @@
   --green:#4ade80; --yellow:#fde047; --bright:#2ed573;
   --font-body:"Segoe UI",Tahoma,Geneva,Verdana,"Microsoft YaHei","PingFang SC",sans-serif;
   --font-title:"Philosopher","Playfair Display","Microsoft YaHei",serif;
+  --navh:56px;
 }
 :root[data-theme="light"]{
   color-scheme:light;
@@ -90,7 +91,7 @@ button,input,select{font-family:inherit}
 ::-webkit-scrollbar-thumb:hover{background:var(--line3)}
 
 /* top nav */
-.topnav{height:56px;background:var(--bg);border-bottom:1px solid var(--line2);display:flex;align-items:center;padding:0 16px;gap:18px;position:relative;z-index:50}
+.topnav{height:var(--navh);background:var(--bg);border-bottom:1px solid var(--line2);display:flex;align-items:center;padding:0 16px;gap:18px;position:relative;z-index:50}
 .brand{color:var(--gold2);font-size:20px;font-weight:700;letter-spacing:2px;display:flex;align-items:center;gap:8px;white-space:nowrap}
 .brand .yin{font-size:24px;color:var(--gold)}
 .topnav .tabs{display:flex;gap:4px;margin-left:12px}
@@ -106,7 +107,7 @@ button,input,select{font-family:inherit}
 .theme-toggle:hover{background:var(--panel);color:var(--gold)}
 
 /* layout */
-.layout{display:flex;height:calc(100% - 56px)}
+.layout{display:flex;height:calc(100% - var(--navh))}
 .pane{height:100%;overflow-y:auto;overflow-x:hidden}
 .sidebar{width:230px;flex:none;background:var(--panel2);border-right:1px solid var(--line2)}
 .midbar{width:300px;flex:none;background:var(--panel2);border-right:1px solid var(--line2);display:flex;flex-direction:column;overflow:hidden}
@@ -241,11 +242,30 @@ button,input,select{font-family:inherit}
 .boot-loader{position:fixed;inset:0;z-index:9999;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:14px;background:var(--bg);color:var(--ink);font-size:15px}
 .boot-spin{width:38px;height:38px;border:3px solid var(--line2);border-top-color:var(--gold);border-radius:50%;animation:bootspin .8s linear infinite}
 @keyframes bootspin{to{transform:rotate(360deg)}}
+.mobile-cat-btn,.cat-close,.cat-mask,.allsets-btn{display:none}
+.setinfo{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.setinfo .allsets-btn{display:inline-block;margin-right:auto;background:var(--panel);border:1px solid var(--line2);border-radius:4px;color:var(--gold2);padding:5px 9px;font-size:12px;cursor:pointer}
 @media(max-width:1100px){.sidebar{width:190px}.midbar{width:260px}}
 @media(max-width:820px){
-  .sidebar{display:none}.midbar{width:100%}
-  .content{display:none}.content.on{display:block;position:fixed;inset:56px 0 0;z-index:40}
-  .back{display:inline-flex;position:fixed;left:10px;top:64px;z-index:60;align-items:center;gap:4px;padding:8px 12px;background:var(--panel);border:1px solid var(--line2);border-radius:6px;color:var(--gold);font-size:14px;box-shadow:0 3px 12px var(--shadow)}
+  :root{--navh:104px}
+  .topnav{flex-wrap:wrap;align-content:center;gap:0 8px;padding:0 10px}
+  .brand{flex:1;min-width:0;font-size:17px;letter-spacing:1px}
+  .brand [data-i18n="brand"]{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+  .brand-en,.topnav .hint,.topnav .spacer{display:none}
+  .topnav .tabs{order:5;flex:0 0 100%;margin:4px 0 0;gap:4px}
+  .topnav .tabs button{flex:1;padding:8px 4px;font-size:13px;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+  .midbar{width:100%}
+  .sticky{padding:12px}
+  .sticky .title-row{display:flex;align-items:center;justify-content:space-between;gap:8px}
+  .sticky h2{margin-bottom:8px;flex:1}
+  .mobile-cat-btn{display:inline-flex;align-items:center;gap:4px;background:var(--panel);border:1px solid var(--line2);border-radius:4px;color:var(--gold2);padding:6px 9px;font-size:13px;cursor:pointer;white-space:nowrap}
+  .sidebar{display:block;position:fixed;left:0;top:var(--navh);bottom:0;width:min(86vw,340px);z-index:75;transform:translateX(-105%);transition:transform .2s ease;box-shadow:6px 0 28px var(--shadow)}
+  .sidebar.open{transform:none}
+  .sidebar .sticky{position:sticky}
+  .cat-close{display:inline-flex;align-items:center;justify-content:center;width:30px;height:28px;background:var(--panel);border:1px solid var(--line2);border-radius:4px;color:var(--gold2);cursor:pointer;font-size:14px}
+  .cat-mask.on{display:block;position:fixed;inset:var(--navh) 0 0;background:var(--mask);z-index:70}
+  .content{display:none}.content.on{display:block;position:fixed;inset:var(--navh) 0 0;z-index:40}
+  .back{display:inline-flex;position:fixed;left:10px;top:calc(var(--navh) + 8px);z-index:60;align-items:center;gap:4px;padding:8px 12px;background:var(--panel);border:1px solid var(--line2);border-radius:6px;color:var(--gold);font-size:14px;box-shadow:0 3px 12px var(--shadow)}
   .wuxia-header-box{padding:58px 16px 16px}
   .wuxia-card{padding:16px}
   .header-title-row{gap:10px}
@@ -256,15 +276,11 @@ button,input,select{font-family:inherit}
   .info-grid{grid-template-columns:1fr}
   .hit-strip{gap:10px}
   .bonus-panel{width:100%;max-height:90vh}
-  .brand-en,.topnav .hint{display:none}
-  .topnav{gap:8px;padding:0 10px}
-  .topnav .tabs button{padding:6px 8px;font-size:13px}
   .miditem{padding:10px 12px;min-height:60px}
   .miditem .nm b{font-size:15px}
-  .sticky{padding:12px}
 }
 @media(max-width:480px){
-  .brand{font-size:13px}
+  .brand{font-size:15px}
   .theme-toggle{padding:5px 7px}
   .lang-toggle button{padding:4px 6px}
 }
@@ -288,8 +304,9 @@ button,input,select{font-family:inherit}
 </div>
 <div class="layout">
   <div class="pane sidebar" id="sidebar"></div>
+  <div class="cat-mask" id="catMask" onclick="toggleCats(false)"></div>
   <div class="pane midbar">
-    <div class="sticky"><h2><span data-i18n="catalog">Mục lục</span> <span id="midcount" style="color:var(--dim);font-size:12px"></span></h2><input class="wuxia-search" id="qmid"></div>
+    <div class="sticky"><div class="title-row"><h2><span data-i18n="catalog">Mục lục</span> <span id="midcount" style="color:var(--dim);font-size:12px"></span></h2><button class="mobile-cat-btn" onclick="toggleCats(true)">☰ <span data-i18n="library">Tàng Thư Các</span></button></div><input class="wuxia-search" id="qmid"></div>
     <div class="midlist" id="midlist"></div>
   </div>
   <div class="pane content" id="content"><div class="c" id="carea"></div></div>
@@ -314,7 +331,7 @@ const UI={
  vi:{
   brand:'Vĩnh Lạc Đại Điển · Võ Học Bảo Giám',
   hint:'Tra cứu ngoại tuyến · 532 mục',
-  catalog:'Mục lục', library:'Tàng Thư Các', theme:'Đổi giao diện sáng / tối',
+  catalog:'Mục lục', library:'Tàng Thư Các', allSets:'← Tất cả bộ', closeCats:'✕ Đóng', theme:'Đổi giao diện sáng / tối',
   catSearch:'Tìm phân loại / bộ...', nameSearch:'Tìm tên...',
   notFound:'Không tìm thấy', moves:n=>`${n} chiêu`, neiJing:'Nội công / Kinh mạch',
   empty:'Hãy chọn một bộ / nội công / kinh mạch từ Tàng Thư Các',
@@ -355,7 +372,7 @@ const UI={
  zh:{
   brand:'永乐大典 · 武学宝鉴',
   hint:'离线查询 · 532 项',
-  catalog:'目录', library:'藏书阁', theme:'切换明暗主题',
+  catalog:'目录', library:'藏书阁', allSets:'← 全部套路', closeCats:'✕ 关闭', theme:'切换明暗主题',
   catSearch:'搜索分类 / 套路...', nameSearch:'搜索名称...',
   notFound:'未找到', moves:n=>`${n} 招`, neiJing:'内功 / 经脉',
   empty:'请从左侧藏书阁选择一个套路 / 内功 / 经脉',
@@ -444,13 +461,18 @@ function resetCats(){
   openGroups=new Set(first?[first]:[]);
 }
 
+function toggleCats(on){
+  const s=document.getElementById('sidebar'),m=document.getElementById('catMask');
+  if(!s||!m)return;
+  s.classList.toggle('open',!!on);m.classList.toggle('on',!!on);
+}
 function renderCats(keepScroll=false, forceQ=null){
   const groups=allGroups();
   const el=document.getElementById('sidebar');
   const scroll=keepScroll?el.scrollTop:0;
   const oldQ=document.getElementById('qcat');
   const qval=forceQ==null ? (keepScroll&&oldQ?oldQ.value:'') : forceQ;
-  el.innerHTML='<div class="sticky"><h2>'+esc(L('library'))+'</h2><input class="wuxia-search" id="qcat" value="'+esc(qval)+'" placeholder="'+esc(L('catSearch'))+'"></div>'+
+  el.innerHTML='<div class="sticky"><div class="title-row"><h2>'+esc(L('library'))+'</h2><button class="cat-close" onclick="toggleCats(false)">'+esc(L('closeCats'))+'</button></div><input class="wuxia-search" id="qcat" value="'+esc(qval)+'" placeholder="'+esc(L('catSearch'))+'"></div>'+
     Object.entries(groups).map(([g,arr])=>{
       const label=groupLabel(arr[0]);
       return `<div class="cat ${openGroups.has(g)?'open':''}" data-g="${esc(g)}" data-gv="${esc(label)}"><h3><span>☯ ${esc(label)}</span><span class="arw">▶</span></h3><div class="sub">`+
@@ -461,7 +483,7 @@ function renderCats(keepScroll=false, forceQ=null){
     const cat=h.parentElement;cat.classList.toggle('open');
     if(cat.classList.contains('open'))openGroups.add(cat.dataset.g);else openGroups.delete(cat.dataset.g);
   });
-  el.querySelectorAll('.cat .sub div').forEach(d=>d.onclick=()=>openSet(+d.dataset.k));
+  el.querySelectorAll('.cat .sub div').forEach(d=>d.onclick=()=>{openSet(+d.dataset.k);toggleCats(false);});
   const q=document.getElementById('qcat');
   const filter=v=>{
     el.querySelectorAll('.cat').forEach(c=>{
@@ -500,7 +522,7 @@ function renderMid(keepScroll=false){
   const scroll=keepScroll?box.scrollTop:0;
   if(!list.length){box.innerHTML='<div class="empty">'+esc(L('notFound'))+'</div>';box.scrollTop=scroll;return;}
   if(curSet){
-    box.innerHTML=`<div class="setinfo" style="padding:10px 14px;border-bottom:1px solid var(--line2);color:var(--gold2);font-size:13px">📖 ${esc(F(curSet,'n'))} · ${esc(F(curSet,'c'))} <span style="color:var(--dim)">(${esc(L('moves')(list.length))})</span></div>`+
+    box.innerHTML=`<div class="setinfo" style="padding:10px 14px;border-bottom:1px solid var(--line2);color:var(--gold2);font-size:13px"><button class="allsets-btn" onclick="clearSet()">${esc(L('allSets'))}</button>📖 ${esc(F(curSet,'n'))} · ${esc(F(curSet,'c'))} <span style="color:var(--dim)">(${esc(L('moves')(list.length))})</span></div>`+
       list.map(x=>{const m=x.m;return `<div class="miditem ${x.i===curMove?'on':''}" data-mv="${x.i}">${m?`${img(m.i)}<div class="nm"><b>${esc(MN(m))}</b><small>${esc(F(m,'ty'))} · ${esc(F(m,'el'))}</small></div><span class="stamp">${esc(m.p)}</span>`:`${img(curSet.i)}<div class="nm"><b>${esc(F(curSet,'n'))}</b><small>${esc(L('neiJing'))}</small></div>`}</div>`;}).join('');
     box.querySelectorAll('[data-mv]').forEach(x=>x.onclick=()=>{curMove=+x.dataset.mv;curLevel=1;renderMid(true);renderContent();openContent();});
   } else {
@@ -510,6 +532,11 @@ function renderMid(keepScroll=false){
   box.scrollTop=scroll;
 }
 
+function clearSet(){
+  curSet=null;curMove=0;curLevel=1;
+  renderCats(true);renderMid();renderContent();
+  document.getElementById('content').classList.remove('on');
+}
 function openSet(k){
   curSet=SK.find(s=>s.k===k);
   if(curSet){curGroup=canonGroup(curSet);curMove=0;curLevel=1;openGroups.add(curGroup);}
