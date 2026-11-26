@@ -332,8 +332,8 @@ footer a{color:var(--gold3)}
     addEventListener('scroll',onScroll,{passive:true});
     onScroll();
   }
-  // RU-style depth parallax: the pointer/scroll shift is applied per pixel using
-  // the painting's depth map, so only the foreground figures move.
+  // RU-style depth parallax: a smooth, matching depth map moves only the
+  // foreground figures. One shallow sample avoids doubled face/body details.
   if(!reduce && glCanvas){
     (function(){
       var gl=glCanvas.getContext('webgl2',{alpha:false,antialias:false,powerPreference:'high-performance',preserveDrawingBuffer:true});
@@ -368,15 +368,16 @@ footer a{color:var(--gold3)}
         '  if(onPaper>=1.0){outColor=vec4(paper,1.0);return;}',
         '  vec2 focus=vec2(uFocus.x,0.45);',
         '  vec2 uv=(cover(vUv)-focus)*(0.93-uScroll*0.05)+focus;',
-        '  vec2 shift=vec2(uPointer.x*0.014,uPointer.y*0.009+uScroll*0.05);',
-        '  vec2 p=uv;float depth=0.0;',
-        '  for(int i=0;i<5;i++){depth=texture(uDepth,p).r;p=uv-shift*(depth-0.3);}',
+        '  vec2 shift=vec2(uPointer.x*0.008,uPointer.y*0.005+uScroll*0.018);',
+        '  float depth=texture(uDepth,uv).r;',
+        '  vec2 p=uv-shift*(depth-0.32);',
+        '  depth=mix(depth,texture(uDepth,p).r,0.45);',
         '  vec3 color=texture(uArt,p).rgb;',
         '  float far=1.0-smoothstep(0.08,0.45,depth);',
         '  float mist=fbm(p*vec2(4.0,9.0)+vec2(uTime*0.012,uTime*0.004));',
         '  color=mix(color,paper,far*smoothstep(0.35,0.85,mist)*0.24);',
         '  float veil=1.0-smoothstep(0.25,1.0,length((vUv-uVeil.xy)/uVeil.zw));',
-        '  color=mix(color,paper,veil*(0.64+0.18*far)*(0.88+0.12*mist));',
+        '  color=mix(color,paper,veil*(0.18+0.72*far)*(0.88+0.12*mist));',
         '  color*=1.0-0.16*smoothstep(tear-4.0,tear,px.y);',
         '  float soak=smoothstep(0.0,1.0,uReveal*1.7-(1.0-depth)*0.35-mist*0.35);',
         '  color=mix(paper,color,soak);',
