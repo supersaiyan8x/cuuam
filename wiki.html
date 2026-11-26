@@ -302,19 +302,36 @@ img{-webkit-user-drag:none;user-select:none}
 .cmp-head h3{margin:0;color:var(--gold);font-size:17px;font-weight:500}
 .cmp-close{background:transparent;border:1px solid var(--line2);color:var(--gold2);border-radius:4px;padding:5px 9px;cursor:pointer}
 .cmp-pickers{display:grid;grid-template-columns:1fr 1fr;gap:14px}
-.cmp-pickers>div{min-width:0;padding:12px;border:1px solid var(--line2);border-radius:6px;background:var(--panel2)}
-.cmp-pickers label{display:block;color:var(--gold3);font-size:12px;margin:0 0 5px}
-.cmp-pickers label.sec{margin-top:10px}
-.cmp-pickers select{width:100%;box-sizing:border-box;background:var(--input);border:1px solid var(--line2);border-radius:4px;color:var(--gold3);padding:7px 9px;font-size:13px;outline:none}
-.cmp-pickers select:focus{border-color:var(--gold2)}
+.cmp-picker{min-width:0;padding:12px;border:1px solid var(--line2);border-radius:6px;background:var(--panel2)}
+.cmp-picker-hd{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-bottom:8px}
+.cmp-picker-hd b{color:var(--gold);font-size:14px}
+.cmp-picker-hd .cmp-picked{color:var(--gold2);font-size:12px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;max-width:70%}
+.cmp-picker input.wuxia-search{width:100%;box-sizing:border-box;margin:0 0 8px}
+.cmp-picker-cols{display:grid;grid-template-columns:minmax(120px,38%) 1fr;gap:8px;height:230px}
+.cmp-setlist,.cmp-movelist{overflow:auto;border:1px solid var(--line2);border-radius:4px;background:var(--panel)}
+.cmp-cat{position:sticky;top:0;padding:6px 8px;color:var(--gold3);font-size:12px;background:var(--panel2);border-bottom:1px solid var(--line2);z-index:1}
+.cmp-set,.cmp-move{padding:6px 8px;font-size:12px;color:var(--ink);cursor:pointer;border-bottom:1px solid var(--line)}
+.cmp-set:hover,.cmp-move:hover{color:var(--gold);background:var(--gold-tint)}
+.cmp-set.on,.cmp-move.on{color:var(--gold);background:var(--gold-tint);font-weight:600}
+.cmp-move{display:flex;align-items:center;gap:6px}
+.cmp-move img{width:22px;height:22px;object-fit:cover;border-radius:3px;border:1px solid var(--line2);background:var(--imgbg);flex:none}
+.cmp-move span{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.cmp-lvrow{display:flex;align-items:center;gap:8px;margin-top:8px}
+.cmp-lvrow label{color:var(--gold3);font-size:12px;flex:none;margin:0}
+.cmp-lvrow select{flex:1;min-width:0;background:var(--input);border:1px solid var(--line2);border-radius:4px;color:var(--gold3);padding:6px 8px;font-size:12px;outline:none}
+.cmp-lvrow select:focus{border-color:var(--gold2)}
 .cmp-tools{display:flex;gap:8px;margin:14px 0}
 .cmp-tools button{background:linear-gradient(135deg,var(--btn2),var(--btn));border:1px solid var(--gold2);color:var(--gold);padding:7px 12px;border-radius:4px;cursor:pointer;font-size:12px}
 .cmp-tools button.plain{background:transparent;color:var(--dim);border-color:var(--line2)}
 .cmp-cards{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:12px}
-.cmp-card{display:flex;gap:10px;align-items:center;padding:10px 12px;border:1px solid var(--line2);border-radius:6px;background:var(--panel)}
+.cmp-card{display:flex;gap:10px;align-items:flex-start;padding:10px 12px;border:1px solid var(--line2);border-radius:6px;background:var(--panel)}
 .cmp-card img{width:44px;height:44px;object-fit:cover;border-radius:5px;border:1px solid var(--line2);background:var(--imgbg)}
+.cmp-card>div{min-width:0}
 .cmp-card b{display:block;color:var(--gold2);font-size:14px}
 .cmp-card small{color:var(--dim)}
+.cmp-card-dmg{display:flex;flex-wrap:wrap;gap:2px 10px;margin-top:5px;font-size:11px;color:var(--dim)}
+.cmp-card-dmg b{display:inline;color:var(--gold2);font-size:12px}
+.cmp-card-dmg .dmg,.cmp-card-dmg b.dmg{color:var(--red)}
 .cmp-table-wrap{overflow-x:auto;border:1px solid var(--line2);border-radius:6px}
 .cmp-table{width:100%;min-width:620px;border-collapse:collapse;font-size:12px}
 .cmp-table th,.cmp-table td{padding:8px 10px;border-bottom:1px solid var(--line);text-align:left;vertical-align:top}
@@ -375,6 +392,7 @@ img{-webkit-user-drag:none;user-select:none}
   .bonus-panel{width:100%;max-height:90vh}
   .cmp-panel{padding:12px;max-height:90vh}
   .cmp-pickers,.cmp-cards{grid-template-columns:1fr}
+  .cmp-picker-cols{height:200px}
   .cmp-tools{flex-wrap:wrap}
   .cmp-link{font-size:11px;padding:5px 7px}
   .miditem{padding:10px 12px;min-height:60px}
@@ -420,17 +438,17 @@ img{-webkit-user-drag:none;user-select:none}
   <div class="cmp-panel" role="dialog" aria-modal="true" aria-label="So sánh chiêu thức">
     <div class="cmp-head"><h3>⚔️ <span data-i18n="compare">So sánh chiêu thức</span></h3><button type="button" class="cmp-close" id="cmpClose" title="Đóng">✕</button></div>
     <div class="cmp-pickers">
-      <div>
-        <label for="cmpSelA" data-i18n="compareA">Chiêu A</label>
-        <select id="cmpSelA"></select>
-        <label class="sec" for="cmpLvA" data-i18n="compareLevel">Tầng</label>
-        <select id="cmpLvA"></select>
+      <div class="cmp-picker">
+        <div class="cmp-picker-hd"><b data-i18n="compareA">Chiêu A</b><span class="cmp-picked" id="cmpPickedA"></span></div>
+        <input class="wuxia-search" id="cmpQA" type="search">
+        <div class="cmp-picker-cols"><div class="cmp-setlist" id="cmpSetA"></div><div class="cmp-movelist" id="cmpMoveA"></div></div>
+        <div class="cmp-lvrow"><label for="cmpLvA" data-i18n="compareLevel">Tầng</label><select id="cmpLvA"></select></div>
       </div>
-      <div>
-        <label for="cmpSelB" data-i18n="compareB">Chiêu B</label>
-        <select id="cmpSelB"></select>
-        <label class="sec" for="cmpLvB" data-i18n="compareLevel">Tầng</label>
-        <select id="cmpLvB"></select>
+      <div class="cmp-picker">
+        <div class="cmp-picker-hd"><b data-i18n="compareB">Chiêu B</b><span class="cmp-picked" id="cmpPickedB"></span></div>
+        <input class="wuxia-search" id="cmpQB" type="search">
+        <div class="cmp-picker-cols"><div class="cmp-setlist" id="cmpSetB"></div><div class="cmp-movelist" id="cmpMoveB"></div></div>
+        <div class="cmp-lvrow"><label for="cmpLvB" data-i18n="compareLevel">Tầng</label><select id="cmpLvB"></select></div>
       </div>
     </div>
     <div class="cmp-tools">
@@ -446,7 +464,8 @@ const img=k=>IC[k]?'<img src="'+IC[k]+'">':'';
 const esc=s=>String(s==null?'':s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
 let curType='wuxue', curGroup='', curSet=null, curMove=0, curLevel=1;
 let openGroups=new Set();
-let cmpA=null, cmpB=null, cmpList=null;
+let cmpA=null, cmpB=null, cmpList=null, cmpByKey=null;
+let cmpUI={A:{q:'',set:null},B:{q:'',set:null}};
 let lang='vi';
 let theme='dark';
 try{theme=localStorage.getItem('wuxue-theme')==='light'?'light':'dark';}catch(e){}
@@ -536,6 +555,8 @@ const UI={
   comparePick:'Chọn chiêu...', compareSwap:'Đổi A / B', compareClear:'Xóa lựa chọn', compareClose:'Đóng',
   compareEmpty:'Chọn hai chiêu để xem bảng so sánh', compareDiff:'Chênh lệch', compareValue:'Giá trị',
   compareDesc:'Mô tả', compareConsume:'Tiêu hao', compareCost:'Tu vi / Đột phá', compareAdd:'⚔️ So sánh chiêu này',
+  compareSearch:'Tìm chiêu / bộ...', compareNoSet:'Chọn một bộ bên trái', compareNoMove:'Không có chiêu phù hợp',
+  compareDamage:'Sát thương', compareAvg:'Trung bình', compareBaseMul:'Cơ số × Bội số',
  },
  zh:{
   brand:'永乐大典 · 武学宝鉴',
@@ -582,6 +603,8 @@ const UI={
   comparePick:'选择招式...', compareSwap:'交换 A / B', compareClear:'清除选择', compareClose:'关闭',
   compareEmpty:'选择两个招式以查看对比表', compareDiff:'差值', compareValue:'数值',
   compareDesc:'描述', compareConsume:'消耗', compareCost:'修为 / 突破', compareAdd:'⚔️ 对比此招式',
+  compareSearch:'搜索招式 / 套路...', compareNoSet:'请先从左侧选择套路', compareNoMove:'没有匹配的招式',
+  compareDamage:'伤害', compareAvg:'平均', compareBaseMul:'基数 × 倍率',
  }
 };
 const L=k=>UI[lang][k];
@@ -773,17 +796,35 @@ function fmtMoveStats(lv){
 // ---- move comparison ----
 function cmpCandidates(){
   if(cmpList) return cmpList;
-  cmpList=[];
+  cmpList=[];cmpByKey={};
   SK.forEach(s=>{
     if(s.t!=='wuxue'||!s.m) return;
-    s.m.forEach((m,mi)=>cmpList.push({s:s,m:m,si:s.k,mi:mi,lv:1}));
+    s.m.forEach((m,mi)=>{
+      const c={s:s,m:m,si:s.k,mi:mi,lv:1};
+      cmpList.push(c);cmpByKey[s.k+':'+mi]=c;
+    });
   });
   return cmpList;
 }
 function cmpFind(si,mi,lv){
-  const c=cmpCandidates().find(x=>x.si===si&&x.mi===mi);
+  cmpCandidates();
+  const c=cmpByKey[si+':'+mi]||null;
   if(c)c.lv=lv||1;
   return c;
+}
+function cmpSetGroups(){
+  const g={};
+  SK.filter(s=>s.t==='wuxue'&&s.m&&s.m.length).forEach(s=>{
+    const k=canonGroup(s);
+    if(!g[k])g[k]={label:groupLabel(s),sets:[]};
+    g[k].sets.push(s);
+  });
+  return g;
+}
+function cmpFirstSet(){
+  const groups=Object.values(cmpSetGroups());
+  for(const g of groups) if(g.sets.length) return g.sets[0];
+  return null;
 }
 function cmpLabel(c){
   if(!c)return '';
@@ -793,6 +834,18 @@ function cmpLabel(c){
 function cmpLevelRows(c){
   if(!c||!c.m)return [];
   return c.m.lv?c.m.lv.slice().reverse():[];
+}
+function cmpLevel(c){
+  const rows=cmpLevelRows(c),n=Math.max(1,Math.min(c.lv||1,rows.length||1));
+  return rows[n-1]||{};
+}
+function cmpDamage(c){
+  if(!c||!c.m)return null;
+  const lv=cmpLevel(c);
+  const db=Number(lv.db)||0,dm=Number(lv.dm)||0,total=Math.round(db*dm);
+  const br=calcBonus(lv,loadBonus());
+  return {db:db,dm:dm,total:total,cf:lv.cf||'—',br:br,
+    range:br?'('+br.min+'~'+br.max+')':String(db),avg:br?br.avg:total};
 }
 function cmpLevelOptions(c){
   const rows=cmpLevelRows(c);
@@ -804,12 +857,9 @@ function cmpLevelOptions(c){
 }
 function cmpRowsFor(c){
   if(!c||!c.m)return [];
-  const m=c.m,s=c.s,rows=cmpLevelRows(c);
-  const n=Math.max(1,Math.min(c.lv||1,rows.length||1));
-  const lv=rows[n-1]||{};
+  const m=c.m,s=c.s,lv=cmpLevel(c),d=cmpDamage(c),br=d.br;
   const consume=Object.keys(lv.c||{}).filter(k=>lv.c[k]).map(k=>L('consume')[k]+': '+CV(lv.c[k])).join('; ');
-  const db=Number(lv.db)||0,dm=Number(lv.dm)||0,total=Math.round(db*dm);
-  const br=calcBonus(lv,loadBonus());
+  const db=d.db,dm=d.dm,total=d.total;
   const row=(k,v,num)=>({k:k,v:String(v==null?'—':v),num:num});
   const hits=Number(m.sh&&m.sh.cunt?m.sh.cunt:lv.hp)||0;
   return [
@@ -823,7 +873,7 @@ function cmpRowsFor(c){
     row(L('recoil'),(Number(lv.cd)||0)+' '+L('sec'),Number(lv.cd)||0),
     row(L('maxDist'),(Number(lv.h)||0)+' '+L('meter'),Number(lv.h)||0),
     row(L('maxTargets'),(Number(lv.hc)||0)+' '+L('person'),Number(lv.hc)||0),
-    row(L('statBase'),db,db),
+    row(L('dmgBase'),db,db),
     row(L('statMul'),lv.dm,Number(lv.dm)||0),
     row(L('statCoef'),lv.cf,Number(lv.cf)||0),
     row(L('statTotal'),total,total),
@@ -847,7 +897,14 @@ function cmpDiff(a,b){
 }
 function cmpCard(c){
   if(!c)return '<div class="cmp-card"><div><b>—</b><small>'+esc(L('comparePick'))+'</small></div></div>';
-  return '<div class="cmp-card">'+img(c.m.i)+'<div><b>'+esc(MN(c.m))+'</b><small>'+esc(F(c.s,'n'))+' · '+esc(F(c.m,'ty'))+'</small></div></div>';
+  const d=cmpDamage(c);
+  const dmg=d?'<div class="cmp-card-dmg">'+
+      '<span>'+esc(L('dmgBase')+' '+d.db+' × '+L('dmgMul')+' '+d.dm)+'</span>'+
+      '<span>'+esc(L('statTotal'))+': <b class="dmg">'+d.total+'</b></span>'+
+      '<span>'+esc(L('dmg'))+': <b>'+esc(d.range)+'</b></span>'+
+      '<span>'+esc(L('compareAvg'))+': <b>'+Math.round(d.avg)+'</b></span>'+
+    '</div>':'';
+  return '<div class="cmp-card">'+img(c.m.i)+'<div><b>'+esc(MN(c.m))+'</b>'+dmg+'<small>'+esc(F(c.s,'n'))+' · '+esc(F(c.m,'ty'))+'</small></div></div>';
 }
 function cmpResultHtml(){
   const mask=document.getElementById('cmpMask');
@@ -861,16 +918,72 @@ function cmpResultHtml(){
   });
   return h+'</tbody></table></div>';
 }
+function cmpRenderSetList(slot){
+  const box=document.getElementById('cmpSet'+slot);
+  if(!box)return;
+  const q=cmpUI[slot].q.toLowerCase();
+  let html='';
+  Object.entries(cmpSetGroups()).forEach(([gk,g])=>{
+    const sets=g.sets.filter(s=>!q||has(g.label,q)||has(F(s,'n'),q)||has(s.n0,q)||has(F(s,'c'),q)||has(s.c0,q));
+    if(!sets.length)return;
+    html+='<div class="cmp-cat">☯ '+esc(g.label)+'</div>';
+    sets.forEach(s=>{
+      const c=F(s,'c');
+      html+='<div class="cmp-set'+(cmpUI[slot].set===s.k?' on':'')+'" data-k="'+s.k+'" title="'+esc(F(s,'n'))+'">'+
+        esc(F(s,'n'))+(c?'<span style="color:var(--dim)"> · '+esc(c)+'</span>':'')+'</div>';
+    });
+  });
+  box.innerHTML=html||'<div class="cmp-cat">'+esc(L('compareNoMove'))+'</div>';
+  box.querySelectorAll('.cmp-set').forEach(d=>d.onclick=()=>cmpPickSet(slot,+d.dataset.k));
+}
+function cmpRenderMoves(slot){
+  const box=document.getElementById('cmpMove'+slot);
+  if(!box)return;
+  const s=SK.find(x=>x.k===cmpUI[slot].set&&x.t==='wuxue');
+  if(!s||!s.m||!s.m.length){
+    box.innerHTML='<div class="cmp-cat">'+esc(L('compareNoSet'))+'</div>';return;
+  }
+  const q=cmpUI[slot].q.toLowerCase(),cur=slot==='A'?cmpA:cmpB;
+  const list=s.m.map((m,mi)=>({m,mi})).filter(x=>!q||
+    has(MN(x.m),q)||has(F(x.m,'n'),q)||has(x.m.n0,q)||has(x.m.dn0,q)||
+    has(F(x.m,'ty'),q)||has(x.m.ty0,q));
+  box.innerHTML=list.length?list.map(x=>{
+    const on=cur&&cur.si===s.k&&cur.mi===x.mi?' on':'';
+    return '<div class="cmp-move'+on+'" data-mi="'+x.mi+'" title="'+esc(MN(x.m))+'">'+
+      img(x.m.i)+'<span>'+esc(MN(x.m))+'</span></div>';
+  }).join(''):'<div class="cmp-cat">'+esc(L('compareNoMove'))+'</div>';
+  box.querySelectorAll('.cmp-move').forEach(d=>d.onclick=()=>cmpPickMove(slot,+d.dataset.mi));
+}
+function cmpPickSet(slot,k){
+  cmpUI[slot].set=k;cmpUI[slot].q='';
+  const c=slot==='A'?cmpA:cmpB;
+  if(c&&c.s.k!==k){if(slot==='A')cmpA=null;else cmpB=null;}
+  cmpFill();
+}
+function cmpPickMove(slot,mi){
+  const old=slot==='A'?cmpA:cmpB,k=cmpUI[slot].set;
+  const lv=old&&old.si===k&&old.mi===mi?old.lv:1;
+  const c=cmpFind(k,mi,lv);
+  if(slot==='A')cmpA=c;else cmpB=c;
+  cmpFill();
+}
 function cmpFill(){
-  const list=cmpCandidates();
-  [['A',cmpA],['B',cmpB]].forEach(x=>{
-    const slot=x[0],c=x[1];
-    const sel=document.getElementById('cmpSel'+slot),lv=document.getElementById('cmpLv'+slot);
-    if(!sel||!lv)return;
-    sel.innerHTML='<option value="">'+esc(L('comparePick'))+'</option>'+
-      list.map((v,i)=>'<option value="'+i+'" '+(v===c?'selected':'')+'>'+esc(cmpLabel(v))+'</option>').join('');
-    sel.value=c?String(list.indexOf(c)):'';
-    lv.innerHTML=cmpLevelOptions(c);
+  cmpCandidates();
+  const first=cmpFirstSet();
+  ['A','B'].forEach(slot=>{
+    const c=slot==='A'?cmpA:cmpB,u=cmpUI[slot];
+    if(!u.set)u.set=c?c.s.k:(first?first.k:null);
+    const picked=document.getElementById('cmpPicked'+slot);
+    if(picked)picked.textContent=c?cmpLabel(c):'';
+    const q=document.getElementById('cmpQ'+slot);
+    if(q){q.placeholder=L('compareSearch');if(q.value!==u.q)q.value=u.q;}
+    const lv=document.getElementById('cmpLv'+slot);
+    if(lv){
+      lv.innerHTML=c?cmpLevelOptions(c):'<option value="1">—</option>';
+      lv.disabled=!c;
+      if(c)lv.value=String(c.lv||1);
+    }
+    cmpRenderSetList(slot);cmpRenderMoves(slot);
   });
   const result=document.getElementById('cmpResult');
   if(result)result.innerHTML=cmpResultHtml();
@@ -888,7 +1001,8 @@ function cmpAddCurrent(){
   if(!curSet||!curSet.m)return;
   const c=cmpFind(curSet.k,curMove,curLevel);
   if(!c)return;
-  if(!cmpA)cmpA=c;else cmpB=c;
+  if(!cmpA){cmpA=c;cmpUI.A.set=c.s.k;cmpUI.A.q='';}
+  else{cmpB=c;cmpUI.B.set=c.s.k;cmpUI.B.q='';}
   cmpOpen();
 }
 function wireCompare(){
@@ -899,21 +1013,24 @@ function wireCompare(){
   document.getElementById('cmpClose').onclick=cmpClose;
   mask.onclick=e=>{if(e.target===mask)cmpClose();};
   ['A','B'].forEach(slot=>{
-    const sel=document.getElementById('cmpSel'+slot),lv=document.getElementById('cmpLv'+slot);
-    sel.onchange=()=>{
-      const c=cmpList&&cmpList[+sel.value]||null;
-      if(slot==='A')cmpA=c;else cmpB=c;
-      if(c)c.lv=+lv.value||1;
-      cmpFill();
-    };
-    lv.onchange=()=>{
+    const q=document.getElementById('cmpQ'+slot),lv=document.getElementById('cmpLv'+slot);
+    if(q)q.oninput=()=>{cmpUI[slot].q=q.value;cmpRenderSetList(slot);cmpRenderMoves(slot);};
+    if(lv)lv.onchange=()=>{
       const c=slot==='A'?cmpA:cmpB;
       if(c)c.lv=+lv.value||1;
       cmpFill();
     };
   });
-  document.getElementById('cmpSwap').onclick=()=>{const t=cmpA;cmpA=cmpB;cmpB=t;cmpFill();};
-  document.getElementById('cmpClear').onclick=()=>{cmpA=null;cmpB=null;cmpFill();};
+  document.getElementById('cmpSwap').onclick=()=>{
+    const t=cmpA;cmpA=cmpB;cmpB=t;
+    const u={...cmpUI.A};cmpUI.A={...cmpUI.B};cmpUI.B=u;
+    cmpFill();
+  };
+  document.getElementById('cmpClear').onclick=()=>{
+    cmpA=null;cmpB=null;
+    cmpUI.A={q:'',set:null};cmpUI.B={q:'',set:null};
+    cmpFill();
+  };
   document.addEventListener('keydown',e=>{if(e.key==='Escape'&&!mask.hidden)cmpClose();});
 }
 // ---- bonus calculator (ported from the original WeChat mini app) ----
