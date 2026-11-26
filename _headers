@@ -10,10 +10,6 @@
 /sitemap.xml
   Content-Type: application/xml; charset=UTF-8
   Cache-Control: no-store, must-revalidate
-/
-  Content-Security-Policy: default-src 'self' data: blob:; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline' data:; img-src 'self' data:; font-src 'self' data:; connect-src 'self' https://countapi.mileshilliard.com; object-src 'none'; base-uri 'self'; frame-ancestors 'none'
-  Content-Disposition: inline
-  Cache-Control: no-store, must-revalidate
 /index.html
   Content-Security-Policy: default-src 'self' data: blob:; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline' data:; img-src 'self' data:; font-src 'self' data:; connect-src 'self' https://countapi.mileshilliard.com; object-src 'none'; base-uri 'self'; frame-ancestors 'none'
   Content-Disposition: inline
