@@ -318,9 +318,7 @@ img{-webkit-user-drag:none;user-select:none}
 .cmp-move{display:flex;align-items:center;gap:6px}
 .cmp-move img{width:22px;height:22px;object-fit:cover;border-radius:3px;border:1px solid var(--line2);background:var(--imgbg);flex:none}
 .cmp-move span{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
-.cmp-move-lv-slot{padding:6px 8px;border-bottom:1px solid var(--line);background:var(--tint)}
-.cmp-move-lv-slot .cmp-lvrow{margin-top:0}
-.cmp-lvrow{display:flex;align-items:center;gap:8px;margin-top:8px}
+.cmp-lvrow{display:flex;align-items:center;gap:8px;margin-top:10px;padding:8px;border:1px solid var(--line2);border-radius:4px;background:var(--tint)}
 .cmp-lvrow label{color:var(--gold3);font-size:12px;flex:none;margin:0}
 .cmp-lvrow select{flex:1;min-width:0;background:var(--input);border:1px solid var(--line2);border-radius:4px;color:var(--gold3);padding:6px 8px;font-size:12px;outline:none}
 .cmp-lvrow select:focus{border-color:var(--gold2)}
@@ -955,8 +953,6 @@ function cmpRenderSetList(slot,expandMatches=false){
 function cmpRenderMoves(slot){
   const box=document.getElementById('cmpMove'+slot);
   if(!box)return;
-  const lvRow=document.querySelector('.cmp-lvrow[data-slot="'+slot+'"]');
-  if(lvRow&&lvRow.parentNode)lvRow.parentNode.removeChild(lvRow);
   const s=SK.find(x=>x.k===cmpUI[slot].set&&x.t==='wuxue');
   if(!s||!s.m||!s.m.length){
     box.innerHTML='<div class="cmp-cat">'+esc(L('compareNoSet'))+'</div>';
@@ -968,13 +964,9 @@ function cmpRenderMoves(slot){
     box.innerHTML=list.length?list.map(x=>{
       const on=cur&&cur.si===s.k&&cur.mi===x.mi?' on':'';
       return '<div class="cmp-move'+on+'" data-mi="'+x.mi+'" title="'+esc(MN(x.m))+'">'+
-        img(x.m.i)+'<span>'+esc(MN(x.m))+'</span></div>'+(on?'<div class="cmp-move-lv-slot"></div>':'');
+        img(x.m.i)+'<span>'+esc(MN(x.m))+'</span></div>';
     }).join(''):'<div class="cmp-cat">'+esc(L('compareNoMove'))+'</div>';
     box.querySelectorAll('.cmp-move').forEach(d=>d.onclick=()=>cmpPickMove(slot,+d.dataset.mi));
-  }
-  if(lvRow){
-    const lvSlot=box.querySelector('.cmp-move-lv-slot'),picker=document.querySelector('.cmp-picker[data-slot="'+slot+'"]');
-    if(lvSlot)lvSlot.appendChild(lvRow);else if(picker)picker.appendChild(lvRow);
   }
 }
 function cmpPickSet(slot,k){
