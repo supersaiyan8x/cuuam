@@ -329,9 +329,9 @@ img{-webkit-user-drag:none;user-select:none}
 .cmp-card>div{min-width:0}
 .cmp-card b{display:block;color:var(--gold2);font-size:14px}
 .cmp-card small{color:var(--dim)}
-.cmp-card-dmg{display:flex;flex-wrap:wrap;gap:2px 10px;margin-top:5px;font-size:11px;color:var(--dim)}
-.cmp-card-dmg b{display:inline;color:var(--gold2);font-size:12px}
-.cmp-card-dmg .dmg,.cmp-card-dmg b.dmg{color:var(--red)}
+.cmp-table .cmp-dmg-sum{display:flex;flex-wrap:wrap;gap:2px 10px;line-height:1.6;color:var(--dim)}
+.cmp-table .cmp-dmg-sum b{color:var(--gold2)}
+.cmp-table .cmp-dmg-sum .dmg{color:var(--red)}
 .cmp-table-wrap{overflow-x:auto;border:1px solid var(--line2);border-radius:6px}
 .cmp-table{width:100%;min-width:620px;border-collapse:collapse;font-size:12px}
 .cmp-table th,.cmp-table td{padding:8px 10px;border-bottom:1px solid var(--line);text-align:left;vertical-align:top}
@@ -862,7 +862,14 @@ function cmpRowsFor(c){
   const db=d.db,dm=d.dm,total=d.total;
   const row=(k,v,num)=>({k:k,v:String(v==null?'—':v),num:num});
   const hits=Number(m.sh&&m.sh.cunt?m.sh.cunt:lv.hp)||0;
+  const dmgSum='<div class="cmp-dmg-sum">'+
+      '<span>'+esc(L('dmgBase')+' '+d.db+' × '+L('dmgMul')+' '+d.dm)+'</span>'+
+      '<span>'+esc(L('statTotal'))+': <b class="dmg">'+d.total+'</b></span>'+
+      '<span>'+esc(L('dmg'))+': <b>'+esc(d.range)+'</b></span>'+
+      '<span>'+esc(L('compareAvg'))+': <b>'+Math.round(d.avg)+'</b></span>'+
+    '</div>';
   return [
+    {k:L('compareDamage'),v:dmgSum,html:true,num:d.avg},
     row(L('set'),F(s,'n')),
     row(L('type'),F(m,'ty')),
     row(L('attr'),F(m,'el')),
@@ -897,14 +904,7 @@ function cmpDiff(a,b){
 }
 function cmpCard(c){
   if(!c)return '<div class="cmp-card"><div><b>—</b><small>'+esc(L('comparePick'))+'</small></div></div>';
-  const d=cmpDamage(c);
-  const dmg=d?'<div class="cmp-card-dmg">'+
-      '<span>'+esc(L('dmgBase')+' '+d.db+' × '+L('dmgMul')+' '+d.dm)+'</span>'+
-      '<span>'+esc(L('statTotal'))+': <b class="dmg">'+d.total+'</b></span>'+
-      '<span>'+esc(L('dmg'))+': <b>'+esc(d.range)+'</b></span>'+
-      '<span>'+esc(L('compareAvg'))+': <b>'+Math.round(d.avg)+'</b></span>'+
-    '</div>':'';
-  return '<div class="cmp-card">'+img(c.m.i)+'<div><b>'+esc(MN(c.m))+'</b>'+dmg+'<small>'+esc(F(c.s,'n'))+' · '+esc(F(c.m,'ty'))+'</small></div></div>';
+  return '<div class="cmp-card">'+img(c.m.i)+'<div><b>'+esc(MN(c.m))+'</b><small>'+esc(F(c.s,'n'))+' · '+esc(F(c.m,'ty'))+'</small></div></div>';
 }
 function cmpResultHtml(){
   const mask=document.getElementById('cmpMask');
