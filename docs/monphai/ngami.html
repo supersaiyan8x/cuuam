@@ -94,11 +94,13 @@ a{color:inherit;text-decoration:none}
 .btn.primary{background:linear-gradient(180deg,var(--panel),var(--panel2));border-color:var(--cinnabar);box-shadow:inset 0 0 0 1px var(--line);color:var(--gold)}
 .theme-toggle{background:transparent;border:1px solid var(--line2);color:var(--gold2);border-radius:4px;padding:6px 9px;cursor:pointer;font-size:13px;line-height:1}
 main{max-width:1180px;margin:0 auto;padding:0 24px 60px}
-.hero{position:relative;overflow:hidden;width:100%;margin:22px 0 30px;padding:34px 40px;border:0;border-radius:0;background:var(--bg2);box-shadow:0 18px 50px rgba(0,0,0,.18);perspective:1200px;isolation:isolate}
-.hero .hero-art{position:absolute;inset:-6%;z-index:0;pointer-events:none;background:url('/hero-bg.webp') center 42%/cover no-repeat;transform:translate3d(var(--shift-x,0px),calc(var(--shift-y,0px) + var(--scroll-shift,0px)),0) scale(1.06) rotateX(var(--rot-x,0deg)) rotateY(var(--rot-y,0deg));transform-style:preserve-3d;transition:transform .22s ease-out;will-change:transform}
+.hero{position:relative;overflow:hidden;width:100%;margin:22px 0 30px;padding:34px 40px;border:0;border-radius:0;background:var(--bg2);box-shadow:0 18px 50px rgba(0,0,0,.18);isolation:isolate}
+.hero .hero-art{position:absolute;inset:0;z-index:0;pointer-events:none;background:url('/hero-bg.webp') center 42%/cover no-repeat}
+.hero .hero-art.is-webgl{background:none}
+.hero .hero-art__canvas{position:absolute;inset:0;width:100%;height:100%;display:block}
 .hero .hero-shade{display:none}
 .hero .petal-canvas{position:absolute;inset:0;z-index:0;pointer-events:none;width:100%;height:100%}
-@media(prefers-reduced-motion:reduce){.hero .hero-art{transform:none!important;transition:none}.hero .petal-canvas{display:none}.school-leaf-canvas{display:none}}
+@media(prefers-reduced-motion:reduce){.hero .petal-canvas{display:none}.school-leaf-canvas{display:none}}
 .hero>h1,.hero>.cta,.hero>.quick-links{width:50%;margin-left:auto;margin-right:-20px;position:relative;z-index:1;text-align:center}
 .hero h1{margin-top:0;margin-bottom:0;color:#2c1d18;font-weight:700;text-shadow:none}
 .hero h1 .hero-title-small{display:block;color:#573c35;font-family:var(--font-title);font-size:clamp(34px,3.8vw,56px);font-style:italic;font-weight:700;letter-spacing:.01em;line-height:1.05;-webkit-text-stroke:.35px currentColor}
@@ -147,7 +149,7 @@ main{max-width:1180px;margin:0 auto;padding:0 24px 60px}
 .school-pick img{width:40px;height:40px;flex:none;border-radius:50%;object-fit:cover;border:1px solid var(--line2);background:var(--panel)}
 .school-pick.is-active img{border:2px solid var(--gold3)}
 .school-painting{margin:0;position:relative}
-.school-art{position:relative;aspect-ratio:850/750;overflow:hidden;border:1px solid var(--line2);border-radius:8px;background:var(--panel2)}
+.school-art{position:relative;aspect-ratio:850/750}
 .school-leaf-canvas{position:absolute;inset:-90px -70px;z-index:2;pointer-events:none;width:calc(100% + 140px);height:calc(100% + 180px)}
 .school-hero{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0;visibility:hidden;transition:opacity .35s}
 .school-hero.is-active{opacity:1;visibility:visible}

@@ -92,11 +92,13 @@ a{color:inherit;text-decoration:none}
 .btn.primary{background:linear-gradient(180deg,var(--panel),var(--panel2));border-color:var(--cinnabar);box-shadow:inset 0 0 0 1px var(--line);color:var(--gold)}
 .theme-toggle{background:transparent;border:1px solid var(--line2);color:var(--gold2);border-radius:4px;padding:6px 9px;cursor:pointer;font-size:13px;line-height:1}
 main{max-width:1180px;margin:0 auto;padding:0 24px 60px}
-.hero{position:relative;overflow:hidden;width:100%;margin:22px 0 30px;padding:34px 40px;border:0;border-radius:0;background:var(--bg2);box-shadow:0 18px 50px rgba(0,0,0,.18);perspective:1200px;isolation:isolate}
-.hero .hero-art{position:absolute;inset:-6%;z-index:0;pointer-events:none;background:url('/hero-bg.webp') center 42%/cover no-repeat;transform:translate3d(var(--shift-x,0px),calc(var(--shift-y,0px) + var(--scroll-shift,0px)),0) scale(1.06) rotateX(var(--rot-x,0deg)) rotateY(var(--rot-y,0deg));transform-style:preserve-3d;transition:transform .22s ease-out;will-change:transform}
+.hero{position:relative;overflow:hidden;width:100%;margin:22px 0 30px;padding:34px 40px;border:0;border-radius:0;background:var(--bg2);box-shadow:0 18px 50px rgba(0,0,0,.18);isolation:isolate}
+.hero .hero-art{position:absolute;inset:0;z-index:0;pointer-events:none;background:url('/hero-bg.webp') center 42%/cover no-repeat}
+.hero .hero-art.is-webgl{background:none}
+.hero .hero-art__canvas{position:absolute;inset:0;width:100%;height:100%;display:block}
 .hero .hero-shade{display:none}
 .hero .petal-canvas{position:absolute;inset:0;z-index:0;pointer-events:none;width:100%;height:100%}
-@media(prefers-reduced-motion:reduce){.hero .hero-art{transform:none!important;transition:none}.hero .petal-canvas{display:none}.school-leaf-canvas{display:none}}
+@media(prefers-reduced-motion:reduce){.hero .petal-canvas{display:none}.school-leaf-canvas{display:none}}
 .hero>h1,.hero>.cta,.hero>.quick-links{width:50%;margin-left:auto;margin-right:-20px;position:relative;z-index:1;text-align:center}
 .hero h1{margin-top:0;margin-bottom:0;color:#2c1d18;font-weight:700;text-shadow:none}
 .hero h1 .hero-title-small{display:block;color:#573c35;font-family:var(--font-title);font-size:clamp(34px,3.8vw,56px);font-style:italic;font-weight:700;letter-spacing:.01em;line-height:1.05;-webkit-text-stroke:.35px currentColor}
@@ -145,7 +147,7 @@ main{max-width:1180px;margin:0 auto;padding:0 24px 60px}
 .school-pick img{width:40px;height:40px;flex:none;border-radius:50%;object-fit:cover;border:1px solid var(--line2);background:var(--panel)}
 .school-pick.is-active img{border:2px solid var(--gold3)}
 .school-painting{margin:0;position:relative}
-.school-art{position:relative;aspect-ratio:850/750;overflow:hidden;border:1px solid var(--line2);border-radius:8px;background:var(--panel2)}
+.school-art{position:relative;aspect-ratio:850/750}
 .school-leaf-canvas{position:absolute;inset:-90px -70px;z-index:2;pointer-events:none;width:calc(100% + 140px);height:calc(100% + 180px)}
 .school-hero{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0;visibility:hidden;transition:opacity .35s}
 .school-hero.is-active{opacity:1;visibility:visible}
@@ -217,7 +219,7 @@ footer a{color:var(--gold3)}
   </div>
 </header>
 <section class="hero">
-    <div class="hero-art" aria-hidden="true"></div>
+    <div class="hero-art" aria-hidden="true"><canvas class="hero-art__canvas"></canvas></div>
     <div class="hero-shade" aria-hidden="true"></div>
     <canvas class="petal-canvas" aria-hidden="true"></canvas>
     <h1><span class="hero-title-small">Cộng đồng</span> <span class="hero-title-large">Cửu Âm Chân Kinh</span> <span class="hero-title-region">SV Taiwan</span></h1>
@@ -297,32 +299,123 @@ footer a{color:var(--gold3)}
   if(!hero) return;
   var reduce=window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches;
   var fine=window.matchMedia && matchMedia('(pointer: fine)').matches;
-  function resetTilt(){
-    hero.style.setProperty('--shift-x','0px');
-    hero.style.setProperty('--shift-y','0px');
-    hero.style.setProperty('--rot-x','0deg');
-    hero.style.setProperty('--rot-y','0deg');
-  }
+  var art=hero.querySelector('.hero-art');
+  var glCanvas=hero.querySelector('.hero-art__canvas');
+  var ptr={x:0,y:0},ptrTarget={x:0,y:0},scroll=0;
   if(!reduce && fine){
     hero.addEventListener('pointermove',function(e){
       var r=hero.getBoundingClientRect();
-      var x=(e.clientX-r.left)/r.width*2-1;
-      var y=(e.clientY-r.top)/r.height*2-1;
-      hero.style.setProperty('--shift-x',(x*-10).toFixed(1)+'px');
-      hero.style.setProperty('--shift-y',(y*-8).toFixed(1)+'px');
-      hero.style.setProperty('--rot-x',(y*-1.4).toFixed(2)+'deg');
-      hero.style.setProperty('--rot-y',(x*1.8).toFixed(2)+'deg');
+      ptrTarget.x=(e.clientX-r.left)/r.width*2-1;
+      ptrTarget.y=(e.clientY-r.top)/r.height*2-1;
     });
-    hero.addEventListener('pointerleave',resetTilt);
+    hero.addEventListener('pointerleave',function(){ptrTarget.x=0;ptrTarget.y=0;});
   }
   if(!reduce){
     var onScroll=function(){
       var r=hero.getBoundingClientRect();
-      var p=Math.min(1,Math.max(0,-r.top/Math.max(1,r.height)));
-      hero.style.setProperty('--scroll-shift',(-p*14).toFixed(1)+'px');
+      scroll=Math.min(1,Math.max(0,-r.top/Math.max(1,r.height)));
     };
     addEventListener('scroll',onScroll,{passive:true});
     onScroll();
+  }
+  // RU-style depth parallax: the pointer/scroll shift is applied per pixel using
+  // the painting's depth map, so only the foreground figures move.
+  if(!reduce && glCanvas){
+    (function(){
+      var gl=glCanvas.getContext('webgl2',{alpha:false,antialias:false,powerPreference:'high-performance',preserveDrawingBuffer:true});
+      if(!gl) return;
+      var vs='#version 300 es\nout vec2 vUv;\nvoid main(){vec2 p=vec2((gl_VertexID<<1)&2,gl_VertexID&2);vUv=p;gl_Position=vec4(p*2.0-1.0,0.0,1.0);}';
+      var fs=['#version 300 es',
+        'precision highp float;',
+        'uniform sampler2D uArt;',
+        'uniform sampler2D uDepth;',
+        'uniform vec2 uCss;',
+        'uniform vec2 uArtSize;',
+        'uniform vec2 uPointer;',
+        'uniform float uScroll;',
+        'uniform float uTime;',
+        'in vec2 vUv;',
+        'out vec4 outColor;',
+        'float hash(vec2 p){p=fract(p*vec2(123.34,456.21));p+=dot(p,p+45.32);return fract(p.x*p.y);}',
+        'float noise(vec2 p){vec2 i=floor(p),f=fract(p);vec2 u=f*f*(3.0-2.0*f);return mix(mix(hash(i),hash(i+vec2(1,0)),u.x),mix(hash(i+vec2(0,1)),hash(i+vec2(1,1)),u.x),u.y);}',
+        'float fbm(vec2 p){float s=0.0,a=0.5;for(int i=0;i<5;i++){s+=a*noise(p);p=p*2.03+17.1;a*=0.5;}return s;}',
+        'vec2 cover(vec2 uv){float view=uCss.x/uCss.y;float painting=uArtSize.x/uArtSize.y;vec2 scale=view>painting?vec2(1.0,painting/view):vec2(view/painting,1.0);return (uv-0.5)*scale+0.5;}',
+        'void main(){',
+        '  vec2 uv=cover(vUv);',
+        '  vec2 focus=vec2(0.5,0.45);',
+        '  uv=(uv-focus)*(0.93-uScroll*0.05)+focus;',
+        '  vec2 shift=vec2(uPointer.x*0.014,uPointer.y*0.009+uScroll*0.05);',
+        '  vec2 p=uv;float depth=0.0;',
+        '  for(int i=0;i<5;i++){depth=texture(uDepth,p).r;p=uv-shift*max(depth-0.3,0.0);}',
+        '  vec3 color=texture(uArt,p).rgb;',
+        '  float far=1.0-smoothstep(0.08,0.45,depth);',
+        '  float mist=fbm(p*vec2(4.0,9.0)+vec2(uTime*0.012,uTime*0.004));',
+        '  color=mix(color,vec3(0.969,0.957,0.925),far*smoothstep(0.35,0.85,mist)*0.24);',
+        '  outColor=vec4(color,1.0);',
+        '}'].join('\n');
+      function shader(type,src){
+        var s=gl.createShader(type);
+        gl.shaderSource(s,src);gl.compileShader(s);
+        if(!gl.getShaderParameter(s,gl.COMPILE_STATUS)){gl.deleteShader(s);return null;}
+        return s;
+      }
+      var v=shader(gl.VERTEX_SHADER,vs),f=shader(gl.FRAGMENT_SHADER,fs);
+      if(!v||!f) return;
+      var prog=gl.createProgram();
+      gl.attachShader(prog,v);gl.attachShader(prog,f);gl.linkProgram(prog);
+      if(!gl.getProgramParameter(prog,gl.LINK_STATUS)) return;
+      var u=function(n){return gl.getUniformLocation(prog,n);};
+      var loc={art:u('uArt'),depth:u('uDepth'),css:u('uCss'),size:u('uArtSize'),ptr:u('uPointer'),scroll:u('uScroll'),time:u('uTime')};
+      gl.useProgram(prog);
+      gl.uniform1i(loc.art,0);gl.uniform1i(loc.depth,1);
+      var vao=gl.createVertexArray();gl.bindVertexArray(vao);gl.bindVertexArray(null);
+      function texture(src,unit){
+        return new Promise(function(resolve,reject){
+          var im=new Image();
+          im.onload=function(){
+            var t=gl.createTexture();
+            gl.activeTexture(gl.TEXTURE0+unit);
+            gl.bindTexture(gl.TEXTURE_2D,t);
+            gl.pixelStorei(gl.UNPACK_FLIP_Y_WEBGL,true);
+            gl.texImage2D(gl.TEXTURE_2D,0,gl.RGBA,gl.RGBA,gl.UNSIGNED_BYTE,im);
+            gl.generateMipmap(gl.TEXTURE_2D);
+            gl.texParameteri(gl.TEXTURE_2D,gl.TEXTURE_MIN_FILTER,gl.LINEAR_MIPMAP_LINEAR);
+            gl.texParameteri(gl.TEXTURE_2D,gl.TEXTURE_MAG_FILTER,gl.LINEAR);
+            gl.texParameteri(gl.TEXTURE_2D,gl.TEXTURE_WRAP_S,gl.CLAMP_TO_EDGE);
+            gl.texParameteri(gl.TEXTURE_2D,gl.TEXTURE_WRAP_T,gl.CLAMP_TO_EDGE);
+            resolve({tex:t,w:im.naturalWidth,h:im.naturalHeight});
+          };
+          im.onerror=reject;
+          im.src=src;
+        });
+      }
+      Promise.all([texture('/hero-bg.webp',0),texture('/hero-depth.webp',1)]).then(function(ts){
+        gl.uniform2f(loc.size,ts[0].w,ts[0].h);
+        art.classList.add('is-webgl');
+        var start=performance.now();
+        function frame(now){
+          if(document.hidden){requestAnimationFrame(frame);return;}
+          var dpr=Math.min(devicePixelRatio||1,2);
+          var w=Math.round(glCanvas.clientWidth*dpr),h=Math.round(glCanvas.clientHeight*dpr);
+          if(glCanvas.width!==w||glCanvas.height!==h){glCanvas.width=w;glCanvas.height=h;}
+          gl.viewport(0,0,glCanvas.width,glCanvas.height);
+          ptr.x+=(ptrTarget.x-ptr.x)*0.08;
+          ptr.y+=(ptrTarget.y-ptr.y)*0.08;
+          gl.useProgram(prog);
+          gl.activeTexture(gl.TEXTURE0);gl.bindTexture(gl.TEXTURE_2D,ts[0].tex);
+          gl.activeTexture(gl.TEXTURE1);gl.bindTexture(gl.TEXTURE_2D,ts[1].tex);
+          gl.uniform2f(loc.css,glCanvas.clientWidth,glCanvas.clientHeight);
+          gl.uniform2f(loc.ptr,ptr.x,ptr.y);
+          gl.uniform1f(loc.scroll,scroll);
+          gl.uniform1f(loc.time,(now-start)/1000);
+          gl.bindVertexArray(vao);
+          gl.drawArrays(gl.TRIANGLES,0,3);
+          gl.bindVertexArray(null);
+          requestAnimationFrame(frame);
+        }
+        frame(start);
+      }).catch(function(){art.classList.remove('is-webgl');});
+    })();
   }
   var canvas=hero.querySelector('.petal-canvas');
   if(!canvas || reduce) return;

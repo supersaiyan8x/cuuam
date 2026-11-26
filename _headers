@@ -24,6 +24,9 @@
 /hero-bg.webp
   Content-Type: image/webp
   Cache-Control: public, max-age=86400
+/hero-depth.webp
+  Content-Type: image/webp
+  Cache-Control: public, max-age=86400
 /sects/*
   Content-Type: image/png
   Cache-Control: public, max-age=86400
