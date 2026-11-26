@@ -265,7 +265,7 @@ footer a{color:var(--gold3)}
 <header class="top">
   <div class="brand"><img class="site-logo" src="/logo.webp" alt="Cộng Đồng Cửu Âm Chân Kinh"><div><b>Cộng Đồng Cửu Âm Chân Kinh</b><small>CỬU ÂM CHÂN KINH · TIỆN ÍCH</small></div></div>
   <div class="top-actions">
-    <button class="theme-toggle" id="themeToggle" title="Đổi giao diện">☀️ Sáng</button>
+    <button class="theme-toggle" id="themeToggle" title="Đổi giao diện">☀️ Theme sáng</button>
   </div>
 </header>
 <nav class="site-tabs" aria-label="Điều hướng chính">
@@ -336,7 +336,7 @@ footer a{color:var(--gold3)}
   try{t=localStorage.getItem('wuxue-theme')==='light'?'light':'dark';}catch(e){}
   document.documentElement.dataset.theme=t;
   var b=document.getElementById('themeToggle');
-  function paint(){b.textContent=t==='dark'?'☀️ Sáng':'🌙 Tối';b.title=t==='dark'?'Sang giao diện sáng':'Sang giao diện tối';}
+  function paint(){b.textContent=t==='dark'?'☀️ Theme sáng':'🌙 Theme tối';b.title=t==='dark'?'Sang giao diện sáng':'Sang giao diện tối';}
   paint();
   b.onclick=function(){t=t==='dark'?'light':'dark';document.documentElement.dataset.theme=t;try{localStorage.setItem('wuxue-theme',t);}catch(e){}paint();};
 })();

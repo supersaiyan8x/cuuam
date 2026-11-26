@@ -367,7 +367,7 @@ img{-webkit-user-drag:none;user-select:none}
   <div class="spacer"></div>
   <a class="calc-link" href="/hiep-ac.html" title="Máy tính giá trị hiệp-ác">⚖️ Hiệp Ác</a>
   <div class="hint" data-i18n="hint">Tra cứu ngoại tuyến · 532 mục</div>
-  <button class="theme-toggle" id="themeToggle" title="Đổi giao diện">☀️ Sáng</button>
+  <button class="theme-toggle" id="themeToggle" title="Đổi giao diện">☀️ Theme sáng</button>
   <div class="lang-toggle" id="langToggle" title="Ngôn ngữ / 语言">
     <button data-lang="vi" class="on">VI</button><button data-lang="zh">中</button>
   </div>
@@ -426,7 +426,7 @@ if(location.protocol==='http:'||location.protocol==='https:'){
 function applyTheme(){
   document.documentElement.dataset.theme=theme;
   const b=document.getElementById('themeToggle');
-  if(b){b.textContent=theme==='dark'?'☀️ Sáng':'🌙 Tối';b.title=L('theme');}
+  if(b){b.textContent=theme==='dark'?'☀️ Theme sáng':'🌙 Theme tối';b.title=L('theme');}
   try{localStorage.setItem('wuxue-theme',theme);}catch(e){}
 }
 

@@ -268,7 +268,7 @@ footer a{color:var(--gold3)}
     <a class="btn" href="/wiki.html">📖 Wiki</a>
     <a class="btn" href="/hiep-ac.html">⚖️ Hiệp Ác</a>
     <a class="btn primary" href="/index.html">🏠 Trang chủ</a>
-    <button class="theme-toggle" id="themeToggle" title="Đổi giao diện">☀️ Sáng</button>
+    <button class="theme-toggle" id="themeToggle" title="Đổi giao diện">☀️ Theme sáng</button>
   </div>
 </header>
 <div class="doc-shell">
@@ -380,7 +380,7 @@ Quần công lớn: không ổn</p></div>
   try{t=localStorage.getItem('wuxue-theme')==='light'?'light':'dark';}catch(e){}
   document.documentElement.dataset.theme=t;
   var b=document.getElementById('themeToggle');
-  function paint(){b.textContent=t==='dark'?'☀️ Sáng':'🌙 Tối';b.title=t==='dark'?'Sang giao diện sáng':'Sang giao diện tối';}
+  function paint(){b.textContent=t==='dark'?'☀️ Theme sáng':'🌙 Theme tối';b.title=t==='dark'?'Sang giao diện sáng':'Sang giao diện tối';}
   paint();
   b.onclick=function(){t=t==='dark'?'light':'dark';document.documentElement.dataset.theme=t;try{localStorage.setItem('wuxue-theme',t);}catch(e){}paint();};
 })();
