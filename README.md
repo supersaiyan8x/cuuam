@@ -11,4 +11,4 @@ Chào mừng bạn đến với trang lưu trữ võ học và nội công cửu
 </a>
 
 > [!TIP]
-> Bạn có thể dùng thanh **Tìm kiếm** ở góc trên để tra cứu nhanh các chiêu thức hoặc bí kíp cụ thể.
+> Dùng các ô chỉ mục ở trang chủ hoặc wiki võ học để tra cứu nhanh chiêu thức và bí kíp.
