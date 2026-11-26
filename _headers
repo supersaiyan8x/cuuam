@@ -15,6 +15,9 @@
 /sects/*
   Content-Type: image/png
   Cache-Control: public, max-age=86400
+/ru-sects/*
+  Content-Type: image/webp
+  Cache-Control: public, max-age=86400
 /docs/*
   Content-Security-Policy: default-src 'self' data: blob:; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline' data:; img-src 'self' data: https://i.ibb.co https://ageofwushutaiwan.wordpress.com; font-src 'self' data:; connect-src 'self'; object-src 'none'; base-uri 'self'; frame-ancestors 'none'
   Content-Disposition: inline
