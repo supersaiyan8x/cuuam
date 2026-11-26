@@ -15,9 +15,14 @@
 /sects/*
   Content-Type: image/png
   Cache-Control: public, max-age=86400
-/index-backup*
-  Content-Security-Policy: default-src 'self' data: blob:; script-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net https://cusdis.com; style-src 'self' 'unsafe-inline' data: https://cdn.jsdelivr.net https://fonts.googleapis.com; img-src 'self' data: https://i.ibb.co https://cusdis.com; font-src 'self' data: https://fonts.gstatic.com; connect-src 'self' https://cusdis.com; object-src 'none'; base-uri 'self'; frame-ancestors 'none'
+/docs/*
+  Content-Security-Policy: default-src 'self' data: blob:; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline' data:; img-src 'self' data: https://i.ibb.co https://ageofwushutaiwan.wordpress.com; font-src 'self' data:; connect-src 'self'; object-src 'none'; base-uri 'self'; frame-ancestors 'none'
   Content-Disposition: inline
+  Cache-Control: no-store, must-revalidate
+/index-backup*
+  Content-Security-Policy: default-src 'self' data: blob:; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline' data:; img-src 'self' data:; font-src 'self' data:; connect-src 'self'; object-src 'none'; base-uri 'self'; frame-ancestors 'none'
+  Content-Disposition: inline
+  Cache-Control: no-store, must-revalidate
 /wx-core.js
   Content-Type: application/javascript; charset=UTF-8
   Content-Security-Policy: default-src 'self' data: blob:; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline' data:; img-src 'self' data:; font-src 'self' data:; connect-src 'self'; object-src 'none'; base-uri 'self'; frame-ancestors 'none'
