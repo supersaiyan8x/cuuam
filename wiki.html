@@ -309,13 +309,17 @@ img{-webkit-user-drag:none;user-select:none}
 .cmp-picker input.wuxia-search{width:100%;box-sizing:border-box;margin:0 0 8px}
 .cmp-picker-cols{display:grid;grid-template-columns:minmax(120px,38%) 1fr;gap:8px;height:230px}
 .cmp-setlist,.cmp-movelist{overflow:auto;border:1px solid var(--line2);border-radius:4px;background:var(--panel)}
-.cmp-cat{position:sticky;top:0;padding:6px 8px;color:var(--gold3);font-size:12px;background:var(--panel2);border-bottom:1px solid var(--line2);z-index:1}
+.cmp-cat{position:sticky;top:0;display:flex;align-items:center;gap:6px;padding:6px 8px;color:var(--gold3);font-size:12px;background:var(--panel2);border-bottom:1px solid var(--line2);z-index:1;cursor:pointer;user-select:none}
+.cmp-cat .arw{font-size:9px;color:var(--gold2);transition:transform .15s}
+.cmp-cat.open .arw{transform:rotate(90deg)}
 .cmp-set,.cmp-move{padding:6px 8px;font-size:12px;color:var(--ink);cursor:pointer;border-bottom:1px solid var(--line)}
 .cmp-set:hover,.cmp-move:hover{color:var(--gold);background:var(--gold-tint)}
 .cmp-set.on,.cmp-move.on{color:var(--gold);background:var(--gold-tint);font-weight:600}
 .cmp-move{display:flex;align-items:center;gap:6px}
 .cmp-move img{width:22px;height:22px;object-fit:cover;border-radius:3px;border:1px solid var(--line2);background:var(--imgbg);flex:none}
 .cmp-move span{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.cmp-move-lv-slot{padding:6px 8px;border-bottom:1px solid var(--line);background:var(--tint)}
+.cmp-move-lv-slot .cmp-lvrow{margin-top:0}
 .cmp-lvrow{display:flex;align-items:center;gap:8px;margin-top:8px}
 .cmp-lvrow label{color:var(--gold3);font-size:12px;flex:none;margin:0}
 .cmp-lvrow select{flex:1;min-width:0;background:var(--input);border:1px solid var(--line2);border-radius:4px;color:var(--gold3);padding:6px 8px;font-size:12px;outline:none}
@@ -438,17 +442,17 @@ img{-webkit-user-drag:none;user-select:none}
   <div class="cmp-panel" role="dialog" aria-modal="true" aria-label="So sánh chiêu thức">
     <div class="cmp-head"><h3>⚔️ <span data-i18n="compare">So sánh chiêu thức</span></h3><button type="button" class="cmp-close" id="cmpClose" title="Đóng">✕</button></div>
     <div class="cmp-pickers">
-      <div class="cmp-picker">
+      <div class="cmp-picker" data-slot="A">
         <div class="cmp-picker-hd"><b data-i18n="compareA">Chiêu A</b><span class="cmp-picked" id="cmpPickedA"></span></div>
         <input class="wuxia-search" id="cmpQA" type="search">
         <div class="cmp-picker-cols"><div class="cmp-setlist" id="cmpSetA"></div><div class="cmp-movelist" id="cmpMoveA"></div></div>
-        <div class="cmp-lvrow"><label for="cmpLvA" data-i18n="compareLevel">Tầng</label><select id="cmpLvA"></select></div>
+        <div class="cmp-lvrow" data-slot="A"><label for="cmpLvA" data-i18n="compareMoveLevel">Tầng chiêu thức</label><select id="cmpLvA"></select></div>
       </div>
-      <div class="cmp-picker">
+      <div class="cmp-picker" data-slot="B">
         <div class="cmp-picker-hd"><b data-i18n="compareB">Chiêu B</b><span class="cmp-picked" id="cmpPickedB"></span></div>
         <input class="wuxia-search" id="cmpQB" type="search">
         <div class="cmp-picker-cols"><div class="cmp-setlist" id="cmpSetB"></div><div class="cmp-movelist" id="cmpMoveB"></div></div>
-        <div class="cmp-lvrow"><label for="cmpLvB" data-i18n="compareLevel">Tầng</label><select id="cmpLvB"></select></div>
+        <div class="cmp-lvrow" data-slot="B"><label for="cmpLvB" data-i18n="compareMoveLevel">Tầng chiêu thức</label><select id="cmpLvB"></select></div>
       </div>
     </div>
     <div class="cmp-tools">
@@ -466,6 +470,7 @@ let curType='wuxue', curGroup='', curSet=null, curMove=0, curLevel=1;
 let openGroups=new Set();
 let cmpA=null, cmpB=null, cmpList=null, cmpByKey=null;
 let cmpUI={A:{q:'',set:null},B:{q:'',set:null}};
+let cmpOpenGroups={A:new Set(),B:new Set()}, cmpGroupsReady={A:false,B:false};
 let lang='vi';
 let theme='dark';
 try{theme=localStorage.getItem('wuxue-theme')==='light'?'light':'dark';}catch(e){}
@@ -551,7 +556,7 @@ const UI={
   bonusSaved:'Đã lưu chỉ số', bonusClearAll:'Xóa tất cả', bonusNoData:'Chiêu này không có dữ liệu sát thương',
   bonusSummary:'⚙ Các chỉ số phụ đã nhập', bonusTier:'tầng', bonusEmpty:'Chưa nhập chỉ số phụ',
   dmgNote:(n,s)=>`(tổng ${n}, mỗi đòn ${s} sát thương)`,
-  compare:'So sánh chiêu thức', compareA:'Chiêu A', compareB:'Chiêu B', compareLevel:'Tầng',
+  compare:'So sánh chiêu thức', compareA:'Chiêu A', compareB:'Chiêu B', compareLevel:'Tầng', compareMoveLevel:'Tầng chiêu thức',
   comparePick:'Chọn chiêu...', compareSwap:'Đổi A / B', compareClear:'Xóa lựa chọn', compareClose:'Đóng',
   compareEmpty:'Chọn hai chiêu để xem bảng so sánh', compareDiff:'Chênh lệch', compareValue:'Giá trị',
   compareDesc:'Mô tả', compareConsume:'Tiêu hao', compareCost:'Tu vi / Đột phá', compareAdd:'⚔️ So sánh chiêu này',
@@ -599,7 +604,7 @@ const UI={
   bonusSaved:'已保存数值', bonusClearAll:'清除全部', bonusNoData:'此招式无伤害数据',
   bonusSummary:'⚙ 已输入的附加数值', bonusTier:'层', bonusEmpty:'未输入附加数值',
   dmgNote:(n,s)=>`（共${n}击，每击约${s}点）`,
-  compare:'招式对比', compareA:'招式 A', compareB:'招式 B', compareLevel:'层数',
+  compare:'招式对比', compareA:'招式 A', compareB:'招式 B', compareLevel:'层数', compareMoveLevel:'招式层数',
   comparePick:'选择招式...', compareSwap:'交换 A / B', compareClear:'清除选择', compareClose:'关闭',
   compareEmpty:'选择两个招式以查看对比表', compareDiff:'差值', compareValue:'数值',
   compareDesc:'描述', compareConsume:'消耗', compareCost:'修为 / 突破', compareAdd:'⚔️ 对比此招式',
@@ -918,41 +923,56 @@ function cmpResultHtml(){
   });
   return h+'</tbody></table></div>';
 }
-function cmpRenderSetList(slot){
+function cmpRenderSetList(slot,expandMatches=false){
   const box=document.getElementById('cmpSet'+slot);
   if(!box)return;
-  const q=cmpUI[slot].q.toLowerCase();
+  const scroll=box.scrollTop,q=cmpUI[slot].q.toLowerCase();
   let html='';
   Object.entries(cmpSetGroups()).forEach(([gk,g])=>{
     const sets=g.sets.filter(s=>!q||has(g.label,q)||has(F(s,'n'),q)||has(s.n0,q)||has(F(s,'c'),q)||has(s.c0,q));
     if(!sets.length)return;
-    html+='<div class="cmp-cat">☯ '+esc(g.label)+'</div>';
-    sets.forEach(s=>{
+    if(expandMatches&&q)cmpOpenGroups[slot].add(gk);
+    const open=cmpOpenGroups[slot].has(gk);
+    html+='<div class="cmp-cat'+(open?' open':'')+'" data-g="'+esc(gk)+'"><span class="arw">▶</span>'+esc(g.label)+'</div>';
+    if(open)sets.forEach(s=>{
       const c=F(s,'c');
       html+='<div class="cmp-set'+(cmpUI[slot].set===s.k?' on':'')+'" data-k="'+s.k+'" title="'+esc(F(s,'n'))+'">'+
         esc(F(s,'n'))+(c?'<span style="color:var(--dim)"> · '+esc(c)+'</span>':'')+'</div>';
     });
   });
   box.innerHTML=html||'<div class="cmp-cat">'+esc(L('compareNoMove'))+'</div>';
+  box.querySelectorAll('.cmp-cat[data-g]').forEach(h=>h.onclick=()=>{
+    const g=h.dataset.g;
+    if(cmpOpenGroups[slot].has(g))cmpOpenGroups[slot].delete(g);else cmpOpenGroups[slot].add(g);
+    cmpRenderSetList(slot);
+  });
   box.querySelectorAll('.cmp-set').forEach(d=>d.onclick=()=>cmpPickSet(slot,+d.dataset.k));
+  box.scrollTop=scroll;
 }
 function cmpRenderMoves(slot){
   const box=document.getElementById('cmpMove'+slot);
   if(!box)return;
+  const lvRow=document.querySelector('.cmp-lvrow[data-slot="'+slot+'"]');
+  if(lvRow&&lvRow.parentNode)lvRow.parentNode.removeChild(lvRow);
   const s=SK.find(x=>x.k===cmpUI[slot].set&&x.t==='wuxue');
   if(!s||!s.m||!s.m.length){
-    box.innerHTML='<div class="cmp-cat">'+esc(L('compareNoSet'))+'</div>';return;
+    box.innerHTML='<div class="cmp-cat">'+esc(L('compareNoSet'))+'</div>';
+  } else {
+    const q=cmpUI[slot].q.toLowerCase(),cur=slot==='A'?cmpA:cmpB;
+    const list=s.m.map((m,mi)=>({m,mi})).filter(x=>!q||
+      has(MN(x.m),q)||has(F(x.m,'n'),q)||has(x.m.n0,q)||has(x.m.dn0,q)||
+      has(F(x.m,'ty'),q)||has(x.m.ty0,q));
+    box.innerHTML=list.length?list.map(x=>{
+      const on=cur&&cur.si===s.k&&cur.mi===x.mi?' on':'';
+      return '<div class="cmp-move'+on+'" data-mi="'+x.mi+'" title="'+esc(MN(x.m))+'">'+
+        img(x.m.i)+'<span>'+esc(MN(x.m))+'</span></div>'+(on?'<div class="cmp-move-lv-slot"></div>':'');
+    }).join(''):'<div class="cmp-cat">'+esc(L('compareNoMove'))+'</div>';
+    box.querySelectorAll('.cmp-move').forEach(d=>d.onclick=()=>cmpPickMove(slot,+d.dataset.mi));
   }
-  const q=cmpUI[slot].q.toLowerCase(),cur=slot==='A'?cmpA:cmpB;
-  const list=s.m.map((m,mi)=>({m,mi})).filter(x=>!q||
-    has(MN(x.m),q)||has(F(x.m,'n'),q)||has(x.m.n0,q)||has(x.m.dn0,q)||
-    has(F(x.m,'ty'),q)||has(x.m.ty0,q));
-  box.innerHTML=list.length?list.map(x=>{
-    const on=cur&&cur.si===s.k&&cur.mi===x.mi?' on':'';
-    return '<div class="cmp-move'+on+'" data-mi="'+x.mi+'" title="'+esc(MN(x.m))+'">'+
-      img(x.m.i)+'<span>'+esc(MN(x.m))+'</span></div>';
-  }).join(''):'<div class="cmp-cat">'+esc(L('compareNoMove'))+'</div>';
-  box.querySelectorAll('.cmp-move').forEach(d=>d.onclick=()=>cmpPickMove(slot,+d.dataset.mi));
+  if(lvRow){
+    const lvSlot=box.querySelector('.cmp-move-lv-slot'),picker=document.querySelector('.cmp-picker[data-slot="'+slot+'"]');
+    if(lvSlot)lvSlot.appendChild(lvRow);else if(picker)picker.appendChild(lvRow);
+  }
 }
 function cmpPickSet(slot,k){
   cmpUI[slot].set=k;cmpUI[slot].q='';
@@ -973,6 +993,11 @@ function cmpFill(){
   ['A','B'].forEach(slot=>{
     const c=slot==='A'?cmpA:cmpB,u=cmpUI[slot];
     if(!u.set)u.set=c?c.s.k:(first?first.k:null);
+    if(!cmpGroupsReady[slot]){
+      cmpGroupsReady[slot]=true;
+      const gk=Object.keys(cmpSetGroups())[0]||'';
+      if(gk)cmpOpenGroups[slot].add(gk);
+    }
     const picked=document.getElementById('cmpPicked'+slot);
     if(picked)picked.textContent=c?cmpLabel(c):'';
     const q=document.getElementById('cmpQ'+slot);
@@ -1001,8 +1026,10 @@ function cmpAddCurrent(){
   if(!curSet||!curSet.m)return;
   const c=cmpFind(curSet.k,curMove,curLevel);
   if(!c)return;
-  if(!cmpA){cmpA=c;cmpUI.A.set=c.s.k;cmpUI.A.q='';}
-  else{cmpB=c;cmpUI.B.set=c.s.k;cmpUI.B.q='';}
+  const slot=cmpA?'B':'A';
+  if(slot==='A')cmpA=c;else cmpB=c;
+  cmpUI[slot].set=c.s.k;cmpUI[slot].q='';
+  cmpGroupsReady[slot]=true;cmpOpenGroups[slot].add(canonGroup(c.s));
   cmpOpen();
 }
 function wireCompare(){
@@ -1014,7 +1041,7 @@ function wireCompare(){
   mask.onclick=e=>{if(e.target===mask)cmpClose();};
   ['A','B'].forEach(slot=>{
     const q=document.getElementById('cmpQ'+slot),lv=document.getElementById('cmpLv'+slot);
-    if(q)q.oninput=()=>{cmpUI[slot].q=q.value;cmpRenderSetList(slot);cmpRenderMoves(slot);};
+    if(q)q.oninput=()=>{cmpUI[slot].q=q.value;cmpRenderSetList(slot,true);cmpRenderMoves(slot);};
     if(lv)lv.onchange=()=>{
       const c=slot==='A'?cmpA:cmpB;
       if(c)c.lv=+lv.value||1;
@@ -1024,6 +1051,7 @@ function wireCompare(){
   document.getElementById('cmpSwap').onclick=()=>{
     const t=cmpA;cmpA=cmpB;cmpB=t;
     const u={...cmpUI.A};cmpUI.A={...cmpUI.B};cmpUI.B=u;
+    const g=cmpOpenGroups.A;cmpOpenGroups.A=new Set(cmpOpenGroups.B);cmpOpenGroups.B=new Set(g);
     cmpFill();
   };
   document.getElementById('cmpClear').onclick=()=>{
