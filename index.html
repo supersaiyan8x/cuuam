@@ -62,6 +62,10 @@ main{max-width:1180px;margin:0 auto;padding:0 24px 60px}
 .hero h1 em{font-style:normal;color:var(--ink);font-size:.56em;letter-spacing:0}
 .hero p{max-width:660px;color:var(--dim);line-height:1.8;margin:0 0 28px}
 .hero .cta{display:flex;flex-wrap:wrap;gap:12px}
+.hero .quick-links{display:flex;flex-wrap:wrap;align-items:center;gap:8px;margin-top:22px;padding-top:16px;border-top:1px solid var(--line2)}
+.hero .quick-links>span{color:var(--dim);font-size:12px;letter-spacing:.5px;margin-right:2px}
+.hero .quick-links a{display:inline-flex;align-items:center;gap:5px;padding:5px 10px;border:1px solid var(--line2);border-radius:12px;background:var(--panel);color:var(--ink);font-size:12px;transition:.2s}
+.hero .quick-links a:hover{border-color:var(--gold3);color:var(--gold2)}
 .section{margin-top:44px}
 .section h2{font-family:var(--font-title);color:var(--gold2);font-size:24px;margin:0 0 6px;letter-spacing:1px}
 .section .lead{color:var(--dim);margin:0 0 22px;font-size:14px}
@@ -167,19 +171,15 @@ footer a{color:var(--gold3)}
       <a class="btn primary" href="/wiki.html">Mở wiki võ học →</a>
       <a class="btn" href="https://discord.gg/C69dgTE29p" target="_blank" rel="noopener">💬 Discord bang VN</a>
     </div>
-  </section>
-
-  <section class="section">
-    <h2>Chỉ mục nhanh</h2>
-    <p class="lead">Chạm vào từng ô để đi thẳng tới phần cần xem.</p>
-    <div class="index-grid">
-      <a class="index-card" href="/wiki.html#wuxue"><span class="ic">⚔️</span><b>Võ học</b><small>Tra cứu bộ chiêu, biến chiêu, nộ chiêu và chỉ số từng cấp.</small><div class="sub"><span>Đơn kiếm</span><span>Đơn đao</span><span>Trường côn</span></div></a>
-      <a class="index-card" href="/wiki.html#neigong"><span class="ic">☯</span><b>Nội công</b><small>Tóm tắt tâm pháp, chỉ số nội công và hiệu ứng theo từng tầng.</small><div class="sub"><span>Chỉ số</span><span>Hiệu ứng</span></div></a>
-      <a class="index-card" href="/wiki.html#jingmai"><span class="ic">🫀</span><b>Kinh mạch</b><small>Danh sách kinh mạch, mô tả và phân loại theo bản gốc.</small><div class="sub"><span>35 kinh mạch</span></div></a>
-      <a class="index-card" href="index-backup.html#/monphai/chinhphai"><span class="ic">🏯</span><b>Môn phái</b><small>Chính phái, ẩn thế và giang hồ; vũ khí, chiêu thức và đặc điểm từng phái.</small><div class="sub"><span>34 môn phái</span></div></a>
-      <a class="index-card" href="index-backup.html#/huongdan/hdcb"><span class="ic">📜</span><b>Hướng dẫn</b><small>Cổ phổ, phỉ thúy, nạp VIP và các mẹo căn bản.</small><div class="sub"><span>Cổ phổ</span><span>Phỉ thúy</span><span>Nạp VIP</span></div></a>
-      <a class="index-card" href="index-backup.html#/updatepb/m"><span class="ic">🆕</span><b>Cập nhật</b><small>Tin patch máy chủ Snail, Taiwan và các thay đổi liên quan.</small><div class="sub"><span>Patch</span><span>Huyên cổ</span></div></a>
-    </div>
+    <nav class="quick-links" aria-label="Tra cứu nhanh">
+      <span>Tra cứu nhanh:</span>
+      <a href="/wiki.html#wuxue">⚔️ Võ học</a>
+      <a href="/wiki.html#neigong">☯ Nội công</a>
+      <a href="/wiki.html#jingmai">🫀 Kinh mạch</a>
+      <a href="#schools">🏯 Môn phái</a>
+      <a href="index-backup.html#/huongdan/hdcb">📜 Hướng dẫn</a>
+      <a href="index-backup.html#/updatepb/m">🆕 Cập nhật</a>
+    </nav>
   </section>
 
   <section class="section" id="schools">
