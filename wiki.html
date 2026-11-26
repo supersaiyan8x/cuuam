@@ -404,7 +404,7 @@ img{-webkit-user-drag:none;user-select:none}
   .brand{font-size:15px}
   .theme-toggle{padding:5px 7px}
   .lang-toggle button{padding:4px 6px}
-  .cmp-link [data-i18n="compare"],.cmp-link [data-i18n="compareNg"]{display:none}
+  .cmp-link [data-i18n="compare"],.cmp-link [data-i18n="compareNg"],.cmp-link [data-i18n="compareJm"]{display:none}
 }
 </style>
 </head>
@@ -422,6 +422,7 @@ img{-webkit-user-drag:none;user-select:none}
   <a class="calc-link" href="/hiep-ac.html" title="Máy tính giá trị hiệp-ác">⚖️ Hiệp Ác</a>
   <button type="button" class="calc-link cmp-link" id="cmpOpen" title="So sánh chiêu thức">⚔️ <span data-i18n="compare">So sánh chiêu thức</span></button>
   <button type="button" class="calc-link cmp-link" id="cmpNgOpen" title="So sánh nội công">🌀 <span data-i18n="compareNg">So sánh nội công</span></button>
+  <button type="button" class="calc-link cmp-link" id="cmpJmOpen" title="So sánh kinh mạch">🫀 <span data-i18n="compareJm">So sánh kinh mạch</span></button>
   <div class="hint" data-i18n="hint">Tra cứu ngoại tuyến · 532 mục</div>
   <button class="theme-toggle" id="themeToggle" title="Đổi giao diện">☀️ Theme sáng</button>
   <div class="lang-toggle" id="langToggle" title="Ngôn ngữ / 语言">
@@ -467,7 +468,7 @@ const img=k=>IC[k]?'<img src="'+IC[k]+'">':'';
 const esc=s=>String(s==null?'':s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
 let curType='wuxue', curGroup='', curSet=null, curMove=0, curLevel=1;
 let openGroups=new Set();
-let cmpA=null, cmpB=null, cmpList=null, cmpByKey=null, cmpMode='move';
+let cmpA=null, cmpB=null, cmpList=null, cmpByKey=null, cmpMode='move', cmpJmKeyList=null;
 let cmpUI={A:{q:'',set:null},B:{q:'',set:null}};
 let cmpOpenGroups={A:new Set(),B:new Set()}, cmpGroupsReady={A:false,B:false};
 let lang='vi';
@@ -560,6 +561,9 @@ const UI={
   compareNgSummary:'Tổng quan', compareNgPick:'Chọn nội công...',
   compareNgSearch:'Tìm nội công / nhóm...', compareNgEmpty:'Chọn hai nội công để xem bảng so sánh', compareNgNoSet:'Chọn một nhóm bên trái',
   compareBufRange:'Khoảng tầng hiệu ứng',
+  compareJm:'So sánh kinh mạch', compareJmA:'Kinh mạch A', compareJmB:'Kinh mạch B', compareJmLevel:'Tầng kinh mạch',
+  compareJmSummary:'Tổng quan', compareJmPick:'Chọn kinh mạch...', compareJmSearch:'Tìm kinh mạch...',
+  compareJmEmpty:'Chọn hai kinh mạch để xem bảng so sánh', compareJmNoSet:'Chọn nhóm kinh mạch bên trái',
   comparePick:'Chọn chiêu...', compareSwap:'Đổi A / B', compareClear:'Xóa lựa chọn', compareClose:'Đóng',
   compareEmpty:'Chọn hai chiêu để xem bảng so sánh', compareDiff:'Chênh lệch', compareValue:'Giá trị',
   compareDesc:'Mô tả', compareConsume:'Tiêu hao', compareCost:'Tu vi / Đột phá', compareAdd:'⚔️ So sánh chiêu này',
@@ -612,6 +616,9 @@ const UI={
   compareNgSummary:'总览', compareNgPick:'选择内功...',
   compareNgSearch:'搜索内功 / 分类...', compareNgEmpty:'选择两个内功以查看对比表', compareNgNoSet:'请先从左侧选择分类',
   compareBufRange:'效果层数区间',
+  compareJm:'经脉对比', compareJmA:'经脉 A', compareJmB:'经脉 B', compareJmLevel:'经脉层数',
+  compareJmSummary:'总览', compareJmPick:'选择经脉...', compareJmSearch:'搜索经脉...',
+  compareJmEmpty:'选择两条经脉以查看对比表', compareJmNoSet:'请先从左侧选择经脉分类',
   comparePick:'选择招式...', compareSwap:'交换 A / B', compareClear:'清除选择', compareClose:'关闭',
   compareEmpty:'选择两个招式以查看对比表', compareDiff:'差值', compareValue:'数值',
   compareDesc:'描述', compareConsume:'消耗', compareCost:'修为 / 突破', compareAdd:'⚔️ 对比此招式',
@@ -805,9 +812,16 @@ function fmtMoveStats(lv){
     chip(L('statCd'),lv.cd)+chip(L('statHit'),lv.hc)+
     '</div>';
 }
-// ---- move / neigong comparison ----
+// ---- move / neigong / jingmai comparison ----
+function cmpLbl(k){
+  if(cmpMode==='ng')return {compare:'compareNg',compareA:'compareNgA',compareB:'compareNgB',
+    compareMoveLevel:'compareNgLevel',compareSearch:'compareNgSearch',compareEmpty:'compareNgEmpty',comparePick:'compareNgPick'}[k]||k;
+  if(cmpMode==='jm')return {compare:'compareJm',compareA:'compareJmA',compareB:'compareJmB',
+    compareMoveLevel:'compareJmLevel',compareSearch:'compareJmSearch',compareEmpty:'compareJmEmpty',comparePick:'compareJmPick'}[k]||k;
+  return k;
+}
 function cmpSetMode(mode,reset=true){
-  cmpMode=mode==='ng'?'ng':'move';
+  cmpMode=(mode==='ng'||mode==='jm')?mode:'move';
   cmpList=null;cmpByKey=null;
   if(reset){
     cmpA=null;cmpB=null;
@@ -815,23 +829,22 @@ function cmpSetMode(mode,reset=true){
     cmpOpenGroups={A:new Set(),B:new Set()};
     cmpGroupsReady={A:false,B:false};
   }
-  const ng=cmpMode==='ng';
   const head=document.querySelector('.cmp-head [data-i18n]');
-  if(head)head.dataset.i18n=ng?'compareNg':'compare';
+  if(head)head.dataset.i18n=cmpLbl('compare');
   const hs=document.querySelectorAll('.cmp-picker-hd b[data-i18n]');
-  if(hs[0])hs[0].dataset.i18n=ng?'compareNgA':'compareA';
-  if(hs[1])hs[1].dataset.i18n=ng?'compareNgB':'compareB';
-  document.querySelectorAll('.cmp-lvrow label[data-i18n]').forEach(l=>l.dataset.i18n=ng?'compareNgLevel':'compareMoveLevel');
+  if(hs[0])hs[0].dataset.i18n=cmpLbl('compareA');
+  if(hs[1])hs[1].dataset.i18n=cmpLbl('compareB');
+  document.querySelectorAll('.cmp-lvrow label[data-i18n]').forEach(l=>l.dataset.i18n=cmpLbl('compareMoveLevel'));
   const panel=document.querySelector('.cmp-panel');
-  if(panel)panel.setAttribute('aria-label',L(ng?'compareNg':'compare'));
+  if(panel)panel.setAttribute('aria-label',L(cmpLbl('compare')));
   applyStatic();
 }
 function cmpCandidates(){
   if(cmpList) return cmpList;
   cmpList=[];cmpByKey={};
   SK.forEach(s=>{
-    if(cmpMode==='ng'){
-      if(s.t!=='neigong')return;
+    if(cmpMode!=='move'){
+      if(s.t!==(cmpMode==='ng'?'neigong':'jingmai'))return;
       const c={s:s,m:null,si:s.k,mi:0,lv:1};
       cmpList.push(c);cmpByKey[s.k+':0']=c;
       return;
@@ -852,7 +865,7 @@ function cmpFind(si,mi,lv){
 }
 function cmpSetGroups(){
   const g={};
-  SK.filter(s=>cmpMode==='ng'?s.t==='neigong':(s.t==='wuxue'&&s.m&&s.m.length)).forEach(s=>{
+  SK.filter(s=>cmpMode==='ng'?s.t==='neigong':(cmpMode==='jm'?s.t==='jingmai':(s.t==='wuxue'&&s.m&&s.m.length))).forEach(s=>{
     const k=canonGroup(s);
     if(!g[k])g[k]={label:groupLabel(s),sets:[]};
     g[k].sets.push(s);
@@ -866,13 +879,13 @@ function cmpFirstSet(){
 }
 function cmpLabel(c){
   if(!c)return '';
-  if(cmpMode==='ng')return F(c.s,'n')+(F(c.s,'c')?' · '+F(c.s,'c'):'');
+  if(cmpMode!=='move')return F(c.s,'n')+(F(c.s,'c')?' · '+F(c.s,'c'):'');
   const ty=F(c.m,'ty');
   return F(c.s,'n')+' · '+MN(c.m)+(ty?' · '+ty:'');
 }
 function cmpLevelRows(c){
   if(!c)return [];
-  const src=cmpMode==='ng'?c.s:(c.m?c.m:null);
+  const src=cmpMode!=='move'?c.s:(c.m?c.m:null);
   return src&&src.lv?src.lv.slice().reverse():[];
 }
 function cmpLevel(c){
@@ -934,9 +947,44 @@ function cmpNgRows(c){
   });
   return rows;
 }
+function cmpJmStatKeys(){
+  const picked=[cmpA,cmpB].filter(c=>c&&c.s&&c.s.t==='jingmai');
+  if(picked.length){
+    const keys=[];
+    picked.forEach(c=>Object.keys(neiStatMap(cmpLevel(c).st)).forEach(k=>{
+      if(keys.indexOf(k)<0)keys.push(k);
+    }));
+    return keys;
+  }
+  if(cmpJmKeyList)return cmpJmKeyList;
+  const keys=[];
+  SK.filter(s=>s.t==='jingmai').forEach(s=>(s.lv||[]).forEach(l=>{
+    Object.keys(neiStatMap(l.st)).forEach(k=>{if(keys.indexOf(k)<0)keys.push(k);});
+  }));
+  cmpJmKeyList=keys;return keys;
+}
+function cmpJmRows(c){
+  if(!c||!c.s)return [];
+  const s=c.s,lv=cmpLevel(c),nst=neiStatMap(lv.st);
+  const row=(k,v,num)=>({k:k,v:String(v==null?'—':v),num:num});
+  const tier=L('tier')(lv.n||c.lv,lv.rm);
+  const cost=L('cost')(lv.s||'','');
+  const sum='<div class="cmp-dmg-sum"><span>'+esc(F(s,'n'))+'</span><span>'+esc(tier)+'</span><span>'+esc(cost)+'</span></div>';
+  const rows=[{k:L('compareJmSummary'),v:sum,html:true,num:Number(lv.s)||0}];
+  rows.push(row(L('set'),F(s,'n')));
+  rows.push(row(L('level'),tier,Number(lv.n)||0));
+  rows.push(row(L('compareCost'),cost));
+  rows.push({k:L('compareDesc'),v:'<div class="tier-txt">'+fmtDesc(F(s,'sum'))+'</div>',html:true});
+  cmpJmStatKeys().forEach(k=>{
+    const v=nst[k]==null?'—':nst[k];
+    rows.push(row(STATLABEL(k),v,Number(v)||0));
+  });
+  return rows;
+}
 function cmpRowsFor(c){
   if(!c)return [];
   if(cmpMode==='ng')return cmpNgRows(c);
+  if(cmpMode==='jm')return cmpJmRows(c);
   if(!c.m)return [];
   const m=c.m,s=c.s,lv=cmpLevel(c),d=cmpDamage(c),br=d.br;
   const consume=Object.keys(lv.c||{}).filter(k=>lv.c[k]).map(k=>L('consume')[k]+': '+CV(lv.c[k])).join('; ');
@@ -985,16 +1033,19 @@ function cmpDiff(a,b){
   return a.v===b.v?'<span class="same">=</span>':'<span class="down">≠</span>';
 }
 function cmpCard(c){
-  if(!c)return '<div class="cmp-card"><div><b>—</b><small>'+esc(L(cmpMode==='ng'?'compareNgPick':'comparePick'))+'</small></div></div>';
-  if(cmpMode==='ng')return '<div class="cmp-card">'+img(c.s.i)+'<div><b>'+esc(F(c.s,'n'))+'</b><small>'+esc(F(c.s,'c')||L('types').neigong)+' · '+esc(schoolName(c.s))+'</small></div></div>';
+  if(!c)return '<div class="cmp-card"><div><b>—</b><small>'+esc(L(cmpLbl('comparePick')))+'</small></div></div>';
+  if(cmpMode!=='move'){
+    const sub=cmpMode==='ng'?schoolName(c.s):groupLabel(c.s);
+    return '<div class="cmp-card">'+img(c.s.i)+'<div><b>'+esc(F(c.s,'n'))+'</b><small>'+
+      esc(F(c.s,'c')||L('types')[c.s.t])+(sub?' · '+esc(sub):'')+'</small></div></div>';
+  }
   return '<div class="cmp-card">'+img(c.m.i)+'<div><b>'+esc(MN(c.m))+'</b><small>'+esc(F(c.s,'n'))+' · '+esc(F(c.m,'ty'))+'</small></div></div>';
 }
 function cmpResultHtml(){
-  const mask=document.getElementById('cmpMask');
-  if(!cmpA||!cmpB)return '<div class="cmp-empty">'+esc(L(cmpMode==='ng'?'compareNgEmpty':'compareEmpty'))+'</div>';
+  if(!cmpA||!cmpB)return '<div class="cmp-empty">'+esc(L(cmpLbl('compareEmpty')))+'</div>';
   const ra=cmpRowsFor(cmpA),rb=cmpRowsFor(cmpB);
   let h='<div class="cmp-cards">'+cmpCard(cmpA)+cmpCard(cmpB)+'</div>';
-  const la=L(cmpMode==='ng'?'compareNgA':'compareA'),lb=L(cmpMode==='ng'?'compareNgB':'compareB');
+  const la=L(cmpLbl('compareA')),lb=L(cmpLbl('compareB'));
   h+='<div class="cmp-table-wrap"><table class="cmp-table"><thead><tr><th></th><th>'+esc(la)+'</th><th>'+esc(lb)+'</th><th>'+esc(L('compareDiff'))+'</th></tr></thead><tbody>';
   ra.forEach((a,i)=>{
     const b=rb[i]||{v:'—'};
@@ -1008,13 +1059,13 @@ function cmpRenderSetList(slot,expandMatches=false){
   const scroll=box.scrollTop,q=cmpUI[slot].q.toLowerCase();
   let html='';
   const groups=cmpSetGroups();
-  if(cmpMode==='ng'){
+  if(cmpMode!=='move'){
     Object.entries(groups).forEach(([gk,g])=>{
       const hit=g.sets.some(s=>!q||has(g.label,q)||has(F(s,'n'),q)||has(s.n0,q)||has(F(s,'c'),q)||has(s.c0,q));
       if(!hit)return;
       html+='<div class="cmp-set'+(cmpUI[slot].set===gk?' on':'')+'" data-g="'+esc(gk)+'" title="'+esc(g.label)+'">'+esc(g.label)+'</div>';
     });
-    box.innerHTML=html||'<div class="cmp-cat">'+esc(L('compareNoMove'))+'</div>';
+    box.innerHTML=html||'<div class="cmp-cat">'+esc(L(cmpMode==='jm'?'compareJmNoSet':'compareNgNoSet'))+'</div>';
     box.querySelectorAll('.cmp-set[data-g]').forEach(d=>d.onclick=()=>{cmpUI[slot].set=d.dataset.g;cmpFill();});
     box.scrollTop=scroll;
     return;
@@ -1043,14 +1094,15 @@ function cmpRenderSetList(slot,expandMatches=false){
 function cmpRenderMoves(slot){
   const box=document.getElementById('cmpMove'+slot);
   if(!box)return;
-  if(cmpMode==='ng'){
+  if(cmpMode!=='move'){
     if(!cmpUI[slot].set){
-      box.innerHTML='<div class="cmp-cat">'+esc(L('compareNgNoSet'))+'</div>';
+      box.innerHTML='<div class="cmp-cat">'+esc(L(cmpMode==='jm'?'compareJmNoSet':'compareNgNoSet'))+'</div>';
       return;
     }
     const q=cmpUI[slot].q.toLowerCase(),cur=slot==='A'?cmpA:cmpB;
-    const list=SK.filter(s=>s.t==='neigong'&&canonGroup(s)===cmpUI[slot].set)
-      .filter(s=>!q||has(F(s,'n'),q)||has(s.n0,q)||has(F(s,'c'),q)||has(s.c0,q)||has(F(s,'attr'),q)||has(schoolName(s),q));
+    const list=SK.filter(s=>s.t===(cmpMode==='ng'?'neigong':'jingmai')&&canonGroup(s)===cmpUI[slot].set)
+      .filter(s=>!q||has(F(s,'n'),q)||has(s.n0,q)||has(F(s,'c'),q)||has(s.c0,q)||
+        (cmpMode==='ng'&&(has(F(s,'attr'),q)||has(schoolName(s),q))));
     box.innerHTML=list.length?list.map(s=>{
       const on=cur&&cur.si===s.k?' on':'';
       return '<div class="cmp-move'+on+'" data-mi="'+s.k+'" title="'+esc(F(s,'n'))+'">'+
@@ -1083,7 +1135,7 @@ function cmpPickSet(slot,k){
 }
 function cmpPickMove(slot,mi){
   const old=slot==='A'?cmpA:cmpB;
-  if(cmpMode==='ng'){
+  if(cmpMode!=='move'){
     const lv=old&&old.si===mi?old.lv:1;
     const c=cmpFind(mi,0,lv);
     if(slot==='A')cmpA=c;else cmpB=c;
@@ -1100,7 +1152,7 @@ function cmpFill(){
   const first=cmpFirstSet();
   ['A','B'].forEach(slot=>{
     const c=slot==='A'?cmpA:cmpB,u=cmpUI[slot];
-    if(!u.set)u.set=cmpMode==='ng'?(c?canonGroup(c.s):(first?canonGroup(first):null)):(c?c.s.k:(first?first.k:null));
+    if(!u.set)u.set=cmpMode!=='move'?(c?canonGroup(c.s):(first?canonGroup(first):null)):(c?c.s.k:(first?first.k:null));
     if(!cmpGroupsReady[slot]){
       cmpGroupsReady[slot]=true;
       const gk=Object.keys(cmpSetGroups())[0]||'';
@@ -1109,7 +1161,7 @@ function cmpFill(){
     const picked=document.getElementById('cmpPicked'+slot);
     if(picked)picked.textContent=c?cmpLabel(c):'';
     const q=document.getElementById('cmpQ'+slot);
-    if(q){q.placeholder=L(cmpMode==='ng'?'compareNgSearch':'compareSearch');if(q.value!==u.q)q.value=u.q;}
+    if(q){q.placeholder=L(cmpLbl('compareSearch'));if(q.value!==u.q)q.value=u.q;}
     const lv=document.getElementById('cmpLv'+slot);
     if(lv){
       lv.innerHTML=c?cmpLevelOptions(c):'<option value="1">—</option>';
@@ -1145,9 +1197,10 @@ function cmpAddCurrent(){
 function wireCompare(){
   const mask=document.getElementById('cmpMask');
   if(!mask)return;
-  const open=document.getElementById('cmpOpen'),openNg=document.getElementById('cmpNgOpen');
+  const open=document.getElementById('cmpOpen'),openNg=document.getElementById('cmpNgOpen'),openJm=document.getElementById('cmpJmOpen');
   if(open)open.onclick=()=>cmpOpen('move');
   if(openNg)openNg.onclick=()=>cmpOpen('ng');
+  if(openJm)openJm.onclick=()=>cmpOpen('jm');
   document.getElementById('cmpClose').onclick=cmpClose;
   mask.onclick=e=>{if(e.target===mask)cmpClose();};
   ['A','B'].forEach(slot=>{
