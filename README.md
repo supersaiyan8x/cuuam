@@ -6,7 +6,7 @@ Chào mừng bạn đến với trang lưu trữ võ học và nội công cửu
 </div>
 <h4 style="text-align: center;">Phiên bản hiện tại:Chú Kiếm Quy Lư (Mở ẩn thế môn phái mới- Trường Lạc Phường)</h4>
 <h4 style="text-align: center;">Gia nhập Discord sv TaiWan (Bang VN)</h4>
-<a href="https://discord.gg/xuH4kx8K">
+<a href="https://discord.gg/C69dgTE29p">
   <img src="https://i.ibb.co/wZXg0WtQ/bb-W4u80g7y-IVxsphv9di-Nw-1.png">
 </a>
 
