@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://ageofwushu.pages.dev/sitemap.xml
