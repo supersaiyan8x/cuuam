@@ -849,8 +849,10 @@ function cmpDamage(c){
   const lv=cmpLevel(c);
   const db=Number(lv.db)||0,dm=Number(lv.dm)||0,total=Math.round(db*dm);
   const br=calcBonus(lv,loadBonus());
+  const avgBase=br?(br.minBase+br.maxBase)/2:db;
   return {db:db,dm:dm,total:total,cf:lv.cf||'—',br:br,
-    range:br?'('+br.minBase+'~'+br.maxBase+')':String(db),avg:br?br.avg:total};
+    range:br?'('+br.minBase+'~'+br.maxBase+')':String(db),
+    avg:avgBase,avgHit:br?br.avg:db};
 }
 function cmpLevelOptions(c){
   const rows=cmpLevelRows(c);
@@ -894,8 +896,8 @@ function cmpRowsFor(c){
     row(L('statDmgType'),F(lv,'dt')||L('dmg')),
     row(L('hitCount'),hits?hits+' '+L('point'):'—',hits),
     row(L('castTime'),m.sh?zh2vi(m.sh.sum||'—'):'—'),
-    row(L('dmg'),br?'('+br.minBase+'~'+br.maxBase+')':db,br?(br.minBase+br.maxBase)/2:db),
-    row(L('hitDmg'),br?'('+br.min+'~'+br.max+')':'—',br?(br.min+br.max)/2:null),
+    row(L('dmg'),d.range,d.avg),
+    row(L('hitDmg'),br?'('+br.min+'~'+br.max+')':'—',d.avgHit),
     row(L('dmgExtra'),lv.extra||'—'),
     {k:L('compareDesc'),v:fmtDesc(m.ds[lv.d]||'',lv),html:true}
   ];
