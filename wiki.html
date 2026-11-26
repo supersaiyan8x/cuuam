@@ -159,7 +159,7 @@ button,input,select{font-family:inherit}
 .lang-toggle button{background:transparent;border:0;border-right:1px solid var(--line2);color:var(--dim);font-size:11px;padding:4px 8px;cursor:pointer;font-family:var(--font-title)}
 .lang-toggle button:last-child{border-right:0}
 .lang-toggle button.on{background:var(--panel);color:var(--gold)}
-.theme-toggle{background:transparent;border:1px solid var(--line2);color:var(--gold2);border-radius:4px;padding:5px 9px;cursor:pointer;font-size:13px;line-height:1;flex:none}
+.theme-toggle{background:transparent;border:1px solid var(--line2);color:var(--gold2);border-radius:4px;padding:5px 9px;cursor:pointer;font-size:13px;font-weight:600;line-height:1;white-space:nowrap;flex:none}
 .theme-toggle:hover{background:var(--panel);color:var(--gold)}
 
 /* layout */
@@ -367,7 +367,7 @@ img{-webkit-user-drag:none;user-select:none}
   <div class="spacer"></div>
   <a class="calc-link" href="/hiep-ac.html" title="Máy tính giá trị hiệp-ác">⚖️ Hiệp Ác</a>
   <div class="hint" data-i18n="hint">Tra cứu ngoại tuyến · 532 mục</div>
-  <button class="theme-toggle" id="themeToggle" title="Đổi giao diện">☀️</button>
+  <button class="theme-toggle" id="themeToggle" title="Đổi giao diện">☀️ Sáng</button>
   <div class="lang-toggle" id="langToggle" title="Ngôn ngữ / 语言">
     <button data-lang="vi" class="on">VI</button><button data-lang="zh">中</button>
   </div>
@@ -426,7 +426,7 @@ if(location.protocol==='http:'||location.protocol==='https:'){
 function applyTheme(){
   document.documentElement.dataset.theme=theme;
   const b=document.getElementById('themeToggle');
-  if(b){b.textContent=theme==='dark'?'☀️':'🌙';b.title=L('theme');}
+  if(b){b.textContent=theme==='dark'?'☀️ Sáng':'🌙 Tối';b.title=L('theme');}
   try{localStorage.setItem('wuxue-theme',theme);}catch(e){}
 }
 
