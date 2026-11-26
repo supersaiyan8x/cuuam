@@ -177,6 +177,10 @@ main{max-width:1180px;margin:0 auto;padding:0 24px 60px}
 .link-list a span{color:var(--gold3);font-size:12px}
 footer{margin-top:60px;padding:24px;text-align:center;border-top:1px solid var(--line2);color:var(--dim);font-size:12px}
 footer a{color:var(--gold3)}
+.visit-counter{display:flex;flex-wrap:wrap;align-items:center;justify-content:center;gap:6px 14px;margin-top:16px;padding-top:14px;border-top:1px solid var(--line2);color:var(--dim);font-size:12px}
+.visit-counter[hidden]{display:none}
+.visit-counter__title{color:var(--gold3);font-weight:700;letter-spacing:.06em}
+.visit-counter b{color:var(--gold2);font-variant-numeric:tabular-nums}
 @media(max-width:900px){
   .top{padding:0 14px}
   .top .brand small{display:none}
@@ -273,7 +277,14 @@ footer a{color:var(--gold3)}
     </div>
   </section>
 </main>
-<footer>Cộng Đồng Cửu Âm Chân Kinh · <a href="/wiki.html">Wiki võ học</a> · <a href="/hiep-ac.html">Máy tính hiệp-ác</a> · <a href="index-backup.html#/">Tài liệu</a></footer>
+<footer>Cộng Đồng Cửu Âm Chân Kinh · <a href="/wiki.html">Wiki võ học</a> · <a href="/hiep-ac.html">Máy tính hiệp-ác</a> · <a href="index-backup.html#/">Tài liệu</a>
+  <div class="visit-counter" id="visitCounter" hidden aria-live="polite">
+    <span class="visit-counter__title">📊 Lượt truy cập</span>
+    <span>Ngày <b data-count="day">0</b></span>
+    <span>Tuần <b data-count="week">0</b></span>
+    <span>Tháng <b data-count="month">0</b></span>
+  </div>
+</footer>
 <script>
 (function(){
   var t='dark';
@@ -283,6 +294,60 @@ footer a{color:var(--gold3)}
   function paint(){b.textContent=t==='dark'?'☀️ Theme sáng':'🌙 Theme tối';b.title=t==='dark'?'Sang giao diện sáng':'Sang giao diện tối';}
   paint();
   b.onclick=function(){t=t==='dark'?'light':'dark';document.documentElement.dataset.theme=t;try{localStorage.setItem('wuxue-theme',t);}catch(e){}paint();};
+})();
+(function(){
+  var box=document.getElementById('visitCounter');
+  if(!box)return;
+  var BASE='https://countapi.mileshilliard.com/api/v1';
+  var PREFIX='cuuam-visits-a7f3c9-v1';
+  function dateParts(){
+    var out={}, d=new Date();
+    try{
+      new Intl.DateTimeFormat('en-US',{timeZone:'Asia/Ho_Chi_Minh',year:'numeric',month:'2-digit',day:'2-digit'})
+        .formatToParts(d).forEach(function(p){out[p.type]=p.value;});
+    }catch(e){
+      out.year=String(d.getFullYear());
+      out.month=String(d.getMonth()+1).padStart(2,'0');
+      out.day=String(d.getDate()).padStart(2,'0');
+    }
+    return out;
+  }
+  function isoWeek(y,m,d){
+    var dt=new Date(Date.UTC(+y,+m-1,+d));
+    var dow=(dt.getUTCDay()+6)%7;
+    dt.setUTCDate(dt.getUTCDate()-dow+3);
+    var year=dt.getUTCFullYear();
+    var first=new Date(Date.UTC(year,0,4));
+    var firstDow=(first.getUTCDay()+6)%7;
+    first.setUTCDate(first.getUTCDate()-firstDow+3);
+    return {year:year,week:1+Math.round((dt-first)/6048e5)};
+  }
+  var p=dateParts(), w=isoWeek(p.year,p.month,p.day);
+  var keys={
+    day:PREFIX+'-day-'+p.year+'-'+p.month+'-'+p.day,
+    week:PREFIX+'-week-'+w.year+'-W'+String(w.week).padStart(2,'0'),
+    month:PREFIX+'-month-'+p.year+'-'+p.month
+  };
+  function read(key){
+    var seen=false;
+    try{seen=sessionStorage.getItem(PREFIX+':'+key)==='1';}catch(e){}
+    return fetch(BASE+'/'+(seen?'get':'hit')+'/'+encodeURIComponent(key),{cache:'no-store'})
+      .then(function(r){if(!r.ok)throw new Error('HTTP '+r.status);return r.json();})
+      .then(function(d){
+        if(!seen){try{sessionStorage.setItem(PREFIX+':'+key,'1');}catch(e){}}
+        var n=parseInt(d.value,10);
+        return isFinite(n)&&n>=0?n:0;
+      });
+  }
+  Promise.all([read(keys.day),read(keys.week),read(keys.month)])
+    .then(function(v){
+      ['day','week','month'].forEach(function(k,i){
+        var el=box.querySelector('[data-count="'+k+'"]');
+        if(el)el.textContent=v[i].toLocaleString('vi-VN');
+      });
+      box.hidden=false;
+    })
+    .catch(function(){box.hidden=true;});
 })();
 (function(){
   var tabs=[].slice.call(document.querySelectorAll('.school-tabs button'));
