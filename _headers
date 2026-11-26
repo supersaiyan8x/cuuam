@@ -4,11 +4,12 @@
   X-Robots-Tag: noindex, nofollow, noarchive, nosnippet
   Cache-Control: no-store, must-revalidate
   Referrer-Policy: no-referrer
-  Content-Security-Policy: default-src 'self' data: blob:; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline' data:; img-src 'self' data:; font-src 'self' data:; connect-src 'self'; object-src 'none'; base-uri 'self'; frame-ancestors 'none'
 /index.html
+  Content-Security-Policy: default-src 'self' data: blob:; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline' data:; img-src 'self' data:; font-src 'self' data:; connect-src 'self'; object-src 'none'; base-uri 'self'; frame-ancestors 'none'
   Content-Disposition: inline
   Cache-Control: no-store, must-revalidate
 /wiki.html
+  Content-Security-Policy: default-src 'self' data: blob:; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline' data:; img-src 'self' data:; font-src 'self' data:; connect-src 'self'; object-src 'none'; base-uri 'self'; frame-ancestors 'none'
   Content-Disposition: inline
   Cache-Control: no-store, must-revalidate
 /sects/*
@@ -19,13 +20,16 @@
   Content-Disposition: inline
 /wx-core.js
   Content-Type: application/javascript; charset=UTF-8
+  Content-Security-Policy: default-src 'self' data: blob:; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline' data:; img-src 'self' data:; font-src 'self' data:; connect-src 'self'; object-src 'none'; base-uri 'self'; frame-ancestors 'none'
   Content-Disposition: inline
   Cache-Control: no-store, must-revalidate
 /wx-icons.js
   Content-Type: application/javascript; charset=UTF-8
+  Content-Security-Policy: default-src 'self' data: blob:; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline' data:; img-src 'self' data:; font-src 'self' data:; connect-src 'self'; object-src 'none'; base-uri 'self'; frame-ancestors 'none'
   Content-Disposition: inline
   Cache-Control: no-store, must-revalidate
 /wx-i18n.js
   Content-Type: application/javascript; charset=UTF-8
+  Content-Security-Policy: default-src 'self' data: blob:; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline' data:; img-src 'self' data:; font-src 'self' data:; connect-src 'self'; object-src 'none'; base-uri 'self'; frame-ancestors 'none'
   Content-Disposition: inline
   Cache-Control: no-store, must-revalidate
