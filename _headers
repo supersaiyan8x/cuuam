@@ -18,6 +18,9 @@
   Content-Security-Policy: default-src 'self' data: blob:; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline' data:; img-src 'self' data:; font-src 'self' data:; connect-src 'self'; object-src 'none'; base-uri 'self'; frame-ancestors 'none'
   Content-Disposition: inline
   Cache-Control: no-store, must-revalidate
+/logo.webp
+  Content-Type: image/webp
+  Cache-Control: public, max-age=86400
 /sects/*
   Content-Type: image/png
   Cache-Control: public, max-age=86400
