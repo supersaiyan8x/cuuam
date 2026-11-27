@@ -358,7 +358,7 @@ img{-webkit-user-drag:none;user-select:none}
 .jm-tree-item b{min-width:0;display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:2;overflow:hidden;font-weight:500}
 .jm-tree-foot{padding:2% 4%;color:#ffcf70;font-size:.8em;border-top:1px solid rgba(255,217,122,.22);background:rgba(0,0,0,.3)}
 .jm-tree-foot b{color:#fff3d0;font-weight:600}
-.jm-main{position:absolute;left:18.28%;top:0;width:82.17%;height:92.05%;overflow:visible}
+.jm-main{position:absolute;left:0;top:0;width:100%;height:92.05%;overflow:visible}
 .jm-main-bg,.jm-path-back,.jm-path-line{position:absolute;inset:0;background-position:center;background-size:100% 100%;background-repeat:no-repeat}
 .jm-main-bg{background-image:url('/jingmai/nw-bg.png')}
 .jm-stage.is-ni .jm-main-bg{background-image:url('/jingmai/nw-bg-n.png')}
@@ -374,6 +374,12 @@ img{-webkit-user-drag:none;user-select:none}
 .jm-skill-cap{position:absolute;top:11.15%;font-size:.78em;color:#fff3d0;text-shadow:0 1px 2px #000;text-align:center;white-space:nowrap}
 .jm-skill-cap.s1{left:.7%;width:8.7%}.jm-skill-cap.s2{left:9.6%;width:8.7%}.jm-skill-cap.tonic{left:92.5%;width:6%}
 .jm-skill-cap b{display:block;color:var(--jm-gold);font-weight:600}
+.jm-dir-tabs{position:absolute;left:2%;top:0;width:24%;height:12%;display:flex;gap:2%;z-index:4}
+.jm-dir-tabs button{flex:1;min-width:0;border:1px solid rgba(255,217,122,.35);border-radius:3px;background:rgba(0,0,0,.45);color:var(--jm-dim);font:inherit;font-size:.78em;padding:1% 2%;display:flex;flex-direction:column;justify-content:center;align-items:center;overflow:hidden}
+.jm-dir-tabs button.on{color:#fff3d0;border-color:var(--jm-gold);background:rgba(255,217,122,.18);box-shadow:0 0 6px rgba(255,217,122,.35)}
+.jm-dir-tabs b{font-weight:600;white-space:nowrap}
+.jm-dir-tabs span{max-width:100%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-size:.9em;opacity:.85}
+.jm-dir-tabs button:disabled{opacity:.4;cursor:default}
 .jm-mini-btns{position:absolute;left:0;top:12.87%;width:100%;display:flex;gap:1%;z-index:5}
 .jm-mini-btns button{width:10.12%;height:6.44%;background-position:center;background-size:100% 100%;background-repeat:no-repeat;filter:drop-shadow(0 1px 2px #000)}
 .jm-mini-btns .jm-gb{background-image:url('/jingmai/nw-gb-out.png')}
@@ -382,6 +388,7 @@ img{-webkit-user-drag:none;user-select:none}
 .jm-stage .jm-node{position:absolute;width:9.6%;height:10.5%;transform:translate(-50%,-50%);pointer-events:auto;transition:filter .15s ease}
 .jm-stage .jm-node img.jm-node-photo{position:absolute;inset:0;width:100%;height:100%;object-fit:fill;opacity:.96;pointer-events:none}
 .jm-stage .jm-node i{position:absolute;left:12%;bottom:-6%;width:76%;height:24%;background-position:center;background-size:100% 100%;background-repeat:no-repeat;pointer-events:none}
+.jm-stage .jm-node-name{position:absolute;left:50%;top:100%;transform:translateX(-50%);margin-top:1px;padding:0 3px;border-radius:2px;background:rgba(0,0,0,.5);color:#fff3d0;font-size:.72em;line-height:1.25;text-shadow:0 1px 2px #000;white-space:nowrap;pointer-events:none}
 .jm-stage .jm-node:hover{filter:drop-shadow(0 0 5px rgba(255,217,122,.9))}
 .jm-stage .jm-node.on{filter:drop-shadow(0 0 3px rgba(255,217,122,.7))}
 .jm-stage.hide-nodes .jm-node{visibility:hidden}
@@ -399,6 +406,7 @@ img{-webkit-user-drag:none;user-select:none}
 .jm-detail{margin-top:14px;padding:10px 12px;border:1px solid var(--line2);border-radius:6px;background:var(--panel2)}
 .jm-detail-hd{display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap;color:var(--gold2);font-size:13px;margin-bottom:8px}
 .jm-detail-hd b{font-weight:600}
+.jm-detail-hd em{font-style:normal;color:var(--gold2);font-size:.92em}
 .jm-detail-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:4px 8px;margin-bottom:8px}
 .jm-detail-grid span{min-width:0;color:var(--dim);font-size:12px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 .jm-detail-grid b{color:var(--gold);font-weight:600}
@@ -852,9 +860,13 @@ function clearSet(){
   document.getElementById('content').classList.remove('on');
 }
 const isMobile=()=>window.matchMedia('(max-width:820px)').matches;
-function openSet(k){
+function openSet(k,keepLevel){
   curSet=SK.find(s=>s.k===k);
-  if(curSet){curGroup=canonGroup(curSet);curMove=0;curLevel=1;openGroups.add(curGroup);}
+  if(curSet){
+    curGroup=canonGroup(curSet);curMove=0;
+    curLevel=Number(keepLevel)>0?Math.max(1,Math.min(keepLevel,(curSet.lv||[]).length||1)):1;
+    openGroups.add(curGroup);
+  }
   renderCats(true);renderMid();renderContent();
   // On a phone the middle column IS the list of moves of the chosen set.
   // Opening the detail overlay here would skip that list entirely.
@@ -1561,7 +1573,8 @@ function jmNodesHtml(key,ni,fill){
       ' style="left:'+x.toFixed(2)+'%;top:'+y.toFixed(2)+'%"'+
       ' title="'+esc(L('jmNodes')+' '+(i+1)+' · '+(i<open?L('jmOpen'):L('jmClosed')))+'">'+
       '<img class="jm-node-photo" src="'+photo(i)+'" alt="">'+
-      '<i style="background-image:url(\''+label(i)+'\')"></i></button>';
+      '<i style="background-image:url(\''+label(i)+'\')"></i>'+
+      '<span class="jm-node-name">'+esc(L('jmNodes')+' '+(i+1))+'</span></button>';
   }).join('');
 }
 function jmGameHtml(s,cur,lv){
@@ -1572,17 +1585,19 @@ function jmGameHtml(s,cur,lv){
   const key=jmArtKey(s), ni=jmIsNi(s), alt=jmAltSkill(s), art=ni?'_n':'';
   const base=ni&&alt?alt:s, rev=ni?s:alt;
   const cycle=curLevel+'/'+max+' '+L('jmCycle');
-  const total=SK.filter(x=>x.t==='jingmai').length;
   const shortcuts=Array.from({length:8},(_,i)=>{
     const n=curLevel-3+i;
     if(n<1||n>max)return '<span class="jm-quick-empty"></span>';
     return '<button type="button" class="jm-quick-btn'+(n===curLevel?' on':'')+'" data-jm-lv="'+n+'"'+
       ' title="'+esc(L('tier')((lv[n-1]||{}).n||n))+'">'+n+'</button>';
   }).join('');
+  const dirTab=(skill,dir,active)=>{
+    const name=dir==='z'?L('jmForward'):L('jmReverse');
+    return '<button type="button" class="jm-dir-tab'+(active?' on':'')+'" data-jm-dir="'+(skill?skill.k:'')+'"'+
+      (skill?'':' disabled')+' title="'+esc(name)+'"><b>'+esc(name)+'</b>'+
+      '<span>'+esc(skill?F(skill,'n'):'—')+'</span></button>';
+  };
   return '<div class="jm-game" id="jmGame"><div class="jm-stage'+(ni?' is-ni':'')+'" id="jmStage">'+
-    '<div class="jm-tree"><div class="jm-tree-head">'+esc(L('jmLearn'))+'</div>'+
-      '<div class="jm-tree-list">'+jmTreeHtml()+'</div>'+
-      '<div class="jm-tree-foot">'+esc(L('jmLearn'))+': <b>'+total+'</b></div></div>'+
     '<div class="jm-main"><div class="jm-art-layer">'+
       '<div class="jm-main-bg"></div>'+
       '<div class="jm-path-back" style="background-image:url(\'/jingmai/nw-'+key+'-back-on'+art+'.png\')"></div>'+
@@ -1592,12 +1607,7 @@ function jmGameHtml(s,cur,lv){
       '<div class="jm-path-name" style="background-image:url(\'/jingmai/nw-'+key+'-name.png\')"></div>'+
       '</div>'+
       '<div class="jm-skill-row">'+
-        '<button type="button" class="jm-skill-icon s1'+(ni?'':' on')+'"'+(base?' data-skill-k="'+base.k+'"':' disabled')+
-          ' title="'+esc(L('jmForward'))+'">'+img(base.i)+'</button>'+
-        '<span class="jm-skill-cap s1"><b>'+esc(F(base,'n'))+'</b>'+esc(cycle)+'</span>'+
-        '<button type="button" class="jm-skill-icon s2'+(ni?' on':'')+'"'+(rev?' data-skill-k="'+rev.k+'"':' disabled')+
-          ' title="'+esc(L('jmReverse'))+'">'+img(rev?rev.i:s.i)+'</button>'+
-        '<span class="jm-skill-cap s2"><b>'+esc(ni?L('jmReverse'):L('jmForward'))+'</b>'+esc(cycle)+'</span>'+
+        '<div class="jm-dir-tabs">'+dirTab(base,'z',!ni)+dirTab(rev,'n',ni)+'</div>'+
         '<button type="button" class="jm-skill-icon tonic" data-jm-toggle="hide-nodes" title="'+esc(L('jmTonic'))+'"></button>'+
         '<span class="jm-skill-cap tonic"><b>'+esc(L('jmTonic'))+'</b></span>'+
         '<div class="jm-mini-btns">'+
@@ -1610,7 +1620,7 @@ function jmGameHtml(s,cur,lv){
         '<button type="button" class="jm-yz" data-jm-step="max" title="'+esc(L('jmMaxLevel'))+'"></button>'+
         '<button type="button" class="jm-qz" data-jm-toggle="hide-nodes" title="'+esc(L('jmNodes'))+'"></button>'+
       '</div></div>'+
-    '<div class="jm-detail"><div class="jm-detail-hd"><b>'+esc(tier)+'</b><span>'+esc(cost)+'</span></div>'+
+    '<div class="jm-detail"><div class="jm-detail-hd"><b>'+esc(tier)+'</b><em>'+esc(ni?L('jmReverse'):L('jmForward'))+' · '+esc(cycle)+'</em><span>'+esc(cost)+'</span></div>'+
       '<div class="jm-detail-grid">'+jmStats.map(r=>'<span>'+esc(STATLABEL(r.k))+': <b>'+esc(r.v)+'</b></span>').join('')+'</div>'+
       '<div class="jm-skill-grid" id="jmSkillGrid">'+jmSkillHtml()+'</div>'+
       '<div class="jm-skill-pager"><button type="button" id="jmPagePrev" title="'+esc(L('jmPrevPage'))+'">‹</button>'+
@@ -1741,8 +1751,10 @@ function renderContent(){
   if(s.t==='jingmai'){
     const stage=document.getElementById('jmStage'),game=document.getElementById('jmGame');
     if(stage){
-      stage.querySelectorAll('.jm-tree-item').forEach(b=>b.onclick=()=>openSet(+b.dataset.k));
-      stage.querySelectorAll('[data-skill-k]').forEach(b=>b.onclick=()=>openSet(+b.dataset.skillK));
+      stage.querySelectorAll('[data-jm-dir]').forEach(b=>b.onclick=()=>{
+        if(b.disabled||!b.dataset.jmDir)return;
+        openSet(+b.dataset.jmDir,curLevel);
+      });
       stage.querySelectorAll('[data-jm-step]').forEach(b=>b.onclick=()=>{
         const step=b.dataset.jmStep;
         go(step==='max'?lv.length:curLevel+(+step));
