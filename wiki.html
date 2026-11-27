@@ -196,6 +196,7 @@ img{-webkit-user-drag:none;user-select:none}
 .miditem img{width:42px;height:42px;object-fit:cover;border-radius:6px;background:var(--imgbg);flex:none;border:1px solid var(--line2)}
 .miditem.jm-point img{object-fit:contain;background:#0d0a07;border-color:rgba(255,217,122,.35)}
 .miditem.jm-point.is-open .nm b{color:var(--gold)}
+.miditem.jm-meridian img{object-fit:contain;background:#0d0a07;border-color:rgba(255,217,122,.35)}
 .miditem .nm{flex:1;min-width:0}
 .miditem .nm b{display:block;font-size:14px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;color:var(--ink)}
 .miditem .nm small{display:block;color:var(--dim);font-size:11px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
@@ -389,10 +390,9 @@ img{-webkit-user-drag:none;user-select:none}
 .jm-mini-btns .jm-jh{background-image:url('/jingmai/nw-jh-out.png')}
 .jm-node-map{position:absolute;left:17.8%;top:3.45%;width:67.3%;height:92.62%;z-index:4;pointer-events:none}
 .jm-stage .jm-node{position:absolute;width:9.6%;aspect-ratio:128/137;height:auto;transform:translate(-50%,-50%);pointer-events:auto;transition:filter .15s ease}
-.jm-stage .jm-node img.jm-node-photo{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;opacity:.96;pointer-events:none}
-.jm-stage .jm-node i{position:absolute;left:12%;bottom:-6%;width:76%;height:auto;aspect-ratio:69/23;background-position:center;background-size:100% 100%;background-repeat:no-repeat;pointer-events:none}
-.jm-stage .jm-node-name{position:absolute;left:50%;top:100%;transform:translateX(-50%);width:150%;padding:1px 3px;border-radius:3px;background:rgba(0,0,0,.8);color:#fff3d0;font-size:max(.78em,9px);font-weight:600;line-height:1.15;text-shadow:0 1px 2px #000,0 0 3px #000;white-space:normal;overflow-wrap:anywhere;text-align:center;pointer-events:none}
-.jm-stage .jm-node.on .jm-node-name{color:#ffe9a8;background:rgba(92,52,4,.72)}
+.jm-stage .jm-node img.jm-node-photo{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;opacity:.98;pointer-events:none}
+.jm-stage .jm-node-name{position:absolute;left:50%;top:100%;transform:translateX(-50%);width:150%;margin-top:1px;padding:0;background:none;color:#fff3d0;font-size:max(.78em,9px);font-weight:600;line-height:1.1;text-shadow:0 1px 2px #000,0 0 4px #000,0 0 6px #000;white-space:normal;overflow-wrap:anywhere;text-align:center;pointer-events:none}
+.jm-stage .jm-node.on .jm-node-name{color:#ffe9a8}
 .jm-stage .jm-node:hover{filter:drop-shadow(0 0 5px rgba(255,217,122,.9))}
 .jm-stage .jm-node.on{filter:drop-shadow(0 0 3px rgba(255,217,122,.7))}
 .jm-stage.hide-nodes .jm-node{visibility:hidden}
@@ -403,8 +403,6 @@ img{-webkit-user-drag:none;user-select:none}
 .jm-bottom-btns button{position:absolute;background-position:center;background-size:100% 100%;background-repeat:no-repeat;pointer-events:auto;filter:drop-shadow(0 2px 3px #000)}
 .jm-bottom-btns .jm-zx{left:48.17%;top:80.78%;width:7.13%;height:11.27%;background-image:url('/jingmai/nw-zx-out.png')}
 .jm-bottom-btns .jm-nl{left:65.72%;top:80.78%;width:7.13%;height:11.27%;background-image:url('/jingmai/nw-nl-out.png')}
-.jm-bottom-btns .jm-yz{left:83.64%;top:93.06%;width:8.32%;height:5.92%;background-image:url('/jingmai/nw-yz-out.png')}
-.jm-bottom-btns .jm-qz{left:90.95%;top:93.06%;width:8.32%;height:5.92%;background-image:url('/jingmai/nw-qz-out.png')}
 .jm-bottom-btns button:hover{filter:drop-shadow(0 0 5px rgba(255,217,122,.8))}
 .jm-game.hide-detail .jm-detail{display:none}
 .jm-detail{margin-top:14px;padding:10px 12px;border:1px solid var(--line2);border-radius:6px;background:var(--panel2)}
@@ -860,7 +858,9 @@ function renderMid(keepScroll=false){
   let list=[], mode='', previewSet=null;
   if(curSet){
     if(curSet.t==='jingmai'){
-      mode='jm';list=jmMidList(curSet);
+      mode='jmset';
+      list=[{s:curSet, icon:curSet.i, name:F(curSet,'n'),
+        search:[F(curSet,'n'),curSet.n0,F(curSet,'c'),curSet.c0].join(' ')}];
     } else if(curSet.t==='wuxue'&&curSet.m&&curSet.m.length){
       mode='move';
       list=curSet.m.map((m,i)=>({i:i, m:m, icon:m.i, name:MN(m),
@@ -872,7 +872,9 @@ function renderMid(keepScroll=false){
         search:[F(curSet,'n'),curSet.n0,F(curSet,'c'),curSet.c0].join(' ')}];
     }
   } else if(curType==='jingmai'&&(previewSet=SK.find(s=>s.t==='jingmai'&&JM_POINT_NAMES[s.a]))){
-    mode='jm';list=jmMidList(previewSet);
+    mode='jmset';
+    list=[{s:previewSet, icon:previewSet.i, name:F(previewSet,'n'),
+      search:[F(previewSet,'n'),previewSet.n0,F(previewSet,'c'),previewSet.c0].join(' ')}];
   } else {
     mode='set';
     list=SK.filter(s=>s.t===curType);
@@ -884,8 +886,11 @@ function renderMid(keepScroll=false){
   if(count)count.textContent='('+list.length+')';
   if(!list.length){box.innerHTML='<div class="empty">'+esc(L('notFound'))+'</div>';box.scrollTop=scroll;return;}
   const infoSet=curSet||previewSet;
-  const info=infoSet?'<div class="setinfo" style="padding:10px 14px;border-bottom:1px solid var(--line2);color:var(--gold2);font-size:13px">'+(curSet?'<button class="allsets-btn" onclick="clearSet()">'+esc(L('allSets'))+'</button>':'')+'📖 '+esc(F(infoSet,'n'))+' · '+esc(F(infoSet,'c'))+' <span style="color:var(--dim)">('+esc(mode==='jm'?L('jmNodes')+' '+list.length:mode==='move'?L('moves')(list.length):L('neiJing'))+')</span></div>':'';
-  if(mode==='jm'){
+  const info=infoSet?'<div class="setinfo" style="padding:10px 14px;border-bottom:1px solid var(--line2);color:var(--gold2);font-size:13px">'+(curSet?'<button class="allsets-btn" onclick="clearSet()">'+esc(L('allSets'))+'</button>':'')+'📖 '+esc(F(infoSet,'n'))+' · '+esc(F(infoSet,'c'))+(mode==='jmset'?'':' <span style="color:var(--dim)">('+esc(mode==='jm'?L('jmNodes')+' '+list.length:mode==='move'?L('moves')(list.length):L('neiJing'))+')</span>')+'</div>':'';
+  if(mode==='jmset'){
+    box.innerHTML=info+list.map(x=>'<div class="miditem jm-meridian'+(curSet&&curSet.k===x.s.k?' on':'')+'" data-k="'+x.s.k+'">'+img(x.icon)+'<div class="nm"><b>'+esc(x.name)+'</b></div></div>').join('');
+    box.querySelectorAll('[data-k]').forEach(x=>x.onclick=()=>{openSet(+x.dataset.k);openContent();toggleCats(false);});
+  } else if(mode==='jm'){
     box.innerHTML=info+list.map(x=>'<div class="miditem jm-point'+(x.isOpen?' is-open':'')+'" data-jm-point="'+x.i+'" title="'+esc(x.name+' · '+x.sub)+'"><img src="'+esc(x.icon)+'" alt=""><div class="nm"><b>'+esc(x.name)+'</b><small>'+esc(x.sub)+'</small></div></div>').join('');
     box.querySelectorAll('[data-jm-point]').forEach(x=>x.onclick=()=>{
       if(previewSet&&!curSet) openSet(previewSet.k); else renderContent();
@@ -1618,9 +1623,7 @@ function jmNodesHtml(a,key,ni,level,max){
   // One acupoint is open from level 1; the rest open evenly up to the final tier.
   const open=Math.min(n,Math.max(1,Math.ceil(level*n/max)));
   const photo=i=>'/jingmai/nw-'+key+'-'+(i<open?'open-'+(ni?'n':'z'):'close')+'.png';
-  const label=i=>'/jingmai/nw-label-'+(i<open?(ni?'open-n':'open-z'):'close')+'.png';
-  // The XML parks a 128x137 node template outside the 605x590 gbox_xuewei_map.
-  // Spread the scaled cards on an open ring around the body, clear of the gate.
+  // The game puts the 128x137 human-shaped decals on a ring around the body.
   const cx=50, cy=50, rx=35, ry=40, step=300/n;
   return Array.from({length:n},(_,i)=>{
     const ang=(120+(i+.5)*step)*Math.PI/180;
@@ -1631,7 +1634,6 @@ function jmNodesHtml(a,key,ni,level,max){
       ' style="left:'+x.toFixed(2)+'%;top:'+y.toFixed(2)+'%"'+
       ' title="'+esc(nm+' · '+(i<open?L('jmOpen'):L('jmClosed'))+' · '+L('jmLevel')+' '+need)+'">'+
       '<img class="jm-node-photo" src="'+photo(i)+'" alt="">'+
-      '<i style="background-image:url(\''+label(i)+'\')"></i>'+
       '<span class="jm-node-name">'+esc(nm)+'</span></button>';
   }).join('');
 }
@@ -1675,8 +1677,6 @@ function jmGameHtml(s,cur,lv){
       '<div class="jm-bottom-btns">'+
         '<button type="button" class="jm-zx" data-jm-step="-1" title="'+esc(L('jmPrevLevel'))+'"></button>'+
         '<button type="button" class="jm-nl" data-jm-step="1" title="'+esc(L('jmNextLevel'))+'"></button>'+
-        '<button type="button" class="jm-yz" data-jm-step="max" title="'+esc(L('jmMaxLevel'))+'"></button>'+
-        '<button type="button" class="jm-qz" data-jm-toggle="hide-nodes" title="'+esc(L('jmNodes'))+'"></button>'+
       '</div></div>'+
     '<div class="jm-detail"><div class="jm-detail-hd"><b>'+esc(tier)+'</b><em>'+esc(ni?L('jmReverse'):L('jmForward'))+' · '+esc(cycle)+'</em><span>'+esc(cost)+'</span></div>'+
       '<div class="jm-detail-grid">'+jmStats.map(r=>'<span>'+esc(STATLABEL(r.k))+': <b>'+esc(r.v)+'</b></span>').join('')+'</div>'+
