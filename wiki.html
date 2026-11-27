@@ -810,7 +810,7 @@ function renderCats(keepScroll=false, forceQ=null){
     return '<div class="cat '+(openGroups.has(g)?'open':'')+'" data-g="'+esc(g)+'" data-gv="'+esc(label)+'"><h3><span>☯ '+esc(label)+'</span><span class="arw">▶</span></h3><div class="sub">'+
       arr.map(s=>{
         const c=F(s,'c'),sub=[F(s,'g')||c,s.m?L('moves')(s.m.length):''].filter(Boolean).join(' · ');
-        return '<div class="cat-row '+(curSet&&curSet.k===s.k?'on':'')+'" data-k="'+s.k+'"'+catRowAttrs(s,F(s,'n'),sub)+'><b>'+esc(F(s,'n'))+'</b>'+(sub?'<span>'+esc(sub)+'</span>':'')+'</div>';
+        return '<div class="cat-row '+(curSet&&curSet.k===s.k?'on':'')+'" data-k="'+s.k+'"'+catRowAttrs(s,F(s,'n'),sub)+'><b>'+esc(F(s,'n'))+'</b></div>';
       }).join('')+'</div></div>';
   }).join('');
   el.querySelectorAll('.cat h3').forEach(h=>h.onclick=()=>{
