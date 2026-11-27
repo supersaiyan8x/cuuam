@@ -431,7 +431,7 @@ img{-webkit-user-drag:none;user-select:none}
 .boot-loader{position:fixed;inset:0;z-index:9999;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:14px;background:var(--bg);color:var(--ink);font-size:15px}
 .boot-spin{width:38px;height:38px;border:3px solid var(--line2);border-top-color:var(--gold);border-radius:50%;animation:bootspin .8s linear infinite}
 @keyframes bootspin{to{transform:rotate(360deg)}}
-.mobile-cat-btn,.cat-close,.cat-mask,.allsets-btn{display:none}
+.mobile-cat-btn,.cat-close,.cat-mask,.allsets-btn,.mobile-type-back{display:none}
 .setinfo{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
 .setinfo .allsets-btn{display:inline-block;margin-right:auto;background:var(--panel);border:1px solid var(--line2);border-radius:4px;color:var(--gold2);padding:5px 9px;font-size:12px;cursor:pointer}
 @media(max-width:1100px){.sidebar{width:190px}.midbar{width:260px}}
@@ -447,6 +447,10 @@ img{-webkit-user-drag:none;user-select:none}
   .sticky .title-row{display:flex;align-items:center;justify-content:space-between;gap:8px}
   .sticky h2{margin-bottom:8px;flex:1}
   .mobile-cat-btn{display:inline-flex;align-items:center;gap:4px;background:var(--panel);border:1px solid var(--line2);border-radius:4px;color:var(--gold2);padding:6px 9px;font-size:13px;cursor:pointer;white-space:nowrap}
+  body.type-chosen:not(.type-tabs-open){--navh:84px}
+  body.type-chosen .mobile-type-back{display:inline-flex;align-items:center;justify-content:center;width:30px;height:30px;background:var(--panel);border:1px solid var(--line2);border-radius:4px;color:var(--gold2);cursor:pointer;font-size:15px}
+  body.type-chosen .topnav .tabs{display:none}
+  body.type-chosen.type-tabs-open .topnav .tabs{display:flex}
   .sidebar{display:block;position:fixed;left:0;top:var(--navh);bottom:0;width:min(86vw,340px);z-index:75;transform:translateX(-105%);transition:transform .2s ease;box-shadow:6px 0 28px var(--shadow)}
   .sidebar.open{transform:none}
   .sidebar .sticky{position:sticky}
@@ -491,6 +495,7 @@ img{-webkit-user-drag:none;user-select:none}
 <div class="topnav">
   <a class="home-link" href="/index.html" title="Trang chủ">🏠</a>
   <button type="button" class="mobile-cat-btn" onclick="toggleCats(true)">☰ <span data-i18n="library">Tàng Thư Các</span></button>
+  <button type="button" class="mobile-type-back" id="mobileTypeBack" onclick="toggleTypeTabs()">⇄</button>
   <div class="brand"><span class="yin">☯</span> <span data-i18n="brand">Vĩnh Lạc Đại Điển · Võ Học Bảo Giám</span><span class="brand-en">WUXUE CODEX</span></div>
   <div class="tabs">
     <button data-t="wuxue" class="on"></button>
@@ -764,6 +769,7 @@ function applyStatic(){
   const qm=document.getElementById('qmid'); if(qm)qm.placeholder=L('nameSearch');
   document.querySelectorAll('#langToggle button').forEach(b=>b.classList.toggle('on',b.dataset.lang===lang));
   const tb=document.getElementById('themeToggle'); if(tb) tb.title=L('theme');
+  const mt=document.getElementById('mobileTypeBack'); if(mt) mt.title=L('catalog');
 }
 
 function allGroups(){
@@ -778,6 +784,13 @@ function toggleCats(on){
   const s=document.getElementById('sidebar'),m=document.getElementById('catMask');
   if(!s||!m)return;
   s.classList.toggle('open',!!on);m.classList.toggle('on',!!on);
+}
+function toggleTypeTabs(on){
+  if(!document.body.classList.contains('type-chosen'))return;
+  const show=on==null?!document.body.classList.contains('type-tabs-open'):!!on;
+  document.body.classList.toggle('type-tabs-open',show);
+  const b=document.getElementById('mobileTypeBack');
+  if(b)b.classList.toggle('on',show);
 }
 function catRowAttrs(o,name,extra){
   return ' data-n0="'+esc(o.n0==null?name:o.n0)+'" data-n="'+esc(name)+'" data-ty="'+esc(extra||'')+'"';
@@ -1841,6 +1854,8 @@ function activateTab(t){
   if(!b)return;
   curType=t;curGroup='';curSet=null;curMove=0;curLevel=1;
   sidebarQuery='';
+  document.body.classList.add('type-chosen');
+  document.body.classList.remove('type-tabs-open');
   document.querySelectorAll('.topnav .tabs button').forEach(x=>x.classList.toggle('on',x===b));
   const qm=document.getElementById('qmid'); if(qm)qm.value='';
   document.getElementById('content').classList.remove('on');
