@@ -1575,7 +1575,7 @@ function jmNodesHtml(a,key,ni,level,max){
   const label=i=>'/jingmai/nw-label-'+(i<open?(ni?'open-n':'open-z'):'close')+'.png';
   // The XML parks a 128x137 node template outside the 605x590 gbox_xuewei_map.
   // Spread the scaled cards on an open ring around the body, clear of the gate.
-  const cx=50, cy=50, rx=33.9, ry=34.7, step=300/n;
+  const cx=50, cy=50, rx=35, ry=38.5, step=300/n;
   return Array.from({length:n},(_,i)=>{
     const ang=(120+(i+.5)*step)*Math.PI/180;
     const x=cx+rx*Math.cos(ang), y=cy+ry*Math.sin(ang);
