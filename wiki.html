@@ -342,6 +342,87 @@ img{-webkit-user-drag:none;user-select:none}
 .cmp-table td:nth-child(2),.cmp-table td:nth-child(3){width:32%}
 .cmp-table .up{color:var(--green)}.cmp-table .down{color:var(--red)}.cmp-table .same{color:var(--dim)}
 .cmp-empty{padding:46px;text-align:center;color:var(--dim);border:1px dashed var(--line2);border-radius:6px}
+/* Kinh mạch: rebuilt from form_wuxue_jingmai.xml and the wuxue_new/jingmai art.
+   Geometry follows the 1094x692 game form; the art stays dark in both themes. */
+.jm-summary{margin-bottom:16px}
+.jm-game{--jm-ink:#f7ecd7;--jm-dim:#cbb78f;--jm-gold:#ffd97a;width:min(100%,1094px);margin:0 auto;color:var(--jm-ink)}
+.jm-stage{position:relative;width:100%;aspect-ratio:1094/692;overflow:hidden;border:1px solid #5a4425;border-radius:6px;background:#0d0a07;box-shadow:inset 0 0 36px #000,0 8px 30px rgba(0,0,0,.45);font-size:clamp(7px,1.18vw,13px)}
+.jm-stage button{background:none;border:0;padding:0;cursor:pointer;color:inherit;font:inherit}
+.jm-stage button:focus-visible{outline:2px solid var(--jm-gold);outline-offset:2px}
+.jm-tree{position:absolute;left:.37%;top:.58%;width:18%;height:91.5%;background:url('/jingmai/nw-list-bg.png') center/100% 100% no-repeat;border:1px solid rgba(255,217,122,.24);border-radius:3px;display:flex;flex-direction:column;overflow:hidden}
+.jm-tree-head{padding:2.2% 5%;color:var(--jm-gold);font-size:.92em;letter-spacing:.04em;border-bottom:1px solid rgba(255,217,122,.22);background:rgba(0,0,0,.28)}
+.jm-tree-list{flex:1;min-height:0;overflow-y:auto;padding:2% 3%;scrollbar-width:thin;scrollbar-color:#7c5c2b transparent}
+.jm-tree-item{display:flex;align-items:center;gap:5%;width:100%;padding:2.4% 5%;color:#d8c6a2;font-size:.86em;text-align:left;border-left:2px solid transparent;line-height:1.2}
+.jm-tree-item:hover{background:rgba(255,217,122,.12)}
+.jm-tree-item.on{color:#fff3d0;border-left-color:var(--jm-gold);background:rgba(255,217,122,.18)}
+.jm-tree-item b{flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-weight:500}
+.jm-tree-item i{width:1.7em;height:1.7em;border-radius:2px;opacity:.85;object-fit:cover;flex:none}
+.jm-tree-foot{padding:2% 4%;color:#ffcf70;font-size:.8em;border-top:1px solid rgba(255,217,122,.22);background:rgba(0,0,0,.3)}
+.jm-tree-foot b{color:#fff3d0;font-weight:600}
+.jm-main{position:absolute;left:18.28%;top:0;width:82.17%;height:92.05%;overflow:visible}
+.jm-main-bg,.jm-path-back,.jm-path-line{position:absolute;inset:0;background-position:center;background-size:100% 100%;background-repeat:no-repeat}
+.jm-main-bg{background-image:url('/jingmai/nw-bg.png')}
+.jm-stage.is-ni .jm-main-bg{background-image:url('/jingmai/nw-bg-n.png')}
+.jm-path-back{opacity:.92}
+.jm-path-line{opacity:.95;pointer-events:none}
+.jm-art-layer{position:absolute;inset:0;overflow:hidden}
+.jm-skill-row{position:absolute;left:0;top:0;width:99.4%;height:20.4%;z-index:3}
+.jm-skill-icon{position:absolute;top:1.9%;width:5.35%;height:7.54%;display:block;border:1px solid rgba(255,217,122,.4);border-radius:3px;background:#120d08;overflow:hidden}
+.jm-skill-icon img{width:100%;height:100%;display:block;object-fit:cover}
+.jm-skill-icon.s1{left:2%}.jm-skill-icon.s2{left:10.9%}.jm-skill-icon.tonic{left:92.5%}
+.jm-skill-icon.on{border-color:var(--jm-gold);box-shadow:0 0 5px rgba(255,217,122,.55)}
+.jm-skill-icon.tonic{background-image:url('/jingmai/icon_item.png');background-size:100% 100%}
+.jm-skill-cap{position:absolute;top:11.15%;font-size:.78em;color:#fff3d0;text-shadow:0 1px 2px #000;text-align:center;white-space:nowrap}
+.jm-skill-cap.s1{left:.7%;width:8.7%}.jm-skill-cap.s2{left:9.6%;width:8.7%}.jm-skill-cap.tonic{left:92.5%;width:6%}
+.jm-skill-cap b{display:block;color:var(--jm-gold);font-weight:600}
+.jm-mini-btns{position:absolute;left:0;top:12.87%;width:100%;display:flex;gap:1%;z-index:5}
+.jm-mini-btns button{width:10.12%;height:6.44%;background-position:center;background-size:100% 100%;background-repeat:no-repeat;filter:drop-shadow(0 1px 2px #000)}
+.jm-mini-btns .jm-gb{background-image:url('/jingmai/nw-gb-out.png')}
+.jm-mini-btns .jm-jh{background-image:url('/jingmai/nw-jh-out.png')}
+.jm-node-layer{position:absolute;inset:0;z-index:4;pointer-events:none}
+.jm-node{position:absolute;width:14.24%;height:21.51%;transform:translate(-50%,-50%);background:url('/jingmai/nw-xw-out.png') center/100% 100% no-repeat;pointer-events:auto}
+.jm-node img.jm-node-photo{position:absolute;inset:0;width:100%;height:100%;object-fit:fill;opacity:.96}
+.jm-node i{position:absolute;left:25%;top:75.9%;width:53.9%;height:16.8%;background-position:center;background-size:100% 100%;background-repeat:no-repeat}
+.jm-node.on{filter:drop-shadow(0 0 4px rgba(255,217,122,.55))}
+.jm-point{position:absolute;width:1.67%;height:2.36%;transform:translate(-50%,-50%);background-position:center;background-size:contain;background-repeat:no-repeat;pointer-events:none;opacity:.85}
+.jm-stage.hide-nodes .jm-node{visibility:hidden}
+.jm-gate{position:absolute;left:46.38%;top:65.15%;width:9.01%;height:12.72%;background:url('/jingmai/nw-dt-h.png') center/100% 100% no-repeat;z-index:5;pointer-events:none}
+.jm-gate-fill{position:absolute;inset:0;background:url('/jingmai/nw-dt-j3.png') center/100% 100% no-repeat;clip-path:inset(calc(100% - var(--jm-fill,0%)) 0 0 0)}
+.jm-path-name{position:absolute;left:71.97%;top:4.87%;width:11.68%;height:31.71%;background-position:center;background-size:100% 100%;background-repeat:no-repeat;z-index:5;pointer-events:none;opacity:.92}
+.jm-bottom-btns{position:absolute;inset:0;z-index:6;pointer-events:none}
+.jm-bottom-btns button{position:absolute;background-position:center;background-size:100% 100%;background-repeat:no-repeat;pointer-events:auto;filter:drop-shadow(0 2px 3px #000)}
+.jm-bottom-btns .jm-zx{left:48.17%;top:80.78%;width:7.13%;height:11.27%;background-image:url('/jingmai/nw-zx-out.png')}
+.jm-bottom-btns .jm-nl{left:65.72%;top:80.78%;width:7.13%;height:11.27%;background-image:url('/jingmai/nw-nl-out.png')}
+.jm-bottom-btns .jm-yz{left:83.64%;top:93.06%;width:8.32%;height:5.92%;background-image:url('/jingmai/nw-yz-out.png')}
+.jm-bottom-btns .jm-qz{left:90.95%;top:93.06%;width:8.32%;height:5.92%;background-image:url('/jingmai/nw-qz-out.png')}
+.jm-bottom-btns button:hover{filter:drop-shadow(0 0 5px rgba(255,217,122,.8))}
+.jm-game.hide-detail .jm-detail{display:none}
+.jm-detail{margin-top:14px;padding:10px 12px;border:1px solid var(--line2);border-radius:6px;background:var(--panel2)}
+.jm-detail-hd{display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap;color:var(--gold2);font-size:13px;margin-bottom:8px}
+.jm-detail-hd b{font-weight:600}
+.jm-detail-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:4px 8px;margin-bottom:8px}
+.jm-detail-grid span{min-width:0;color:var(--dim);font-size:12px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.jm-detail-grid b{color:var(--gold);font-weight:600}
+.jm-skill-grid{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:4px}
+.jm-skill-cell{min-width:0;padding:6px 4px;text-align:center;border:1px solid var(--line2);border-radius:3px;background:var(--panel)}
+.jm-skill-cell b{display:block;color:var(--ink);font-size:11px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.jm-skill-cell i{font-style:normal;color:var(--gold2);font-size:11px}
+.jm-skill-pager{display:flex;align-items:center;justify-content:center;gap:10px;margin-top:8px}
+.jm-skill-pager button{padding:3px 8px;background:var(--panel);border:1px solid var(--line2);border-radius:3px;color:var(--gold2);cursor:pointer}
+.jm-skill-pager span{color:var(--dim);font-size:11px}
+.jm-quick-levels{display:flex;align-items:center;gap:4px;margin-top:8px;flex-wrap:wrap}
+.jm-quick-btn{min-width:32px;padding:3px 6px;border:1px solid var(--line2);border-radius:3px;background:var(--panel);color:var(--dim);cursor:pointer;font-size:11px}
+.jm-quick-btn.on{border-color:var(--gold2);color:var(--gold);background:var(--gold-tint)}
+.jm-quick-empty{display:inline-block;min-width:32px}
+@media(max-width:820px){
+  .jm-stage{font-size:clamp(7px,2vw,11px)}
+  .jm-detail-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .jm-skill-grid{grid-template-columns:repeat(3,minmax(0,1fr))}
+}
+@media(max-width:480px){
+  .jm-stage{font-size:7px}
+  .jm-skill-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+}
 .stat-chip{display:inline-block;background:var(--panel);border:1px solid var(--line2);border-radius:4px;padding:4px 8px;margin:3px;font-size:12px;color:var(--ink)}
 .stat-chip b{color:var(--gold3);font-weight:400}
 .buf-section{margin:0 0 18px;padding:14px 0 4px;border-bottom:1px dashed var(--line2)}
@@ -469,6 +550,7 @@ const esc=s=>String(s==null?'':s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;',
 let curType='wuxue', curGroup='', curSet=null, curMove=0, curLevel=1;
 let openGroups=new Set();
 let cmpA=null, cmpB=null, cmpList=null, cmpByKey=null, cmpMode='move', cmpJmKeyList=null;
+let jmPage=1, jmStats=[];
 let cmpUI={A:{q:'',set:null},B:{q:'',set:null}};
 let cmpOpenGroups={A:new Set(),B:new Set()}, cmpGroupsReady={A:false,B:false};
 let lang='vi';
@@ -570,6 +652,14 @@ const UI={
   compareDesc:'Mô tả', compareConsume:'Tiêu hao', compareCost:'Tu vi / Đột phá', compareAdd:'⚔️ So sánh chiêu này',
   compareSearch:'Tìm chiêu / bộ...', compareNoSet:'Chọn một bộ bên trái', compareNoMove:'Không có chiêu phù hợp',
   compareDamage:'Sát thương', compareAvg:'Trung bình', compareBaseMul:'Cơ số × Bội số',
+  jmLevel:'Tầng', jmStats:'Chỉ số kinh mạch', jmShortcut:'Phím tắt', jmProgress:'Tiến triển',
+  jmTogglePanel:'Ẩn / hiện bảng', jmPrevPage:'Trang trước', jmNextPage:'Trang sau',
+  jmElem:{dong:'Đông',lin:'Lâm',xue:'Tuyết',shan:'Sơn',shui:'Thủy'},
+  jmBar:{gold:'Kim',wood:'Mộc',water:'Thủy',fire:'Hỏa',ground:'Thổ',dark:'Âm',light:'Dương',desert:'Hư'},
+  jmLearn:'Học Kinh Mạch', jmCycle:'Vòng', jmForward:'Chính tu', jmReverse:'Nghịch luyện',
+  jmOpen:'Đã mở', jmClosed:'Chưa mở', jmNodes:'Huyệt', jmHideNodes:'Ẩn huyệt', jmShowNodes:'Hiện huyệt',
+  jmPrevLevel:'Tầng trước', jmNextLevel:'Tầng sau', jmMaxLevel:'Tầng tối đa',
+  jmTonic:'Kỳ trân', jmActivate:'Kích hoạt', jmRemove:'Gỡ bỏ',
  },
  zh:{
   brand:'永乐大典 · 武学宝鉴',
@@ -626,6 +716,14 @@ const UI={
   compareDesc:'描述', compareConsume:'消耗', compareCost:'修为 / 突破', compareAdd:'⚔️ 对比此招式',
   compareSearch:'搜索招式 / 套路...', compareNoSet:'请先从左侧选择套路', compareNoMove:'没有匹配的招式',
   compareDamage:'伤害', compareAvg:'平均', compareBaseMul:'基数 × 倍率',
+  jmLevel:'层数', jmStats:'经脉属性', jmShortcut:'快捷键', jmProgress:'进度',
+  jmTogglePanel:'隐藏 / 显示面板', jmPrevPage:'上一页', jmNextPage:'下一页',
+  jmElem:{dong:'东',lin:'林',xue:'雪',shan:'山',shui:'水'},
+  jmBar:{gold:'金',wood:'木',water:'水',fire:'火',ground:'土',dark:'阴',light:'阳',desert:'虚'},
+  jmLearn:'学经脉', jmCycle:'周天', jmForward:'正修', jmReverse:'逆炼',
+  jmOpen:'已开通', jmClosed:'未开通', jmNodes:'穴位', jmHideNodes:'隐藏穴位', jmShowNodes:'显示穴位',
+  jmPrevLevel:'上一层', jmNextLevel:'下一层', jmMaxLevel:'满层',
+  jmTonic:'奇珍', jmActivate:'激活', jmRemove:'卸下',
  }
 };
 const L=k=>UI[lang][k];
@@ -1378,6 +1476,146 @@ function fmtNeiGrid(st, keys, factor){
     }).join('')+'</div>';
 }
 
+// Kinh mạch board. The eight progress bars and five cultivation buttons are
+// the ones named in form_jingmai_board.xml; values come from the selected tier.
+const JM_BAR_ORDER=['gold','wood','water','fire','ground','dark','light','desert'];
+const JM_STAT_EL={'气血':'gold','内力':'wood','身法':'water','体魄':'fire'};
+const JM_ELEMS=[['dong','gold'],['lin','wood'],['xue','water'],['shan','fire'],['shui','ground']];
+// Acupoint positions sampled from the game's line_on art at build time.
+const JM_PATHS={"chong":[[470,208],[472,232],[470,256],[466,280],[460,304]],"chong_n":[[472,212],[472,237],[470,261],[465,285],[456,308]],"dai":[[506,264],[505,276],[504,289],[499,300],[494,312]],"dai_n":[[504,268],[503,281],[501,293],[496,305],[490,316]],"dantian":[[460,128],[460,176],[460,224],[456,272],[456,320],[454,368]],"dantian_n":[[458,132],[460,180],[460,228],[456,276],[456,324],[454,372]],"shoujueyin":[[320,24],[318,75],[318,125],[352,161],[392,192]],"shoujueyin_n":[[320,28],[318,81],[318,135],[357,162],[394,196]],"shoushaoyang":[[396,48],[423,71],[398,94],[424,114],[432,144]],"shoushaoyang_n":[[384,52],[386,80],[401,104],[424,122],[436,148]],"shoushaoyin":[[316,28],[311,69],[309,111],[314,150],[350,172]],"shoushaoyin_n":[[316,32],[310,75],[309,119],[318,157],[358,176]],"shoutaiyang":[[408,52],[404,84],[381,105],[412,131],[414,172]],"shoutaiyang_n":[[402,56],[368,81],[392,113],[421,140],[406,176]],"shoutaiyin":[[332,48],[326,83],[324,119],[344,148],[374,168]],"shoutaiyin_n":[[332,52],[325,96],[325,141],[363,159],[406,172]],"shouyangming":[[426,60],[413,89],[408,112],[435,128],[438,156]],"shouyangming_n":[[430,64],[396,83],[401,111],[435,130],[438,160]],"yangqiao":[[476,100],[470,140],[491,183],[496,230],[496,278],[509,322],[542,357],[573,393],[589,438],[602,484]],"yangqiao_n":[[476,104],[466,139],[492,179],[496,228],[496,277],[509,323],[543,357],[575,394],[590,441],[602,488]],"yangqiao_wei":[[476,100],[470,140],[491,183],[496,230],[496,278],[509,322],[542,357],[573,393],[589,438],[602,484]],"yangqiao_wei_n":[[476,104],[466,139],[492,179],[496,228],[496,277],[509,323],[543,357],[575,394],[590,441],[602,488]],"yangwei":[[432,52],[427,107],[431,160],[443,214],[448,269],[416,311],[375,348],[361,399],[375,453],[368,508]],"yangwei_n":[[434,56],[415,108],[430,162],[445,217],[450,273],[415,313],[372,349],[361,401],[375,456],[368,512]],"yinqiao":[[450,116],[448,164],[452,212],[452,260],[452,308],[419,342],[383,374],[351,409],[332,452],[338,500]],"yinqiao_n":[[448,120],[450,168],[452,216],[454,265],[451,313],[416,345],[379,377],[347,412],[332,457],[340,504]],"yinqiao_wei":[[450,116],[448,164],[452,212],[452,260],[452,308],[419,342],[383,374],[351,409],[332,452],[338,500]],"yinqiao_wei_n":[[448,120],[450,168],[452,216],[454,265],[451,313],[416,345],[379,377],[347,412],[332,457],[340,504]],"yinwei":[[446,136],[433,183],[413,227],[419,276],[419,324],[388,361],[360,402],[374,448]],"yinwei_n":[[448,140],[431,187],[411,232],[421,281],[418,328],[384,365],[358,407],[378,452]],"zujueyin":[[422,240],[425,285],[436,327],[410,366],[376,399],[350,438],[336,482],[324,528]],"zujueyin_n":[[420,244],[432,295],[429,346],[390,386],[355,428],[334,480],[320,532]],"zushaoyang":[[446,72],[445,125],[448,179],[459,223],[488,254],[490,297],[518,334],[534,384]],"zushaoyang_n":[[442,76],[446,129],[450,182],[458,226],[495,251],[495,298],[518,341],[538,388]],"zushaoyin":[[432,176],[441,226],[452,274],[440,323],[407,361],[372,397],[350,441],[343,491],[322,536]],"zushaoyin_n":[[432,180],[439,231],[450,280],[438,329],[402,366],[367,403],[349,450],[342,501],[314,540]],"zutaiyang":[[436,48],[457,99],[478,153],[480,211],[484,269],[467,321],[418,353],[382,396],[390,453],[372,504]],"zutaiyang_n":[[436,52],[458,105],[479,159],[480,218],[485,277],[461,326],[410,357],[381,403],[390,462],[364,508]],"zutaiyang_jin":[[456,88],[469,139],[475,191],[473,244],[476,296],[441,335],[402,371],[396,421],[394,474],[370,520]],"zutaiyang_jin_n":[[454,88],[471,139],[475,192],[473,246],[477,299],[441,338],[398,371],[396,422],[394,476],[370,520]],"zutaiyin":[[408,196],[422,241],[428,287],[429,334],[400,370],[363,399],[342,440],[340,487],[326,532]],"zutaiyin_n":[[408,200],[424,251],[430,306],[418,355],[373,387],[344,431],[340,485],[322,536]],"zuyangming":[[466,120],[466,172],[473,223],[456,272],[470,321],[510,354],[555,382],[579,427],[574,479],[592,528]],"zuyangming_n":[[464,124],[467,174],[477,222],[454,267],[463,317],[500,349],[544,373],[578,409],[576,458],[578,508]]};
+function jmStatRows(st){
+  const d={};
+  String(st||'').split(';').forEach(x=>{
+    const i=x.indexOf('=');if(i<0)return;
+    const k=x.slice(0,i).trim(),v=x.slice(i+1).trim();
+    if(k)d[k]=v;
+  });
+  const rows=[],used=new Set(),claimed=new Set();
+  Object.keys(d).forEach(k=>{
+    const n=Number(d[k]);
+    if(!Number.isFinite(n)||rows.length>=12)return;
+    let el=JM_STAT_EL[k];
+    if(el&&claimed.has(el))el=null;
+    if(!el)el=JM_BAR_ORDER.find(x=>!claimed.has(x));
+    if(!el)return;
+    claimed.add(el);used.add(k);
+    rows.push({k:k,el:el,v:d[k],n:n});
+  });
+  return rows;
+}
+function jmBarRows(rows){
+  const byEl={};rows.forEach(r=>{if(!byEl[r.el])byEl[r.el]=r;});
+  const max=Math.max(1,...rows.map(r=>Math.abs(r.n)||0));
+  return JM_BAR_ORDER.map((el,i)=>{
+    const r=byEl[el],n=r?Math.abs(r.n):0;
+    const pct=Math.round(Math.max(0,Math.min(100,n/max*100)));
+    const top=(16+i*7.1).toFixed(1),label=esc(L('jmBar')[el]);
+    const num=r?esc(STATLABEL(r.k))+' '+esc(r.v):label;
+    return '<div class="jm-bar-row'+(i===0?' active':'')+'" data-jm-el="'+el+'" style="top:'+top+'%"'+
+      ' title="'+label+'">'+
+      '<i class="jm-bar-icon" style="background-image:url(\'/jingmai/lg-'+el+'.png\')"></i>'+
+      '<div class="jm-bar-track"><div class="jm-bar-fill" style="--jm-fill:'+pct+'%;background-image:url(\'/jingmai/pgbar-'+el+'.png\')"></div></div>'+
+      '<i class="jm-bar-hl"></i>'+
+      '<span class="jm-bar-num">'+num+'</span></div>';
+  }).join('');
+}
+function jmSkillHtml(){
+  const per=6,pages=Math.max(1,Math.ceil(jmStats.length/per));
+  jmPage=Math.max(1,Math.min(jmPage,pages));
+  const rows=jmStats.slice((jmPage-1)*per,jmPage*per);
+  while(rows.length<per)rows.push(null);
+  return rows.map(r=>r
+    ?'<div class="jm-skill-cell" title="'+esc(STATLABEL(r.k))+': '+esc(r.v)+'"><b>'+esc(STATLABEL(r.k))+'</b><i>'+esc(r.v)+'</i></div>'
+    :'<div class="jm-skill-cell"></div>').join('');
+}
+function jmRenderSkillPage(){
+  const g=document.getElementById('jmSkillGrid'),p=document.getElementById('jmPageLabel');
+  if(g)g.innerHTML=jmSkillHtml();
+  if(p)p.textContent=jmPage+'/'+Math.max(1,Math.ceil(jmStats.length/6));
+}
+function jmArtKey(s){
+  const a=String(s.a||'').replace(/\.json$/,'').replace(/_ni$/,'');
+  return a.startsWith('jm_')?a.slice(3):a;
+}
+function jmIsNi(s){return /_ni(\.json)?$/.test(String(s.a||''));}
+function jmAltSkill(s){
+  const key=jmArtKey(s), want=jmIsNi(s)?'jm_'+key+'.json':'jm_'+key+'_ni.json';
+  return SK.find(x=>x.t==='jingmai'&&x.a===want)||null;
+}
+function jmTreeHtml(){
+  const all=SK.filter(x=>x.t==='jingmai');
+  return all.map(x=>'<button type="button" class="jm-tree-item'+(curSet&&curSet.k===x.k?' on':'')+'" data-k="'+x.k+'"'+
+    ' title="'+esc(F(x,'n'))+'">'+img(x.i)+'<b>'+esc(F(x,'n'))+'</b></button>').join('');
+}
+function jmNodesHtml(key,ni,fill){
+  const pts=JM_PATHS[key+(ni?'_n':'')]||JM_PATHS[key]||[];
+  if(!pts.length)return '';
+  const n=pts.length, open=Math.max(0,Math.min(n,Math.round(fill/100*n)));
+  const photo=i=>'/jingmai/nw-'+key+'-'+(i<open?'open-'+(ni?'n':'z'):'close')+'.png';
+  const label=i=>'/jingmai/nw-label-'+(i<open?(ni?'open-n':'open-z'):'close')+'.png';
+  const cards=pts.map((p,i)=>'<button type="button" class="jm-node'+(i<open?' on':'')+'"'+
+    ' style="left:'+(p[0]/899*100).toFixed(2)+'%;top:'+(p[1]/637*100).toFixed(2)+'%"'+
+    ' title="'+esc(L('jmNodes')+' '+(i+1)+' · '+(i<open?L('jmOpen'):L('jmClosed')))+'">'+
+    '<img class="jm-node-photo" src="'+photo(i)+'" alt=""><i style="background-image:url(\''+label(i)+'\')"></i></button>').join('');
+  const dots=pts.map((p,i)=>'<i class="jm-point" style="left:'+(p[0]/899*100).toFixed(2)+'%;top:'+(p[1]/637*100).toFixed(2)+'%;'+
+    'background-image:url(\'/jingmai/nw-point-'+(i<open?'on':'off')+'.png\')"></i>').join('');
+  return cards+dots;
+}
+function jmGameHtml(s,cur,lv){
+  jmStats=jmStatRows(cur.st);
+  const max=Math.max(1,lv.length), fill=Math.round(curLevel/max*100);
+  const tier=L('tier')(cur.n||curLevel,cur.rm);
+  const cost=L('cost')(cur.s||'','');
+  const key=jmArtKey(s), ni=jmIsNi(s), alt=jmAltSkill(s), art=ni?'_n':'';
+  const base=ni&&alt?alt:s, rev=ni?s:alt;
+  const cycle=curLevel+'/'+max+' '+L('jmCycle');
+  const total=SK.filter(x=>x.t==='jingmai').length;
+  const shortcuts=Array.from({length:8},(_,i)=>{
+    const n=curLevel-3+i;
+    if(n<1||n>max)return '<span class="jm-quick-empty"></span>';
+    return '<button type="button" class="jm-quick-btn'+(n===curLevel?' on':'')+'" data-jm-lv="'+n+'"'+
+      ' title="'+esc(L('tier')((lv[n-1]||{}).n||n))+'">'+n+'</button>';
+  }).join('');
+  return '<div class="jm-game" id="jmGame"><div class="jm-stage'+(ni?' is-ni':'')+'" id="jmStage">'+
+    '<div class="jm-tree"><div class="jm-tree-head">'+esc(L('jmLearn'))+'</div>'+
+      '<div class="jm-tree-list">'+jmTreeHtml()+'</div>'+
+      '<div class="jm-tree-foot">'+esc(L('jmLearn'))+': <b>'+total+'</b></div></div>'+
+    '<div class="jm-main"><div class="jm-art-layer">'+
+      '<div class="jm-main-bg"></div>'+
+      '<div class="jm-path-back" style="background-image:url(\'/jingmai/nw-'+key+'-back-on'+art+'.png\')"></div>'+
+      '<div class="jm-path-line" style="background-image:url(\'/jingmai/nw-'+key+'-line-on'+art+'.png\')"></div>'+
+      '<div class="jm-node-layer">'+jmNodesHtml(key,ni,fill)+'</div>'+
+      '<div class="jm-gate" style="--jm-fill:'+fill+'%"><i class="jm-gate-fill"></i></div>'+
+      '<div class="jm-path-name" style="background-image:url(\'/jingmai/nw-'+key+'-name.png\')"></div>'+
+      '</div>'+
+      '<div class="jm-skill-row">'+
+        '<button type="button" class="jm-skill-icon s1'+(ni?'':' on')+'"'+(base?' data-skill-k="'+base.k+'"':' disabled')+
+          ' title="'+esc(L('jmForward'))+'">'+img(base.i)+'</button>'+
+        '<span class="jm-skill-cap s1"><b>'+esc(F(base,'n'))+'</b>'+esc(cycle)+'</span>'+
+        '<button type="button" class="jm-skill-icon s2'+(ni?' on':'')+'"'+(rev?' data-skill-k="'+rev.k+'"':' disabled')+
+          ' title="'+esc(L('jmReverse'))+'">'+img(rev?rev.i:s.i)+'</button>'+
+        '<span class="jm-skill-cap s2"><b>'+esc(ni?L('jmReverse'):L('jmForward'))+'</b>'+esc(cycle)+'</span>'+
+        '<button type="button" class="jm-skill-icon tonic" data-jm-toggle="hide-nodes" title="'+esc(L('jmTonic'))+'"></button>'+
+        '<span class="jm-skill-cap tonic"><b>'+esc(L('jmTonic'))+'</b></span>'+
+        '<div class="jm-mini-btns">'+
+          '<button type="button" class="jm-gb" data-jm-toggle="hide-nodes" title="'+esc(L('jmHideNodes'))+'"></button>'+
+          '<button type="button" class="jm-jh" data-jm-toggle="hide-detail" title="'+esc(L('jmStats'))+'"></button>'+
+        '</div></div></div>'+
+      '<div class="jm-bottom-btns">'+
+        '<button type="button" class="jm-zx" data-jm-step="-1" title="'+esc(L('jmPrevLevel'))+'"></button>'+
+        '<button type="button" class="jm-nl" data-jm-step="1" title="'+esc(L('jmNextLevel'))+'"></button>'+
+        '<button type="button" class="jm-yz" data-jm-step="max" title="'+esc(L('jmMaxLevel'))+'"></button>'+
+        '<button type="button" class="jm-qz" data-jm-toggle="hide-nodes" title="'+esc(L('jmNodes'))+'"></button>'+
+      '</div></div>'+
+    '<div class="jm-detail"><div class="jm-detail-hd"><b>'+esc(tier)+'</b><span>'+esc(cost)+'</span></div>'+
+      '<div class="jm-detail-grid">'+jmStats.map(r=>'<span>'+esc(STATLABEL(r.k))+': <b>'+esc(r.v)+'</b></span>').join('')+'</div>'+
+      '<div class="jm-skill-grid" id="jmSkillGrid">'+jmSkillHtml()+'</div>'+
+      '<div class="jm-skill-pager"><button type="button" id="jmPagePrev" title="'+esc(L('jmPrevPage'))+'">‹</button>'+
+        '<span id="jmPageLabel">1/1</span>'+
+        '<button type="button" id="jmPageNext" title="'+esc(L('jmNextPage'))+'">›</button></div>'+
+      '<div class="jm-quick-levels">'+shortcuts+'</div></div></div>';
+}
+
 function levelControls(max){
   return `<div class="level-controls"><label>${esc(L('level'))}</label>`+
     `<button class="lvl-btn" id="lvprev" ${curLevel<=1?'disabled':''}>◀</button>`+
@@ -1464,6 +1702,14 @@ function renderContent(){
        `</div>`+
        `<div class="ng-stat-block"><h5>${esc(L('activeStats'))}</h5>`+
        fmtNeiGrid(cur.st,NG_ACTIVE,1)+`</div></div>`;
+  } else if(s.t==='jingmai') {
+    lv=(s.lv||[]).slice().reverse();
+    const cur=lv[curLevel-1]||{};
+    h+=`<div class="elem-line"><strong>${esc(L('source'))}</strong>${esc(F(s,'g'))}</div>`+
+       (F(s,'c')?`<p class="wuxia-meta"><span><strong>${esc(L('category'))}</strong>${esc(F(s,'c'))}</span></p>`:'')+`</div>`;
+    if(s.sum) h+=`<div class="wuxia-card jm-summary"><div class="tier-txt">${fmtDesc(F(s,'sum'))}</div></div>`;
+    h+=levelControls(Math.max(1,lv.length));
+    h+=jmGameHtml(s,cur,lv);
   } else {
     lv=(s.lv||[]).slice().reverse();
     const cur=lv[curLevel-1]||{};
@@ -1479,6 +1725,7 @@ function renderContent(){
   const go=n=>{
     const max=s.t==='wuxue'?s.m[curMove].lv.length:lv.length;
     curLevel=Math.max(1,Math.min(max,n));
+    if(s.t==='jingmai') jmPage=1;
     renderContent();
     const box=document.getElementById('content');
     const lc=box.querySelector('.level-controls');
@@ -1488,6 +1735,26 @@ function renderContent(){
   if(next)next.onclick=()=>go(curLevel+1);
   if(inp)inp.onchange=()=>go(+inp.value||1);
   if(rng)rng.oninput=()=>go(+rng.value);
+  if(s.t==='jingmai'){
+    const stage=document.getElementById('jmStage'),game=document.getElementById('jmGame');
+    if(stage){
+      stage.querySelectorAll('.jm-tree-item').forEach(b=>b.onclick=()=>openSet(+b.dataset.k));
+      stage.querySelectorAll('[data-skill-k]').forEach(b=>b.onclick=()=>openSet(+b.dataset.skillK));
+      stage.querySelectorAll('[data-jm-step]').forEach(b=>b.onclick=()=>{
+        const step=b.dataset.jmStep;
+        go(step==='max'?lv.length:curLevel+(+step));
+      });
+      stage.querySelectorAll('[data-jm-toggle]').forEach(b=>b.onclick=()=>{
+        const host=b.dataset.jmToggle==='hide-detail'?game:stage;
+        if(host)host.classList.toggle(b.dataset.jmToggle);
+      });
+      game.querySelectorAll('[data-jm-lv]').forEach(b=>b.onclick=()=>go(+b.dataset.jmLv));
+      const pgPrev=document.getElementById('jmPagePrev'),pgNext=document.getElementById('jmPageNext');
+      if(pgPrev)pgPrev.onclick=()=>{jmPage--;jmRenderSkillPage();};
+      if(pgNext)pgNext.onclick=()=>{jmPage++;jmRenderSkillPage();};
+      jmRenderSkillPage();
+    }
+  }
   const st=document.getElementById('statToggle'),sd=document.getElementById('statDetail');
   if(st)st.onclick=()=>{
     sd.hidden=!sd.hidden;
