@@ -352,11 +352,10 @@ img{-webkit-user-drag:none;user-select:none}
 .jm-tree{position:absolute;left:.37%;top:.58%;width:18%;height:91.5%;background:url('/jingmai/nw-list-bg.png') center/100% 100% no-repeat;border:1px solid rgba(255,217,122,.24);border-radius:3px;display:flex;flex-direction:column;overflow:hidden}
 .jm-tree-head{padding:2.2% 5%;color:var(--jm-gold);font-size:.92em;letter-spacing:.04em;border-bottom:1px solid rgba(255,217,122,.22);background:rgba(0,0,0,.28)}
 .jm-tree-list{flex:1;min-height:0;overflow-y:auto;padding:2% 3%;scrollbar-width:thin;scrollbar-color:#7c5c2b transparent}
-.jm-tree-item{display:flex;align-items:center;gap:5%;width:100%;padding:2.4% 5%;color:#d8c6a2;font-size:.86em;text-align:left;border-left:2px solid transparent;line-height:1.2}
+.jm-tree-item{display:block;width:100%;padding:1.8% 5%;color:#d8c6a2;font-size:.84em;text-align:left;border-left:2px solid transparent;line-height:1.3}
 .jm-tree-item:hover{background:rgba(255,217,122,.12)}
 .jm-tree-item.on{color:#fff3d0;border-left-color:var(--jm-gold);background:rgba(255,217,122,.18)}
-.jm-tree-item b{flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-weight:500}
-.jm-tree-item i{width:1.7em;height:1.7em;border-radius:2px;opacity:.85;object-fit:cover;flex:none}
+.jm-tree-item b{min-width:0;display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:2;overflow:hidden;font-weight:500}
 .jm-tree-foot{padding:2% 4%;color:#ffcf70;font-size:.8em;border-top:1px solid rgba(255,217,122,.22);background:rgba(0,0,0,.3)}
 .jm-tree-foot b{color:#fff3d0;font-weight:600}
 .jm-main{position:absolute;left:18.28%;top:0;width:82.17%;height:92.05%;overflow:visible}
@@ -379,12 +378,12 @@ img{-webkit-user-drag:none;user-select:none}
 .jm-mini-btns button{width:10.12%;height:6.44%;background-position:center;background-size:100% 100%;background-repeat:no-repeat;filter:drop-shadow(0 1px 2px #000)}
 .jm-mini-btns .jm-gb{background-image:url('/jingmai/nw-gb-out.png')}
 .jm-mini-btns .jm-jh{background-image:url('/jingmai/nw-jh-out.png')}
-.jm-node-layer{position:absolute;inset:0;z-index:4;pointer-events:none}
-.jm-node{position:absolute;width:14.24%;height:21.51%;transform:translate(-50%,-50%);background:url('/jingmai/nw-xw-out.png') center/100% 100% no-repeat;pointer-events:auto}
-.jm-node img.jm-node-photo{position:absolute;inset:0;width:100%;height:100%;object-fit:fill;opacity:.96}
-.jm-node i{position:absolute;left:25%;top:75.9%;width:53.9%;height:16.8%;background-position:center;background-size:100% 100%;background-repeat:no-repeat}
-.jm-node.on{filter:drop-shadow(0 0 4px rgba(255,217,122,.55))}
-.jm-point{position:absolute;width:1.67%;height:2.36%;transform:translate(-50%,-50%);background-position:center;background-size:contain;background-repeat:no-repeat;pointer-events:none;opacity:.85}
+.jm-node-map{position:absolute;left:17.8%;top:3.45%;width:67.3%;height:92.62%;z-index:4;pointer-events:none}
+.jm-stage .jm-node{position:absolute;width:9.6%;height:10.5%;transform:translate(-50%,-50%);pointer-events:auto;transition:filter .15s ease}
+.jm-stage .jm-node img.jm-node-photo{position:absolute;inset:0;width:100%;height:100%;object-fit:fill;opacity:.96;pointer-events:none}
+.jm-stage .jm-node i{position:absolute;left:12%;bottom:-6%;width:76%;height:24%;background-position:center;background-size:100% 100%;background-repeat:no-repeat;pointer-events:none}
+.jm-stage .jm-node:hover{filter:drop-shadow(0 0 5px rgba(255,217,122,.9))}
+.jm-stage .jm-node.on{filter:drop-shadow(0 0 3px rgba(255,217,122,.7))}
 .jm-stage.hide-nodes .jm-node{visibility:hidden}
 .jm-gate{position:absolute;left:46.38%;top:65.15%;width:9.01%;height:12.72%;background:url('/jingmai/nw-dt-h.png') center/100% 100% no-repeat;z-index:5;pointer-events:none}
 .jm-gate-fill{position:absolute;inset:0;background:url('/jingmai/nw-dt-j3.png') center/100% 100% no-repeat;clip-path:inset(calc(100% - var(--jm-fill,0%)) 0 0 0)}
@@ -1545,21 +1544,25 @@ function jmAltSkill(s){
 function jmTreeHtml(){
   const all=SK.filter(x=>x.t==='jingmai');
   return all.map(x=>'<button type="button" class="jm-tree-item'+(curSet&&curSet.k===x.k?' on':'')+'" data-k="'+x.k+'"'+
-    ' title="'+esc(F(x,'n'))+'">'+img(x.i)+'<b>'+esc(F(x,'n'))+'</b></button>').join('');
+    ' title="'+esc(F(x,'n'))+'"><b>'+esc(F(x,'n'))+'</b></button>').join('');
 }
 function jmNodesHtml(key,ni,fill){
   const pts=JM_PATHS[key+(ni?'_n':'')]||JM_PATHS[key]||[];
-  if(!pts.length)return '';
-  const n=pts.length, open=Math.max(0,Math.min(n,Math.round(fill/100*n)));
+  const n=Math.max(5,pts.length||5), open=Math.max(0,Math.min(n,Math.round(fill/100*n)));
   const photo=i=>'/jingmai/nw-'+key+'-'+(i<open?'open-'+(ni?'n':'z'):'close')+'.png';
   const label=i=>'/jingmai/nw-label-'+(i<open?(ni?'open-n':'open-z'):'close')+'.png';
-  const cards=pts.map((p,i)=>'<button type="button" class="jm-node'+(i<open?' on':'')+'"'+
-    ' style="left:'+(p[0]/899*100).toFixed(2)+'%;top:'+(p[1]/637*100).toFixed(2)+'%"'+
-    ' title="'+esc(L('jmNodes')+' '+(i+1)+' · '+(i<open?L('jmOpen'):L('jmClosed')))+'">'+
-    '<img class="jm-node-photo" src="'+photo(i)+'" alt=""><i style="background-image:url(\''+label(i)+'\')"></i></button>').join('');
-  const dots=pts.map((p,i)=>'<i class="jm-point" style="left:'+(p[0]/899*100).toFixed(2)+'%;top:'+(p[1]/637*100).toFixed(2)+'%;'+
-    'background-image:url(\'/jingmai/nw-point-'+(i<open?'on':'off')+'.png\')"></i>').join('');
-  return cards+dots;
+  // The XML parks a 128x137 node template outside the 605x590 gbox_xuewei_map.
+  // Spread the scaled cards on an open ring around the body, clear of the gate.
+  const cx=50, cy=50, rx=33.9, ry=34.7, step=300/n;
+  return Array.from({length:n},(_,i)=>{
+    const a=(120+(i+.5)*step)*Math.PI/180;
+    const x=cx+rx*Math.cos(a), y=cy+ry*Math.sin(a);
+    return '<button type="button" class="jm-node'+(i<open?' on':'')+'"'+
+      ' style="left:'+x.toFixed(2)+'%;top:'+y.toFixed(2)+'%"'+
+      ' title="'+esc(L('jmNodes')+' '+(i+1)+' · '+(i<open?L('jmOpen'):L('jmClosed')))+'">'+
+      '<img class="jm-node-photo" src="'+photo(i)+'" alt="">'+
+      '<i style="background-image:url(\''+label(i)+'\')"></i></button>';
+  }).join('');
 }
 function jmGameHtml(s,cur,lv){
   jmStats=jmStatRows(cur.st);
@@ -1584,7 +1587,7 @@ function jmGameHtml(s,cur,lv){
       '<div class="jm-main-bg"></div>'+
       '<div class="jm-path-back" style="background-image:url(\'/jingmai/nw-'+key+'-back-on'+art+'.png\')"></div>'+
       '<div class="jm-path-line" style="background-image:url(\'/jingmai/nw-'+key+'-line-on'+art+'.png\')"></div>'+
-      '<div class="jm-node-layer">'+jmNodesHtml(key,ni,fill)+'</div>'+
+      '<div class="jm-node-map">'+jmNodesHtml(key,ni,fill)+'</div>'+
       '<div class="jm-gate" style="--jm-fill:'+fill+'%"><i class="jm-gate-fill"></i></div>'+
       '<div class="jm-path-name" style="background-image:url(\'/jingmai/nw-'+key+'-name.png\')"></div>'+
       '</div>'+
