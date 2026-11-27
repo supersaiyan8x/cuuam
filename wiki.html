@@ -369,22 +369,13 @@ img{-webkit-user-drag:none;user-select:none}
 .jm-path-back{opacity:.92}
 .jm-path-line{opacity:.95;pointer-events:none}
 .jm-art-layer{position:absolute;inset:0;overflow:hidden}
-.jm-skill-row{position:absolute;left:0;top:0;width:99.4%;height:100%;z-index:3;pointer-events:none}
-.jm-stage button.jm-skill-icon{position:absolute;top:1.9%;width:5.35%;height:auto;aspect-ratio:1/1;display:block;border:0;border-radius:2px;background:url('/jingmai/nw-icon-frame.png') center/100% 100% no-repeat;overflow:hidden;filter:drop-shadow(0 1px 2px #000);pointer-events:auto}
-.jm-skill-icon img{position:absolute;inset:13%;width:74%;height:74%;display:block;object-fit:contain}
-.jm-skill-icon.s1{left:2%}.jm-skill-icon.s2{left:10.9%}
-.jm-skill-icon.on{box-shadow:0 0 0 1px var(--jm-gold),0 0 7px rgba(255,217,122,.55)}
-.jm-skill-icon:disabled{opacity:.45;cursor:default;filter:none}
-.jm-stage button.jm-skill-icon.tonic{left:19.4%;top:2.1%;width:8.32%;height:auto;aspect-ratio:91/41;background:url('/jingmai/nw-qz-out.png') center/100% 100% no-repeat}
-.jm-skill-icon.tonic::after{content:'';position:absolute;inset:0;box-shadow:inset 0 0 0 1px rgba(255,217,122,.45)}
-.jm-skill-cap{position:absolute;top:11.6%;font-size:.78em;color:#fff3d0;text-shadow:0 1px 2px #000,0 0 4px #000;text-align:center;white-space:nowrap;line-height:1.2}
-.jm-skill-cap.s1{left:.7%;width:8.7%}.jm-skill-cap.s2{left:9.6%;width:8.7%}.jm-skill-cap.tonic{left:18.5%;width:10%;top:8.5%}
+.jm-skill-row{position:absolute;left:0;top:0;width:100%;height:100%;z-index:3;pointer-events:none}
+.jm-stage button.jm-skill-icon{position:absolute;top:1.9%;width:4.42%;height:auto;aspect-ratio:1/1;display:block;border:0;border-radius:2px;background:url('/jingmai/nw-icon-frame.png') center/100% 100% no-repeat;overflow:hidden;filter:drop-shadow(0 1px 2px #000);pointer-events:auto}
+.jm-stage button.jm-skill-icon.tonic{left:94.33%;top:1.73%;width:4.39%;height:auto;aspect-ratio:1/1;background:url('/jingmai/nw-qz-icon.png') center/100% 100% no-repeat}
+.jm-skill-cap{position:absolute;top:11.15%;font-size:.78em;color:#fff3d0;text-shadow:0 1px 2px #000,0 0 4px #000;text-align:center;white-space:nowrap;line-height:1.2}
+.jm-skill-cap.tonic{left:94.33%;width:4.94%;top:10.26%}
 .jm-skill-cap b{display:block;color:var(--jm-gold);font-weight:600;overflow:hidden;text-overflow:ellipsis}
 .jm-skill-cap span{display:block;font-size:.9em;opacity:.9}
-.jm-mini-btns{position:absolute;left:0;top:19%;width:100%;height:6.44%;display:flex;gap:1%;z-index:5;pointer-events:auto}
-.jm-mini-btns button{width:10.12%;height:100%;background-position:center;background-size:100% 100%;background-repeat:no-repeat;filter:drop-shadow(0 1px 2px #000)}
-.jm-mini-btns .jm-gb{background-image:url('/jingmai/nw-gb-out.png')}
-.jm-mini-btns .jm-jh{background-image:url('/jingmai/nw-jh-out.png')}
 .jm-node-map{position:absolute;left:17.8%;top:3.45%;width:67.3%;height:92.62%;z-index:4;pointer-events:none}
 .jm-stage .jm-node{position:absolute;width:15.36%;aspect-ratio:128/137;height:auto;transform:translate(-50%,-50%);pointer-events:auto;transition:filter .15s ease}
 .jm-stage .jm-node img.jm-node-photo{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;opacity:.98;pointer-events:none}
@@ -836,11 +827,11 @@ function jmMidList(s){
   const names=JM_POINT_NAMES[a]||[];
   const pts=JM_PATHS[key+(ni?'_n':'')]||JM_PATHS[key]||[];
   const n=names.length||pts.length||5;
-  const open=Math.min(n,Math.max(1,Math.ceil(curLevel*n/max)));
+  const open=jmOpenCount(curLevel,n,max);
   return Array.from({length:n},(_,i)=>{
     const isOpen=i<open;
     const name=jmPointName(a,i);
-    const sub=(isOpen?L('jmOpen'):L('jmClosed'))+' · '+L('jmLevel')+' '+(Math.floor(i*max/n)+1);
+    const sub=(isOpen?L('jmOpen'):L('jmClosed'))+' · '+L('jmLevel')+' '+jmNodeNeed(i,n,max);
     return {i:i, name:name, sub:sub, stamp:sub, isOpen:isOpen,
       icon:'/jingmai/nw-'+key+'-'+(isOpen?'open-'+(ni?'n':'z'):'close')+'.png',
       search:[name,sub,F(s,'n'),s.n0].join(' ')};
@@ -1606,6 +1597,14 @@ function jmTreeHtml(){
     ' title="'+esc(F(x,'n'))+'"><b>'+esc(F(x,'n'))+'</b></button>').join('');
 }
 const JM_POINT_NAMES={"jm_shoushaoyin.json":[{"v":"Cực Tuyền","z":"极泉"},{"v":"Thanh Linh","z":"青灵"},{"v":"Thiếu Hải","z":"少海"},{"v":"Linh Đạo","z":"灵道"},{"v":"Thông Lý","z":"通里"},{"v":"Thần Môn","z":"神门"},{"v":"Thiếu Phủ","z":"少府"},{"v":"Thiếu Xung","z":"少冲"}],"jm_shoujueyin.json":[{"v":"Thiên Trì","z":"天池"},{"v":"Thiên Tuyền","z":"天泉"},{"v":"Khúc Trạch","z":"曲泽"},{"v":"Gian Sử","z":"间使"},{"v":"Nội Quan","z":"内关"},{"v":"Đại Lăng","z":"大陵"},{"v":"Lao Cung","z":"劳宫"},{"v":"Trung Xung","z":"中冲"}],"jm_shoutaiyin.json":[{"v":"Trung Phủ","z":"中府"},{"v":"Vân Môn","z":"云门"},{"v":"Thiên Phủ","z":"天府"},{"v":"Hiệp Bạch","z":"侠白"},{"v":"Thước Trạch","z":"尺泽"},{"v":"Liệt Khuyết","z":"列缺"},{"v":"Kinh Cừ","z":"经渠"},{"v":"Thái Uyên","z":"太渊"},{"v":"Ngư Tế","z":"鱼际"},{"v":"Thiếu Thương","z":"少商"}],"jm_shoushaoyang.json":[{"v":"Quan Xung","z":"关冲"},{"v":"Dương Trì","z":"阳池"},{"v":"Hội Tông","z":"会宗"},{"v":"Thiên Tỉnh","z":"天井"},{"v":"Thanh Lãnh Uyên","z":"清冷渊"},{"v":"Kiên Liêu","z":"肩髎"},{"v":"Thiên Liêu","z":"天髎"},{"v":"Lư Tức","z":"颅息"},{"v":"Giác Tôn","z":"角孙"},{"v":"Ti Trúc Không","z":"丝竹空"}],"jm_shouyangming.json":[{"v":"Thương Dương","z":"商阳"},{"v":"Nhị Gian","z":"二间"},{"v":"Hợp Cốc","z":"合谷"},{"v":"Thiên Lịch","z":"偏历"},{"v":"Thủ Tam Lý","z":"手三里"},{"v":"Khúc Trì","z":"曲池"},{"v":"Trửu Liêu","z":"肘髎"},{"v":"Tý Nạo","z":"臂臑"},{"v":"Thiên Đỉnh","z":"天鼎"},{"v":"Nghênh Hương","z":"迎香"}],"jm_shoutaiyang.json":[{"v":"Thiếu trạch","z":"少泽"},{"v":"Hậu Khê","z":"后溪"},{"v":"Dưỡng Lão","z":"养老"},{"v":"Tiểu Hải","z":"小海"},{"v":"Kiên Trinh","z":"肩贞"},{"v":"Thiên Tông","z":"天宗"},{"v":"Bỉnh Phong","z":"秉风"},{"v":"Khúc Viên","z":"曲垣"},{"v":"Thiên Song","z":"天窗"},{"v":"Thính Cung","z":"听宫"}],"jm_zushaoyin.json":[{"v":"Dũng Tuyền","z":"涌泉"},{"v":"Nhiên Cốc","z":"然谷"},{"v":"Thái Khê","z":"太溪"},{"v":"Thủy Tuyền","z":"水泉"},{"v":"Tam Âm Giao","z":"三阴交"},{"v":"Âm Cốc","z":"阴谷"},{"v":"Tứ Mãn","z":"四满"},{"v":"Âm Đô","z":"阴都"},{"v":"Bộ Lang","z":"步廊"},{"v":"Du Phủ","z":"俞府"}],"jm_zujueyin.json":[{"v":"Đại Đôn","z":"大敦"},{"v":"Hành Gian","z":"行间"},{"v":"Thái Xung","z":"太冲"},{"v":"Trung Phong","z":"中封"},{"v":"Trung Đô","z":"中都"},{"v":"Tất Quan","z":"膝关"},{"v":"Khúc Tuyền","z":"曲泉"},{"v":"Cấp Mạch","z":"急脉"},{"v":"Chương Môn","z":"章门"},{"v":"Kỳ Môn","z":"期门"}],"jm_zutaiyin.json":[{"v":"Ẩn Bạch","z":"隐白"},{"v":"Thái Bạch","z":"太白"},{"v":"Công Tử Gia","z":"公孙"},{"v":"Thương Khâu","z":"商丘"},{"v":"Địa Cơ","z":"地机"},{"v":"Huyết Hải","z":"血海"},{"v":"Phủ Xá","z":"府舍"},{"v":"Phúc Kết","z":"腹结"},{"v":"Hung Hương","z":"胸乡"},{"v":"Đại Bao","z":"大包"}],"jm_zushaoyang.json":[{"v":"Đồng Tử Liêu","z":"瞳子髎"},{"v":"Hoàn Cốt","z":"完骨"},{"v":"Não Không","z":"脑空"},{"v":"Nhật Nguyệt","z":"日月"},{"v":"Cư Liêu","z":"居髎"},{"v":"Hoàn Khiêu","z":"环跳"},{"v":"Phong Thị","z":"风市"},{"v":"Ngoại Khâu","z":"外丘"},{"v":"Khâu Khư","z":"丘墟"},{"v":"Túc Khiếu Âm","z":"足窍阴"}],"jm_zuyangming.json":[{"v":"Thừa Khấp","z":"承泣"},{"v":"Đại Nghênh","z":"大迎"},{"v":"Thủy Đột","z":"水突"},{"v":"Nhũ Trung","z":"乳中"},{"v":"Thiên Xu","z":"天枢"},{"v":"Khí Xung","z":"气冲"},{"v":"Phục Thố","z":"伏兔"},{"v":"Túc Tam Lý","z":"足三里"},{"v":"Giải Khê","z":"解溪"},{"v":"Lệ Đoái","z":"厉兑"}],"jm_zutaiyang.json":[{"v":"Mi Xung","z":"眉冲"},{"v":"Thông Thiên","z":"通天"},{"v":"Lạc Khước","z":"络却"},{"v":"Thiên Trụ","z":"天柱"},{"v":"Phong Môn","z":"风门"},{"v":"Thận Du","z":"肾俞"},{"v":"Hội Dương","z":"会阳"},{"v":"Ủy Trung","z":"委中"},{"v":"Côn Luân","z":"昆仑"},{"v":"Chí Âm","z":"至阴"}],"jm_yinqiao.json":[{"v":"Chiếu Hải","z":"照海"},{"v":"Giao Tín","z":"交信"},{"v":"Tinh Minh","z":"睛明"}],"jm_yangqiao.json":[{"v":"Thân Mạch","z":"申脉"},{"v":"Địa Thương","z":"地仓"},{"v":"Phong Trì","z":"风池"}],"jm_yinwei.json":[{"v":"Trúc Tân","z":"筑宾"},{"v":"Xung Môn","z":"冲门"},{"v":"Đại Hoành","z":"大横"},{"v":"Phúc Ai","z":"腹哀"},{"v":"Thiên Đột","z":"天突"},{"v":"Liêm Tuyền","z":"廉泉"}],"jm_yangwei.json":[{"v":"Kim Môn","z":"金门"},{"v":"Dương Giao","z":"阳交"},{"v":"Náo Du","z":"臑俞"},{"v":"Dương Bạch","z":"阳白"},{"v":"Thừa Linh","z":"承灵"},{"v":"Á Môn","z":"哑门"}],"jm_chong.json":[{"v":"Hoành Cốt","z":"横骨"},{"v":"Khí Huyệt","z":"气穴"},{"v":"Trung Chú","z":"中注"},{"v":"Thương Khúc","z":"商曲"},{"v":"Thạch Quan","z":"石关"},{"v":"U Môn","z":"幽门"}],"jm_dai.json":[{"v":"Đới","z":"带脉"},{"v":"Ngũ Xu","z":"五枢"},{"v":"Duy Đạo","z":"维道"}],"jm_ren.json":[{"v":"Hội Âm","z":"会阴"},{"v":"Khúc Cốt","z":"曲骨"},{"v":"Thủy Phân","z":"水分"},{"v":"Trung Quản","z":"中脘"},{"v":"Cưu Vĩ","z":"鸠尾"},{"v":"Ngọc Đường","z":"玉堂"},{"v":"Tử Cung","z":"紫宫"},{"v":"Hoa Cái","z":"华盖"},{"v":"Tuyền Cơ","z":"璇玑"},{"v":"Thừa Tương","z":"承浆"}],"jm_du.json":[{"v":"Trường Cường","z":"长强"},{"v":"Yêu Dương Quan","z":"腰阳关"},{"v":"Trung Xu","z":"中枢"},{"v":"Linh Đài","z":"灵台"},{"v":"Thần Đạo","z":"神道"},{"v":"Đào Đạo","z":"陶道"},{"v":"Phong Phủ","z":"风府"},{"v":"Bách Hội","z":"百会"},{"v":"Thần Đình","z":"神庭"},{"v":"Ngân Giao","z":"龈交"}],"jm_shoutaiyin_ni.json":[{"v":"Thiếu Thương-Nghịch hành","z":"少商·逆行"},{"v":"Ngư Tế-Nghịch hành","z":"鱼际·逆行"},{"v":"Thái Uyên-Nghịch hành","z":"太渊·逆行"},{"v":"Kinh Cừ-Nghịch hành","z":"经渠·逆行"},{"v":"Liệt Khuyết-Nghịch hành","z":"列缺·逆行"},{"v":"Thước Trạch-Nghịch hành","z":"尺泽·逆行"},{"v":"Hiệp Bạch-Nghịch hành","z":"侠白·逆行"},{"v":"Thiên Phủ-Nghịch hành","z":"天府·逆行"},{"v":"Vân Môn-Nghịch hành","z":"云门·逆行"},{"v":"Trung Phủ-Nghịch hành","z":"中府·逆行"}],"jm_shoushaoyang_ni.json":[{"v":"Ti Trúc Không-Nghịch hành","z":"丝竹空·逆行"},{"v":"Giác Tôn-Nghịch hành","z":"角孙·逆行"},{"v":"Lư Tức-Nghịch hành","z":"颅息·逆行"},{"v":"Thiên Liêu-Nghịch hành","z":"天髎·逆行"},{"v":"Kiên Liêu-Nghịch hành","z":"肩髎·逆行"},{"v":"Thanh Lãnh Uyên-Nghịch hành","z":"清冷渊·逆行"},{"v":"Thiên Tỉnh-Nghịch hành","z":"天井·逆行"},{"v":"Hội Tông-Nghịch hành","z":"会宗·逆行"},{"v":"Dương Trì-Nghịch hành","z":"阳池·逆行"},{"v":"Quan Xung-Nghịch hành","z":"关冲·逆行"}],"jm_shouyangming_ni.json":[{"v":"Nghênh Hương-Nghịch hành","z":"迎香·逆行"},{"v":"Thiên Đỉnh-Nghịch hành","z":"天鼎·逆行"},{"v":"Tí Nạo-Nghịch hành","z":"臂臑·逆行"},{"v":"Trửu Liêu-Nghịch hành","z":"肘髎·逆行"},{"v":"Khúc Trì-Nghịch hành","z":"曲池·逆行"},{"v":"Thủ Tam Lí-Nghịch hành","z":"手三里·逆行"},{"v":"Thiên Lịch-Nghịch hành","z":"偏历·逆行"},{"v":"Hợp Cốc-Nghịch hành","z":"合谷·逆行"},{"v":"Nhị Gian-Nghịch hành","z":"二间·逆行"},{"v":"Thương Dương-Nghịch hành","z":"商阳·逆行"}],"jm_shoutaiyang_ni.json":[{"v":"Thính Cung-Nghịch hành","z":"听宫·逆行"},{"v":"Thiên Song-Nghịch hành","z":"天窗·逆行"},{"v":"Khúc Viên-Nghịch hành","z":"曲垣·逆行"},{"v":"Bỉnh Phong-Nghịch hành","z":"秉风·逆行"},{"v":"Thiên Tông-Nghịch hành","z":"天宗·逆行"},{"v":"Kiên Trinh-Nghịch hành","z":"肩贞·逆行"},{"v":"Tiểu Hải-Nghịch hành","z":"小海·逆行"},{"v":"Dưỡng Lão-Nghịch hành","z":"养老·逆行"},{"v":"Hậu Khê-Nghịch hành","z":"后溪·逆行"},{"v":"Thiếu Trạch-Nghịch hành","z":"少泽·逆行"}],"jm_zushaoyin_ni.json":[{"v":"Du Phủ-Nghịch hành","z":"俞府·逆行"},{"v":"Bộ Lang-Nghịch hành","z":"步廊·逆行"},{"v":"Âm Đô-Nghịch hành","z":"阴都·逆行"},{"v":"Tứ Mãn-Nghịch hành","z":"四满·逆行"},{"v":"Âm Cốc-Nghịch hành","z":"阴谷·逆行"},{"v":"Tam Âm Giao-Nghịch hành","z":"三阴交·逆行"},{"v":"Thủy Tuyền-Nghịch hành","z":"水泉·逆行"},{"v":"Thái Khê-Nghịch hành","z":"太溪·逆行"},{"v":"Nhiên Cốc-Nghịch hành","z":"然谷·逆行"},{"v":"Dũng Tuyền-Nghịch hành","z":"涌泉·逆行"}],"jm_zujueyin_ni.json":[{"v":"Kỳ Môn-Nghịch hành","z":"期门·逆行"},{"v":"Chương Môn-Nghịch hành","z":"章门·逆行"},{"v":"Cấp Mạch-Nghịch hành","z":"急脉·逆行"},{"v":"Khúc Tuyền-Nghịch hành","z":"曲泉·逆行"},{"v":"Tất Quan-Nghịch hành","z":"膝关·逆行"},{"v":"Trung Đô-Nghịch hành","z":"中都·逆行"},{"v":"Trung Phong-Nghịch hành","z":"中封·逆行"},{"v":"Thái Xung-Nghịch hành","z":"太冲·逆行"},{"v":"Hành Gian-Nghịch hành","z":"行间·逆行"},{"v":"Đại Đôn-Nghịch hành","z":"大敦·逆行"}],"jm_zutaiyin_ni.json":[{"v":"Đại Bao-Nghịch hành","z":"大包·逆行"},{"v":"Hung Hương-Nghịch hành","z":"胸乡·逆行"},{"v":"Phúc Kết-Nghịch hành","z":"腹结·逆行"},{"v":"Phủ Xá-Nghịch hành","z":"府舍·逆行"},{"v":"Huyết Hải-Nghịch hành","z":"血海·逆行"},{"v":"Địa Cơ-Nghịch hành","z":"地机·逆行"},{"v":"Thương Khâu-Nghịch hành","z":"商丘·逆行"},{"v":"Công Tôn-Nghịch hành","z":"公孙·逆行"},{"v":"Thái Bạch-Nghịch hành","z":"太白·逆行"},{"v":"Ẩn Bạch-Nghịch hành","z":"隐白·逆行"}],"jm_zushaoyang_ni.json":[{"v":"Túc Khiếu Âm-Nghịch hành","z":"足窍阴·逆行"},{"v":"Khâu Khư-Nghịch hành","z":"丘墟·逆行"},{"v":"Ngoại Khâu-Nghịch hành","z":"外丘·逆行"},{"v":"Phong Thị-Nghịch hành","z":"风市·逆行"},{"v":"Hoàn Khiêu-Nghịch hành","z":"环跳·逆行"},{"v":"Cư Liêu-Nghịch hành","z":"居髎·逆行"},{"v":"Nhật Nguyệt-Nghịch hành","z":"日月·逆行"},{"v":"Não Không-Nghịch hành","z":"脑空·逆行"},{"v":"Hoàn Cốt-Nghịch hành","z":"完骨·逆行"},{"v":"Đồng Tử Liêu-Nghịch hành","z":"瞳子髎·逆行"}],"jm_zuyangming_ni.json":[{"v":"Lệ Đoái-Nghịch hành","z":"厉兑·逆行"},{"v":"Giải Khê-Nghịch hành","z":"解溪·逆行"},{"v":"Túc Tam Lý-Nghịch hành","z":"足三里·逆行"},{"v":"Phục Thố-Nghịch hành","z":"伏兔·逆行"},{"v":"Khí Xung-Nghịch hành","z":"气冲·逆行"},{"v":"Thiên Xu-Nghịch hành","z":"天枢·逆行"},{"v":"Nhũ Trung-Nghịch hành","z":"乳中·逆行"},{"v":"Thủy Đột-Nghịch hành","z":"水突·逆行"},{"v":"Đại Nghênh-Nghịch hành","z":"大迎·逆行"},{"v":"Thừa Khấp-Nghịch hành","z":"承泣·逆行"}],"jm_yinqiao_wei.json":[{"v":"Chiếu Hải-Ẩn","z":"照海·隐"},{"v":"Tinh Minh-Ẩn","z":"睛明·隐"}],"jm_yangqiao_wei.json":[{"v":"Thân Mạch-Ẩn","z":"申脉·隐"},{"v":"Phong Trì-Ẩn","z":"风池·隐"}],"jm_dantian.json":[{"v":"Quan Nguyên","z":"关元"},{"v":"Khí Hải","z":"气海"},{"v":"Thần Khuyết","z":"神阙"},{"v":"Mệnh Môn","z":"命门"},{"v":"Thiện Trung","z":"膻中"},{"v":"Ấn Đường","z":"印堂"}],"jm_zutaiyang_ni.json":[{"v":"Chí Âm-Nghịch hành","z":"至阴·逆行"},{"v":"Côn Luân-Nghịch hành","z":"昆仑·逆行"},{"v":"Uy Trung-Nghịch hành","z":"委中·逆行"},{"v":"Hội Dương-Nghịch hành","z":"会阳·逆行"},{"v":"Thận Du-Nghịch hành","z":"肾俞·逆行"},{"v":"Phong Môn-Nghịch hành","z":"风门·逆行"},{"v":"Thiên Trụ-Nghịch hành","z":"天柱·逆行"},{"v":"Lạc Khước-Nghịch hành","z":"络却·逆行"},{"v":"Thông Thiên-Nghịch hành","z":"通天·逆行"},{"v":"Mi Xung-Nghịch hành","z":"眉冲·逆行"}],"jm_shoushaoyin_ni.json":[{"v":"Thiếu Xung·Nghịch hành","z":"少冲·逆行"},{"v":"Thiếu Phủ-Nghịch hành","z":"少府·逆行"},{"v":"Thần Môn-Nghịch hành","z":"神门·逆行"},{"v":"Thông Lý-Nghịch hành","z":"通里·逆行"},{"v":"Linh Đạo-Nghịch hành","z":"灵道·逆行"},{"v":"Thiếu Hải-Nghịch hành","z":"少海·逆行"},{"v":"Thanh Linh-Nghịch hành","z":"青灵·逆行"},{"v":"Cực Tuyền-Nghịch hành","z":"极泉·逆行"}],"jm_shoujueyin_ni.json":[{"v":"Trung Xung-Nghịch hành","z":"中冲·逆行"},{"v":"Lao Cung-Nghịch hành","z":"劳宫·逆行"},{"v":"Đại Lăng-Nghịch hành","z":"大陵·逆行"},{"v":"Nội Quan-Nghịch hành","z":"内关·逆行"},{"v":"Gian Sứ-Nghịch hành","z":"间使·逆行"},{"v":"Khúc Trạch-Nghịch hành","z":"曲泽·逆行"},{"v":"Thiên Tuyền-Nghịch hành","z":"天泉·逆行"},{"v":"Thiên Trì-Nghịch hành","z":"天池·逆行"}],"jm_zutaiyang_jin.json":[{"v":"Thúc Cốt","z":"束骨"},{"v":"Bộc Tham","z":"仆参"},{"v":"Thừa Sơn","z":"承山"},{"v":"Ủy Dương","z":"委阳"},{"v":"Tích Trung","z":"脊中"},{"v":"Bản Thần","z":"本神"}],"jm_zutaiyang_jin_ni.json":[{"v":"Bản Thần·Nghịch hành","z":"本神·逆行"},{"v":"Tích Trung·Nghịch hành","z":"脊中·逆行"},{"v":"Ủy Dương·Nghịch hành","z":"委阳·逆行"},{"v":"Thừa Sơn·Nghịch hành","z":"承山·逆行"},{"v":"Bộc Tham·Nghịch hành","z":"仆参·逆行"},{"v":"Thúc Cốt·Nghịch hành","z":"束骨·逆行"}]};
+const JM_MILESTONE=36;
+function jmNodeNeed(i,n,max){
+  const last=Math.max(JM_MILESTONE,Math.floor(max/JM_MILESTONE)*JM_MILESTONE);
+  return Math.min(last,Math.ceil((i+1)*max/n/JM_MILESTONE)*JM_MILESTONE);
+}
+function jmOpenCount(level,n,max){
+  return Array.from({length:n},(_,i)=>jmNodeNeed(i,n,max)).filter(v=>v<=level).length;
+}
 function jmPointName(a,i){
   const p=(JM_POINT_NAMES[a]||[])[i];
   if(!p)return L('jmNodes')+' '+(i+1);
@@ -1614,8 +1613,8 @@ function jmPointName(a,i){
 function jmNodesHtml(a,key,ni,level,max){
   const names=JM_POINT_NAMES[a]||[];
   const n=names.length||5;
-  // One acupoint is open from level 1; the rest open evenly up to the final tier.
-  const open=Math.min(n,Math.max(1,Math.ceil(level*n/max)));
+  // Acupoints open only on the game's 36-level cycle marks (36/72/108/...).
+  const open=jmOpenCount(level,n,max);
   const photo=i=>'/jingmai/nw-'+key+'-'+(i<open?'open-'+(ni?'n':'z'):'close')+'.png';
   // Keep the game's circular frame, but split the decals evenly between its
   // left/right arcs: lower tiers on the left, higher tiers on the right.
@@ -1630,7 +1629,7 @@ function jmNodesHtml(a,key,ni,level,max){
     const inner=j%2===0;
     const x=left?(inner?34:15):(inner?66:85);
     const nm=jmPointName(a,i);
-    const need=Math.floor(i*max/n)+1;
+    const need=jmNodeNeed(i,n,max);
     return '<button type="button" class="jm-node'+(i<open?' on':'')+'"'+
       ' style="left:'+x.toFixed(2)+'%;top:'+y.toFixed(2)+'%"'+
       ' title="'+esc(nm+' · '+(i<open?L('jmOpen'):L('jmClosed'))+' · '+L('jmLevel')+' '+need)+'">'+
@@ -1644,8 +1643,7 @@ function jmGameHtml(s,cur,lv){
   const max=Math.max(1,lv.length), fill=Math.round(curLevel/max*100);
   const tier=L('tier')(cur.n||curLevel,cur.rm);
   const cost=L('cost')(cur.s||'','');
-  const key=jmArtKey(s), ni=jmIsNi(s), alt=jmAltSkill(s), art=ni?'_n':'';
-  const base=ni&&alt?alt:s, rev=ni?s:alt;
+  const key=jmArtKey(s), ni=jmIsNi(s), art=ni?'_n':'';
   const cycle=curLevel+'/'+max+' '+L('jmCycle');
   const shortcuts=Array.from({length:8},(_,i)=>{
     const n=curLevel-3+i;
@@ -1663,18 +1661,9 @@ function jmGameHtml(s,cur,lv){
       '<div class="jm-path-name" style="background-image:url(\'/jingmai/nw-'+key+'-name.png\')"></div>'+
       '</div>'+
       '<div class="jm-skill-row">'+
-        '<button type="button" class="jm-skill-icon s1'+(ni?'':' on')+'"'+(base?' data-skill-k="'+base.k+'"':' disabled')+
-          ' title="'+esc(L('jmForward'))+' · '+esc(F(base,'n'))+'">'+img(base.i)+'</button>'+
-        '<span class="jm-skill-cap s1"><b>'+esc(F(base,'n'))+'</b><span>'+esc(cycle)+'</span></span>'+
-        '<button type="button" class="jm-skill-icon s2'+(ni?' on':'')+'"'+(rev?' data-skill-k="'+rev.k+'"':' disabled')+
-          ' title="'+esc(L('jmReverse'))+' · '+esc(rev?F(rev,'n'):'—')+'">'+img(rev?rev.i:s.i)+'</button>'+
-        '<span class="jm-skill-cap s2"><b>'+esc(rev?F(rev,'n'):'—')+'</b><span>'+esc(cycle)+'</span></span>'+
         '<button type="button" class="jm-skill-icon tonic" data-jm-toggle="hide-nodes" title="'+esc(L('jmTonic'))+'"></button>'+
         '<span class="jm-skill-cap tonic"><b>'+esc(L('jmTonic'))+'</b></span>'+
-        '<div class="jm-mini-btns">'+
-          '<button type="button" class="jm-gb" data-jm-toggle="hide-nodes" title="'+esc(L('jmHideNodes'))+'"></button>'+
-          '<button type="button" class="jm-jh" data-jm-toggle="hide-detail" title="'+esc(L('jmStats'))+'"></button>'+
-        '</div></div></div></div>'+
+        '</div></div></div>'+
     '<div class="jm-detail"><div class="jm-detail-hd"><b>'+esc(tier)+'</b><em>'+esc(ni?L('jmReverse'):L('jmForward'))+' · '+esc(cycle)+'</em><span>'+esc(cost)+'</span></div>'+
       '<div class="jm-detail-grid">'+jmStats.map(r=>'<span>'+esc(STATLABEL(r.k))+': <b>'+esc(r.v)+'</b></span>').join('')+'</div>'+
       '<div class="jm-skill-grid" id="jmSkillGrid">'+jmSkillHtml()+'</div>'+
@@ -1806,10 +1795,6 @@ function renderContent(){
   if(s.t==='jingmai'){
     const stage=document.getElementById('jmStage'),game=document.getElementById('jmGame');
     if(stage){
-      stage.querySelectorAll('[data-skill-k]').forEach(b=>b.onclick=()=>{
-        if(b.disabled||!b.dataset.skillK)return;
-        openSet(+b.dataset.skillK,curLevel);
-      });
       stage.querySelectorAll('[data-jm-toggle]').forEach(b=>b.onclick=()=>{
         const host=b.dataset.jmToggle==='hide-detail'?game:stage;
         if(host)host.classList.toggle(b.dataset.jmToggle);
