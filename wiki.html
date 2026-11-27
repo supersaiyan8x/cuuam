@@ -389,10 +389,13 @@ img{-webkit-user-drag:none;user-select:none}
 .jm-mini-btns .jm-gb{background-image:url('/jingmai/nw-gb-out.png')}
 .jm-mini-btns .jm-jh{background-image:url('/jingmai/nw-jh-out.png')}
 .jm-node-map{position:absolute;left:17.8%;top:3.45%;width:67.3%;height:92.62%;z-index:4;pointer-events:none}
-.jm-stage .jm-node{position:absolute;width:9.6%;aspect-ratio:128/137;height:auto;transform:translate(-50%,-50%);pointer-events:auto;transition:filter .15s ease}
+.jm-stage .jm-node{position:absolute;width:15.36%;aspect-ratio:128/137;height:auto;transform:translate(-50%,-50%);pointer-events:auto;transition:filter .15s ease}
 .jm-stage .jm-node img.jm-node-photo{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;opacity:.98;pointer-events:none}
-.jm-stage .jm-node-name{position:absolute;left:50%;top:100%;transform:translateX(-50%);width:150%;margin-top:1px;padding:0;background:none;color:#fff3d0;font-size:max(.78em,9px);font-weight:600;line-height:1.1;text-shadow:0 1px 2px #000,0 0 4px #000,0 0 6px #000;white-space:normal;overflow-wrap:anywhere;text-align:center;pointer-events:none}
+.jm-stage .jm-node-label{position:absolute;left:50%;top:74%;transform:translateX(-50%);width:150%;padding:0;background:none;text-align:center;pointer-events:none;text-shadow:0 1px 2px #000,0 0 4px #000,0 0 6px #000}
+.jm-stage .jm-node-name{display:block;color:#fff3d0;font-size:max(.78em,9px);font-weight:600;line-height:1.1;white-space:normal;overflow-wrap:anywhere}
+.jm-stage .jm-node-state{display:block;margin-top:1px;color:#cbb78f;font-size:.78em;line-height:1.1;white-space:nowrap}
 .jm-stage .jm-node.on .jm-node-name{color:#ffe9a8}
+.jm-stage .jm-node.on .jm-node-state{color:#9fe6c8}
 .jm-stage .jm-node:hover{filter:drop-shadow(0 0 5px rgba(255,217,122,.9))}
 .jm-stage .jm-node.on{filter:drop-shadow(0 0 3px rgba(255,217,122,.7))}
 .jm-stage.hide-nodes .jm-node{visibility:hidden}
@@ -401,8 +404,10 @@ img{-webkit-user-drag:none;user-select:none}
 .jm-path-name{position:absolute;left:71.97%;top:4.87%;width:11.68%;height:31.71%;background-position:center;background-size:100% 100%;background-repeat:no-repeat;z-index:5;pointer-events:none;opacity:.92}
 .jm-bottom-btns{position:absolute;inset:0;z-index:6;pointer-events:none}
 .jm-bottom-btns button{position:absolute;background-position:center;background-size:100% 100%;background-repeat:no-repeat;pointer-events:auto;filter:drop-shadow(0 2px 3px #000)}
-.jm-bottom-btns .jm-zx{left:48.17%;top:80.78%;width:7.13%;height:11.27%;background-image:url('/jingmai/nw-zx-out.png')}
-.jm-bottom-btns .jm-nl{left:65.72%;top:80.78%;width:7.13%;height:11.27%;background-image:url('/jingmai/nw-nl-out.png')}
+.jm-bottom-btns .jm-fwd{left:48.17%;top:81.6%;width:8.2%;height:6.2%}
+.jm-bottom-btns .jm-rev{left:65.72%;top:81.6%;width:8.2%;height:6.2%}
+.jm-bottom-btns button.jm-dir-btn{border:1px solid rgba(255,217,122,.45)!important;border-radius:3px;background:rgba(0,0,0,.55)!important;color:var(--jm-dim);font-size:.82em;font-weight:700;letter-spacing:.04em;line-height:1}
+.jm-bottom-btns button.jm-dir-btn.on{color:#fff3d0;border-color:var(--jm-gold)!important;background:rgba(255,217,122,.18)!important;box-shadow:0 0 6px rgba(255,217,122,.3)}
 .jm-bottom-btns button:hover{filter:drop-shadow(0 0 5px rgba(255,217,122,.8))}
 .jm-game.hide-detail .jm-detail{display:none}
 .jm-detail{margin-top:14px;padding:10px 12px;border:1px solid var(--line2);border-radius:6px;background:var(--panel2)}
@@ -1618,23 +1623,30 @@ function jmPointName(a,i){
 }
 function jmNodesHtml(a,key,ni,level,max){
   const names=JM_POINT_NAMES[a]||[];
-  const pts=JM_PATHS[key+(ni?'_n':'')]||JM_PATHS[key]||[];
-  const n=names.length||pts.length||5;
+  const n=names.length||5;
   // One acupoint is open from level 1; the rest open evenly up to the final tier.
   const open=Math.min(n,Math.max(1,Math.ceil(level*n/max)));
   const photo=i=>'/jingmai/nw-'+key+'-'+(i<open?'open-'+(ni?'n':'z'):'close')+'.png';
-  // The game puts the 128x137 human-shaped decals on a ring around the body.
-  const cx=50, cy=50, rx=35, ry=40, step=300/n;
+  // Keep the game's circular frame, but split the decals evenly between its
+  // left/right arcs: lower tiers on the left, higher tiers on the right.
+  const leftCount=Math.ceil(n/2);
   return Array.from({length:n},(_,i)=>{
-    const ang=(120+(i+.5)*step)*Math.PI/180;
-    const x=cx+rx*Math.cos(ang), y=cy+ry*Math.sin(ang);
+    const left=i<leftCount;
+    const j=left?i:i-leftCount;
+    const count=left?leftCount:n-leftCount;
+    const y=count===1?50:12+76*j/(count-1);
+    // Alternate the inner/outer edge of each half so the doubled decals stay
+    // evenly spaced without overlapping, while lower/higher tiers stay left/right.
+    const inner=j%2===0;
+    const x=left?(inner?34:15):(inner?66:85);
     const nm=jmPointName(a,i);
     const need=Math.floor(i*max/n)+1;
     return '<button type="button" class="jm-node'+(i<open?' on':'')+'"'+
       ' style="left:'+x.toFixed(2)+'%;top:'+y.toFixed(2)+'%"'+
       ' title="'+esc(nm+' · '+(i<open?L('jmOpen'):L('jmClosed'))+' · '+L('jmLevel')+' '+need)+'">'+
       '<img class="jm-node-photo" src="'+photo(i)+'" alt="">'+
-      '<span class="jm-node-name">'+esc(nm)+'</span></button>';
+      '<span class="jm-node-label"><span class="jm-node-name">'+esc(nm)+'</span>'+
+      '<span class="jm-node-state">'+esc(i<open?L('jmOpen'):L('jmClosed'))+'</span></span></button>';
   }).join('');
 }
 function jmGameHtml(s,cur,lv){
@@ -1675,8 +1687,8 @@ function jmGameHtml(s,cur,lv){
           '<button type="button" class="jm-jh" data-jm-toggle="hide-detail" title="'+esc(L('jmStats'))+'"></button>'+
         '</div></div></div>'+
       '<div class="jm-bottom-btns">'+
-        '<button type="button" class="jm-zx" data-jm-step="-1" title="'+esc(L('jmPrevLevel'))+'"></button>'+
-        '<button type="button" class="jm-nl" data-jm-step="1" title="'+esc(L('jmNextLevel'))+'"></button>'+
+        '<button type="button" class="jm-fwd jm-dir-btn'+(ni?'':' on')+'" data-jm-dir="'+(base?base.k:'')+'"'+(base?'':' disabled')+' title="'+esc(L('jmForward'))+'">fwd</button>'+
+        '<button type="button" class="jm-rev jm-dir-btn'+(ni?' on':'')+'" data-jm-dir="'+(rev?rev.k:'')+'"'+(rev?'':' disabled')+' title="'+esc(L('jmReverse'))+'">rev</button>'+
       '</div></div>'+
     '<div class="jm-detail"><div class="jm-detail-hd"><b>'+esc(tier)+'</b><em>'+esc(ni?L('jmReverse'):L('jmForward'))+' · '+esc(cycle)+'</em><span>'+esc(cost)+'</span></div>'+
       '<div class="jm-detail-grid">'+jmStats.map(r=>'<span>'+esc(STATLABEL(r.k))+': <b>'+esc(r.v)+'</b></span>').join('')+'</div>'+
