@@ -537,6 +537,7 @@ const UI={
   dmg:'Sát thương', dmgBase:'Cơ số', dmgMul:'Bội số', dmgCoef:'Hệ số',
   dmgHit:'Tham số trúng đòn', dmgAttr:'Thuộc tính', dmgId:'ID', dmgExtra:'Tham số bổ sung',
   bufTitle:'✦ Hiệu ứng tâm pháp · Tầng hiện tại',
+  bufLevel:n=>`Tầng ${n}`,
   bufRange:(lo,hi)=>`Tầng ${lo}${hi!==lo?' - '+hi:''}`, current:'(Hiện tại)',
   statsTitle:'Gia tăng thuộc tính · Tầng hiện tại',
   statPoints:'Điểm nội công', statBase:'Chỉ số nội công',
@@ -560,7 +561,7 @@ const UI={
   compareNg:'So sánh nội công', compareNgA:'Nội công A', compareNgB:'Nội công B', compareNgLevel:'Tầng nội công',
   compareNgSummary:'Tổng quan', compareNgPick:'Chọn nội công...',
   compareNgSearch:'Tìm nội công / nhóm...', compareNgEmpty:'Chọn hai nội công để xem bảng so sánh', compareNgNoSet:'Chọn một nhóm bên trái',
-  compareBufRange:'Khoảng tầng hiệu ứng',
+  compareBufRange:'Khoảng tầng hiệu ứng', compareBufLevel:'Hiệu ứng tầng hiện tại',
   compareJm:'So sánh kinh mạch', compareJmA:'Kinh mạch A', compareJmB:'Kinh mạch B', compareJmLevel:'Tầng kinh mạch',
   compareJmSummary:'Tổng quan', compareJmPick:'Chọn kinh mạch...', compareJmSearch:'Tìm kinh mạch...',
   compareJmEmpty:'Chọn hai kinh mạch để xem bảng so sánh', compareJmNoSet:'Chọn nhóm kinh mạch bên trái',
@@ -592,6 +593,7 @@ const UI={
   dmg:'伤害', dmgBase:'伤害基数', dmgMul:'伤害倍率', dmgCoef:'伤害系数',
   dmgHit:'命中参数', dmgAttr:'伤害属性', dmgId:'伤害ID', dmgExtra:'附加参数',
   bufTitle:'✦ 心法效果 · 当前层',
+  bufLevel:n=>`第 ${n} 层`,
   bufRange:(lo,hi)=>`第 ${lo} 层${hi!==lo?' - '+hi+' 层':''}`, current:'(当前)',
   statsTitle:'属性提升 · 当前层',
   statPoints:'内功点数', statBase:'内功属性',
@@ -615,7 +617,7 @@ const UI={
   compareNg:'内功对比', compareNgA:'内功 A', compareNgB:'内功 B', compareNgLevel:'内功层数',
   compareNgSummary:'总览', compareNgPick:'选择内功...',
   compareNgSearch:'搜索内功 / 分类...', compareNgEmpty:'选择两个内功以查看对比表', compareNgNoSet:'请先从左侧选择分类',
-  compareBufRange:'效果层数区间',
+  compareBufRange:'效果层数区间', compareBufLevel:'当前层效果',
   compareJm:'经脉对比', compareJmA:'经脉 A', compareJmB:'经脉 B', compareJmLevel:'经脉层数',
   compareJmSummary:'总览', compareJmPick:'选择经脉...', compareJmSearch:'搜索经脉...',
   compareJmEmpty:'选择两条经脉以查看对比表', compareJmNoSet:'请先从左侧选择经脉分类',
@@ -927,17 +929,9 @@ function cmpNgRows(c){
   rows.push(row(L('level'),tier,Number(lv.n)||0));
   rows.push(row(L('rank'),F(lv,'r')||'—'));
   rows.push(row(L('compareCost'),L('cost')(lv.s||'','')));
-  let bufRange='—',bufText='—';
-  if(s.buf&&s.buf.length){
-    const bm=/(?:^|;\s*)BufferLevel=(\d+)/.exec(lv.st||'');
-    const bl=bm?+bm[1]:null;
-    const act=s.buf.find(b=>bl!=null&&b[0]===bl)||
-      s.buf.find(b=>(c.lv||1)>=b[1]&&(c.lv||1)<=b[2])||s.buf[s.buf.length-1];
-    bufRange=L('bufRange')(act[1],act[2]);
-    bufText='<div class="tier-txt">'+fmtDesc(act[3])+'</div>';
-  }
-  rows.push(row(L('compareBufRange'),bufRange));
-  rows.push({k:L('bufTitle'),v:bufText,html:bufText!=='—'});
+  const bufDesc=ngBufForLevel(s,lv);
+  const bufText=bufDesc?'<div class="tier-txt">'+fmtDesc(bufDesc)+'</div>':'—';
+  rows.push({k:L('compareBufLevel'),v:bufText,html:!!bufDesc});
   rows.push(row(L('statPoints'),nst.NeiGongLevel||'—',points));
   NG_BASE.forEach(k=>{const v=nv(k,1);rows.push(row(L('statBase')+' · '+STATLABEL(k),v,Number(v)||0));});
   NG_BASE.forEach(k=>{const v=nv(k,1.5);rows.push(row(L('equipPower')+' · '+STATLABEL(k),v,Number(v)||0));});
@@ -1361,6 +1355,19 @@ function neiStatMap(st){
   });
   return d;
 }
+// Original app data has one effect per level; the API groups equal BufferLevel
+// rows into ranges. Resolve the exact effect for a level instead of showing ranges.
+function ngBufForLevel(s, lv){
+  const list=(s&&s.buf)||[];
+  if(!list.length)return '';
+  const bm=/(?:^|;\s*)BufferLevel=(\d+)/.exec((lv&&lv.st)||'');
+  const bl=bm?+bm[1]:null;
+  const exact=bl==null?null:list.find(b=>b[0]===bl);
+  if(exact)return exact[3]||'';
+  const n=Number(lv&&lv.n)||0;
+  const inRange=list.find(b=>n>=b[1]&&n<=b[2]);
+  return ((inRange||list[list.length-1])[3])||'';
+}
 function fmtNeiGrid(st, keys, factor){
   const d=neiStatMap(st), f=factor||1;
   return '<div class="ng-stat-grid'+(keys.length===4?' active':'')+'">'+
@@ -1442,17 +1449,12 @@ function renderContent(){
     h+=`<div class="elem-line"><strong>${esc(L('attr'))}</strong><span style="color:var(--cyan)">${esc(F(s,'attr')||'—')}</span>　<strong>${esc(L('school'))}</strong>${esc(school)}${s.rage?'　<strong>'+esc(L('rage'))+'</strong>'+esc(s.rage):''}</div></div>`;
     if(s.sum) h+=`<div class="wuxia-card" style="margin-bottom:16px"><div class="tier-txt">${fmtDesc(F(s,'sum'))}</div></div>`;
     h+=levelControls(Math.max(1,lv.length));
-    h+=`<div class="wuxia-card"><i class="ornament tl"></i><i class="ornament tr"></i><i class="ornament bl"></i><i class="ornament br"></i><div class="card-title"><h4>${esc(L('tier')(cur.n||curLevel,F(cur,'r')))}</h4><span class="cost">${esc(L('cost')(cur.s||'',''))}</span></div>`;
+    h+=`<div class="wuxia-card"><i class="ornament tl"></i><i class="ornament tr"></i><i class="ornament bl"></i><i class="ornament br"></i><div class="card-title"><h4>${esc(L('tier')(cur.n||curLevel))}${F(cur,'r')?' · '+esc(F(cur,'r')):''}</h4><span class="cost">${esc(L('cost')(cur.s||'',''))}</span></div>`;
     if(s.buf&&s.buf.length){
-      const bm=/(?:^|;\s*)BufferLevel=(\d+)/.exec(cur.st||'');
-      const bl=bm?+bm[1]:null;
-      const act=s.buf.find(b=>bl!=null&&b[0]===bl) ||
-               s.buf.find(b=>curLevel>=b[1]&&curLevel<=b[2]) ||
-               s.buf[s.buf.length-1];
-      const lo=act[1],hi=act[2];
+      const desc=ngBufForLevel(s,cur);
       h+=`<div class="buf-section"><h5>${esc(L('bufTitle'))}</h5>`+
-        `<div class="buf-range on"><div class="tier-hd">${esc(L('bufRange')(lo,hi))}<em>${esc(L('current'))}</em></div><div class="tier-txt">${fmtDesc(act[3])}</div></div>`+
-        `</div>`;
+        `<div class="buf-range on"><div class="tier-hd">${esc(L('bufLevel')(Number(cur.n)||curLevel))}</div>`+
+        `<div class="tier-txt">${fmtDesc(desc)}</div></div></div>`;
     }
     const nst=neiStatMap(cur.st);
     h+=`<div class="ng-stat-block"><h5>${esc(L('statsTitle'))}</h5>`+
@@ -1469,7 +1471,7 @@ function renderContent(){
        (F(s,'c')?`<p class="wuxia-meta"><span><strong>${esc(L('category'))}</strong>${esc(F(s,'c'))}</span></p>`:'')+`</div>`;
     if(s.sum) h+=`<div class="wuxia-card" style="margin-bottom:16px"><div class="tier-txt">${fmtDesc(F(s,'sum'))}</div></div>`;
     h+=levelControls(Math.max(1,lv.length));
-    h+=`<div class="wuxia-card"><i class="ornament tl"></i><i class="ornament tr"></i><i class="ornament bl"></i><i class="ornament br"></i><div class="card-title"><h4>${esc(L('tier')(cur.n||curLevel,F(cur,'r')))}</h4><span class="cost">${esc(L('cost')(cur.s||'',''))}</span></div>
+    h+=`<div class="wuxia-card"><i class="ornament tl"></i><i class="ornament tr"></i><i class="ornament bl"></i><i class="ornament br"></i><div class="card-title"><h4>${esc(L('tier')(cur.n||curLevel))}${F(cur,'r')?' · '+esc(F(cur,'r')):''}</h4><span class="cost">${esc(L('cost')(cur.s||'',''))}</span></div>
       <div class="buffer-box"><h5>${esc(L('statsTitle'))}</h5><div class="tier-txt">${fmtStats(cur.st)}</div></div></div>`;
   }
   box.innerHTML=h;
