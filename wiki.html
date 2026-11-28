@@ -363,10 +363,12 @@ img{-webkit-user-drag:none;user-select:none}
 .jm-tree-foot b{color:#fff3d0;font-weight:600}
 .jm-main{position:absolute;left:0;top:0;width:100%;height:100%;overflow:visible}
 .jm-main-bg,.jm-path-back,.jm-path-line{position:absolute;inset:0;background-position:center;background-size:100% 100%;background-repeat:no-repeat}
-.jm-main-bg{background-image:url('/jingmai/nw-bg.png')}
+.jm-main-bg{background-image:url('/jingmai/nw-bg.png');overflow:hidden}
+.jm-main-bg::after{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at 50% 52%,rgba(0,190,255,.2),transparent 46%);mix-blend-mode:screen;pointer-events:none;opacity:.35;animation:jmBodyGlow 3.2s ease-in-out infinite}
 .jm-stage.is-ni .jm-main-bg{background-image:url('/jingmai/nw-bg-n.png')}
-.jm-path-back{opacity:.92}
-.jm-path-line{opacity:.95;pointer-events:none}
+.jm-stage.is-ni .jm-main-bg::after{background:radial-gradient(ellipse at 50% 52%,rgba(255,90,45,.2),transparent 46%)}
+.jm-path-back{opacity:.92;animation:jmPathPulse 3.2s ease-in-out infinite}
+.jm-path-line{opacity:.95;pointer-events:none;animation:jmPathPulse 3.2s ease-in-out infinite}
 .jm-art-layer{position:absolute;inset:0;overflow:hidden}
 .jm-skill-row{position:absolute;left:0;top:0;width:100%;height:100%;z-index:3;pointer-events:none}
 .jm-stage button.jm-skill-icon{position:absolute;top:1.9%;width:5.38%;height:auto;aspect-ratio:1/1;display:block;border:0;border-radius:2px;background:url('/jingmai/nw-icon-frame.png') center/100% 100% no-repeat;overflow:hidden;filter:drop-shadow(0 1px 2px #000);pointer-events:auto}
@@ -380,9 +382,15 @@ img{-webkit-user-drag:none;user-select:none}
 .jm-skill-cap b{display:block;color:var(--jm-gold);font-weight:600;overflow:hidden;text-overflow:ellipsis}
 .jm-skill-cap span{display:block;font-size:.9em;opacity:.9;overflow:hidden;text-overflow:ellipsis}
 .jm-node-map{position:absolute;left:10.82%;top:3.45%;width:81.9%;height:92.62%;z-index:4;pointer-events:none}
-.jm-stage .jm-node{position:absolute;width:15.36%;aspect-ratio:128/137;height:auto;transform:translate(-50%,-50%);pointer-events:auto;transition:filter .15s ease}
+.jm-stage .jm-node{position:absolute;width:15.36%;aspect-ratio:128/137;height:auto;transform:translate(-50%,-50%);pointer-events:auto;transition:filter .15s ease;--jm-dot:rgba(0,204,255,.9);--jm-ring:rgba(0,204,255,.72)}
+.jm-stage.is-ni .jm-node{--jm-dot:rgba(255,110,55,.92);--jm-ring:rgba(255,120,60,.72)}
+.jm-stage .jm-node::before{content:'';position:absolute;left:51%;top:41%;width:11.72%;aspect-ratio:1;transform:translate(-50%,-50%);background:url('/jingmai/nw-point-off.png') center/100% 100% no-repeat;pointer-events:none;z-index:2;opacity:.65}
+.jm-stage .jm-node.on::before{background-image:url('/jingmai/nw-point-on.png');opacity:1;filter:drop-shadow(0 0 4px var(--jm-dot));animation:jmPointBlink 1.2s ease-in-out infinite}
+.jm-stage.is-ni .jm-node.on::before{background-image:url('/jingmai/nw-point-n-on.png')}
+.jm-stage .jm-node.on::after{content:'';position:absolute;inset:0;background:url('/jingmai/nw-xw-on.png') center/100% 100% no-repeat;pointer-events:none;z-index:2;opacity:.2;animation:jmIconGlow 1.8s ease-in-out infinite}
+.jm-stage .jm-node:hover::after,.jm-stage .jm-node:focus-visible::after{opacity:.62}
 .jm-stage .jm-node img.jm-node-photo{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;opacity:.98;pointer-events:none}
-.jm-stage .jm-node-label{position:absolute;left:50%;top:74%;transform:translateX(-50%);width:150%;padding:0;background:none;text-align:center;pointer-events:none;text-shadow:0 1px 2px #000,0 0 4px #000,0 0 6px #000}
+.jm-stage .jm-node-label{position:absolute;left:50%;top:74%;transform:translateX(-50%);width:150%;padding:0;background:none;text-align:center;pointer-events:none;text-shadow:0 1px 2px #000,0 0 4px #000,0 0 6px #000;z-index:3}
 .jm-stage .jm-node-name{display:block;color:#fff3d0;font-size:max(.78em,9px);font-weight:600;line-height:1.1;white-space:normal;overflow-wrap:anywhere}
 .jm-stage .jm-node-state{display:block;margin-top:1px;color:#cbb78f;font-size:.78em;line-height:1.1;white-space:nowrap}
 .jm-stage .jm-node.on .jm-node-name{color:#ffe9a8}
@@ -392,7 +400,15 @@ img{-webkit-user-drag:none;user-select:none}
 .jm-stage.hide-nodes .jm-node{visibility:hidden}
 .jm-gate{position:absolute;left:45.59%;top:65.15%;width:10.96%;height:12.72%;background:url('/jingmai/nw-dt-h.png') center/100% 100% no-repeat;z-index:5;pointer-events:none}
 .jm-gate-fill{position:absolute;inset:0;background:url('/jingmai/nw-dt-j3.png') center/100% 100% no-repeat;clip-path:inset(calc(100% - var(--jm-fill,0%)) 0 0 0)}
+.jm-gate-ring{position:absolute;left:50%;top:50%;width:70%;aspect-ratio:1;transform:translate(-50%,-50%);background:url('/jingmai/nw-ring.png') center/100% 100% no-repeat;pointer-events:none;z-index:6;opacity:.45;animation:jmGateRing 2.4s ease-out infinite}
+.jm-stage.is-ni .jm-gate-ring{filter:hue-rotate(-35deg)}
 .jm-path-name{position:absolute;left:76.68%;top:4.87%;width:14.21%;height:31.71%;background-position:center;background-size:100% 100%;background-repeat:no-repeat;z-index:5;pointer-events:none;opacity:.92}
+@keyframes jmPointBlink{0%,100%{opacity:.72;filter:drop-shadow(0 0 2px var(--jm-dot))}50%{opacity:1;filter:drop-shadow(0 0 7px var(--jm-dot))}}
+@keyframes jmIconGlow{0%,100%{transform:scale(1);filter:drop-shadow(0 0 2px var(--jm-ring))}50%{transform:scale(1.035);filter:drop-shadow(0 0 7px var(--jm-ring))}}
+@keyframes jmGateRing{0%{opacity:0;transform:translate(-50%,-50%) scale(.25)}25%{opacity:.9}100%{opacity:0;transform:translate(-50%,-50%) scale(1.3)}}
+@keyframes jmBodyGlow{0%,100%{opacity:.25}50%{opacity:.7}}
+@keyframes jmPathPulse{0%,100%{opacity:.86}50%{opacity:1}}
+@media(prefers-reduced-motion:reduce){.jm-stage .jm-node::before,.jm-stage .jm-node::after,.jm-gate-ring,.jm-main-bg::after,.jm-path-back,.jm-path-line{animation:none}}
 .jm-game.hide-detail .jm-detail{display:none}
 .jm-detail{margin-top:14px;padding:10px 12px;border:1px solid var(--line2);border-radius:6px;background:var(--panel2)}
 .jm-detail-hd{display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap;color:var(--gold2);font-size:13px;margin-bottom:8px}
@@ -1710,7 +1726,7 @@ function jmGameHtml(s,cur,lv){
       '<div class="jm-path-back" style="background-image:url(\'/jingmai/nw-'+key+'-back-on'+art+'.png\')"></div>'+
       '<div class="jm-path-line" style="background-image:url(\'/jingmai/nw-'+key+'-line-on'+art+'.png\')"></div>'+
       '<div class="jm-node-map">'+jmNodesHtml(s.a,key,ni,curLevel,max)+'</div>'+
-      '<div class="jm-gate" style="--jm-fill:'+fill+'%"><i class="jm-gate-fill"></i></div>'+
+      '<div class="jm-gate" style="--jm-fill:'+fill+'%"><i class="jm-gate-fill"></i><i class="jm-gate-ring"></i></div>'+
       '<div class="jm-path-name" style="background-image:url(\'/jingmai/nw-'+key+'-name.png\')"></div>'+
       '</div>'+
       '<div class="jm-skill-row">'+tonicHtml+'</div></div></div>'+
