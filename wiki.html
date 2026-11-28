@@ -387,8 +387,11 @@ img{-webkit-user-drag:none;user-select:none}
 .jm-stage .jm-node::before{content:'';position:absolute;left:51%;top:41%;width:11.72%;aspect-ratio:1;transform:translate(-50%,-50%);background:url('/jingmai/nw-point-off.png') center/100% 100% no-repeat;pointer-events:none;z-index:2;opacity:.65}
 .jm-stage .jm-node.on::before{background-image:url('/jingmai/nw-point-on.png');opacity:1;filter:drop-shadow(0 0 4px var(--jm-dot));animation:jmPointBlink 1.2s ease-in-out infinite}
 .jm-stage.is-ni .jm-node.on::before{background-image:url('/jingmai/nw-point-n-on.png')}
-.jm-stage .jm-node.on::after{content:'';position:absolute;inset:0;background:url('/jingmai/nw-xw-on.png') center/100% 100% no-repeat;pointer-events:none;z-index:2;opacity:.2;animation:jmIconGlow 1.8s ease-in-out infinite}
-.jm-stage .jm-node:hover::after,.jm-stage .jm-node:focus-visible::after{opacity:.62}
+/* cbtn_select_templete: NormalImage=btn_xw_out, FocusImage=btn_xw_on, CheckedImage=btn_xw_down. */
+.jm-stage .jm-node::after{content:'';position:absolute;inset:0;background:url('/jingmai/nw-xw-out.png') center/100% 100% no-repeat;pointer-events:none;z-index:2;opacity:0}
+.jm-stage .jm-node:hover::after,.jm-stage .jm-node:focus-visible::after{background-image:url('/jingmai/nw-xw-on.png');opacity:.85}
+.jm-stage .jm-node.on::after{background-image:url('/jingmai/nw-xw-down.png');opacity:.92;animation:jmIconGlow 1.8s ease-in-out infinite}
+.jm-stage .jm-node.on:hover::after,.jm-stage .jm-node.on:focus-visible::after{opacity:1}
 .jm-stage .jm-node img.jm-node-photo{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;opacity:.98;pointer-events:none}
 .jm-stage .jm-node-label{position:absolute;left:50%;top:74%;transform:translateX(-50%);width:150%;padding:0;background:none;text-align:center;pointer-events:none;text-shadow:0 1px 2px #000,0 0 4px #000,0 0 6px #000;z-index:3}
 .jm-stage .jm-node-name{display:block;color:#fff3d0;font-size:max(.78em,9px);font-weight:600;line-height:1.1;white-space:normal;overflow-wrap:anywhere}
