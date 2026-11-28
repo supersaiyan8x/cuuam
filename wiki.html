@@ -650,6 +650,8 @@ const UI={
   jmPrevLevel:'Tầng trước', jmNextLevel:'Tầng sau', jmMaxLevel:'Tầng tối đa',
   jmTonic:'Kỳ trân', jmTonicStats:'Chỉ số Kỳ trân theo huyệt', jmTonicLevel:'Cấp Kỳ trân', jmTonicTier:'Mốc',
   jmTonicNeed:'Cần mở', jmTonicLocked:'Chưa đủ huyệt',
+  jmTonicOpened:'Đã Mở', jmTonicAcupoint:'Huyệt Vị', jmTonicCapLabel:'Chỉ Số',
+  jmTonicMax:'Tối Đa Có Thể Đạt',
   jmTonicNone:'Không có dữ liệu', jmActivate:'Kích hoạt', jmRemove:'Gỡ bỏ',
  },
  zh:{
@@ -716,6 +718,8 @@ const UI={
   jmPrevLevel:'上一层', jmNextLevel:'下一层', jmMaxLevel:'满层',
   jmTonic:'奇珍', jmTonicStats:'按穴位奇珍属性', jmTonicLevel:'奇珍层级', jmTonicTier:'节点',
   jmTonicNeed:'需开启', jmTonicLocked:'穴位未足',
+  jmTonicOpened:'已开启', jmTonicAcupoint:'穴位', jmTonicCapLabel:'属性',
+  jmTonicMax:'可达到的最大值',
   jmTonicNone:'暂无数据', jmActivate:'激活', jmRemove:'卸下',
  }
 };
@@ -1600,13 +1604,13 @@ function jmTonicTierIndex(qz,open){
 function jmTonicRowsHtml(qz,a,fullMax){
   const tiers=jmTonicTiers(qz);
   const open=jmOpenCount(curLevel,jmAcupointCount(a),fullMax);
+  const head='<span class="jm-tonic-sep">'+esc(L('jmTonicOpened')+' '+open+' '+L('jmTonicAcupoint'))+'</span>';
+  const cap=v=>'<span class="jm-tonic-sep">'+esc(L('jmTonicCapLabel'))+' <b>'+esc(v)+'</b> '+esc(L('jmTonicMax'))+'</span>';
   const idx=jmTonicTierIndex(qz,open);
-  const head='<span class="jm-tonic-sep">'+esc(L('jmTonicStats'))+'</span>';
-  if(idx<0)return head+'<span>'+esc(L('jmTonicLocked'))+'</span>';
-  const t=tiers[idx], need=jmTonicNeed(t,idx);
-  const lvl=JM_MILESTONES[need-1]||JM_MILESTONES[JM_MILESTONES.length-1];
-  const rows=t.rows.map(r=>'<span><i>'+esc(STATLABEL(r.k))+':</i><b>+'+esc(r.v)+(t.locked?' ('+esc(L('jmClosed'))+')':'')+'</b></span>').join('');
-  return '<span class="jm-tonic-sep">'+esc(L('jmTonicStats')+' · '+L('jmTonicNeed')+' '+need+' '+L('jmNodes')+' · '+L('jmLevel')+' '+lvl)+'</span>'+rows;
+  if(idx<0)return head+cap(L('jmTonicLocked'));
+  const t=tiers[idx];
+  const stats=t.rows.map(r=>STATLABEL(r.k)+' +'+r.v+(t.locked?' ('+L('jmClosed')+')':'')).join(' / ');
+  return head+cap(stats);
 }
 function jmDetailGridHtml(qz,a,fullMax){
   return jmStats.map(r=>'<span><i>'+esc(STATLABEL(r.k))+':</i><b>'+esc(r.v)+'</b></span>').join('')+jmTonicRowsHtml(qz,a,fullMax);
